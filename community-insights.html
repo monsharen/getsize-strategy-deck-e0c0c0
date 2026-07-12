@@ -19,14 +19,16 @@
     min-height: 100vh; display: flex; flex-direction: column; -webkit-font-smoothing: antialiased; line-height: 1.5; }
   a { color: inherit; text-decoration: none; }
 
-  .gs-nav { position: sticky; top: 0; z-index: 100; height: 52px; background: rgba(245,245,247,0.72);
+  .gs-nav { position: sticky; top: 0; z-index: 100; height: 52px; background: rgba(245,245,247,0.3);
     backdrop-filter: saturate(180%) blur(20px); -webkit-backdrop-filter: saturate(180%) blur(20px);
     border-bottom: 0.5px solid var(--gs-separator); }
   .gs-nav-inner { max-width: 640px; margin: 0 auto; padding: 0 1.5rem; height: 100%;
     display: flex; align-items: center; justify-content: space-between; }
   .gs-nav-logo { font-size: 1.125rem; font-weight: 700; letter-spacing: -0.01em; }
   .gs-nav-logo span { color: var(--gs-accent); }
-  .gs-nav-link { font-size: 0.8125rem; font-weight: 500; color: var(--gs-text-secondary); }
+  .gs-nav-links { display: flex; align-items: center; gap: 1.25rem; }
+  .gs-nav-link { font-size: 0.8125rem; font-weight: 500; color: var(--gs-text-secondary); transition: color 150ms ease; }
+  .gs-nav-link:hover { color: var(--gs-text); }
 
   main { flex: 1; }
   .container { max-width: 640px; margin: 0 auto; padding: 1.5rem 1.5rem 1rem; }
@@ -165,7 +167,10 @@
 <nav class="gs-nav">
   <div class="gs-nav-inner">
     <a class="gs-nav-logo" href="/">Get<span>Size</span></a>
-    <a class="gs-nav-link" href="/size-guide">Size guides</a>
+    <div class="gs-nav-links">
+      <a class="gs-nav-link" href="/login">Log in</a>
+      <a class="gs-nav-link" href="/register">Sign up</a>
+    </div>
   </div>
 </nav>
 
