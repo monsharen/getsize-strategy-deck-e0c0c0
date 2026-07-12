@@ -306,6 +306,19 @@
                color: var(--ink-soft); font-size: 13.5px; }
   .fp-row.lead-row { font-weight: 600; }
   .fp-row.lead-row .u { color: var(--neg); font-weight: 600; }
+  /* appendix: candidate levers */
+  .levers { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 6px; }
+  @media (max-width: 760px){ .levers { grid-template-columns: 1fr; } }
+  .lever { background: var(--surface); border: 1px solid var(--line); border-radius: 6px;
+           padding: 18px 20px; display: flex; flex-direction: column; gap: 11px; }
+  .lever h4 { margin: 0; font-size: 15.5px; letter-spacing: -0.01em; }
+  .lever .line { display: grid; grid-template-columns: 58px 1fr; gap: 12px; align-items: baseline; }
+  .lever .line .lbl { font-family: var(--font-mono); font-size: 10px; letter-spacing: .09em;
+                      text-transform: uppercase; padding-top: 2px; }
+  .lever .line p { margin: 0; font-size: 13px; color: var(--ink-soft); line-height: 1.45; max-width: none; }
+  .lever .line.effect .lbl { color: var(--pos); }
+  .lever .line.need .lbl { color: var(--accent); }
+  .lever .line.risk .lbl { color: var(--neg); }
 
   /* reveal */
   .reveal { opacity: 0; transform: translateY(14px); transition: opacity .6s ease, transform .6s ease; }
@@ -648,6 +661,44 @@ chart = modifier <span class="k">!=</span> 0
       <div class="step"><div class="w">WEEK 6–12</div><h4>Launch the cross-brand size tool</h4><p>The moat, plus the start of link outreach.</p></div>
     </div>
     <div class="source">Full strategy: docs/seo/seo-strategy-2026-07.md · Data: GSC sc-domain:getsize.shoes, 28 days to 2026-07-10</div>
+  </div>
+</section>
+
+<!-- A APPENDIX: LEVERS UNDER EVALUATION -->
+<section class="slide" id="sA">
+  <div class="inner">
+    <div class="eyebrow"><span class="num">A</span> Appendix &middot; levers under evaluation</div>
+    <h2>Other levers we are weighing.</h2>
+    <p class="lead">Not part of the committed plan. Each is shown with its potential effect and
+      what would have to be true to make it help rather than hurt.</p>
+    <div class="levers">
+      <div class="lever">
+        <h4>Product-specific editorial content</h4>
+        <div class="line effect"><span class="lbl">Effect</span><p>Turns thin pages unique, captures long-tail fit queries, lifts CTR, helps sitewide quality.</p></div>
+        <div class="line need"><span class="lbl">Needs</span><p>A real content source. We have almost none (55 descriptions for ~15,500 pages), so it must be data-backed and piloted, not written blind.</p></div>
+        <div class="line risk"><span class="lbl">Risk</span><p>Templated filler at scale is scaled content, and would deepen the penalty.</p></div>
+      </div>
+      <div class="lever">
+        <h4>Data-backed fit signals</h4>
+        <div class="line effect"><span class="lbl">Effect</span><p>Unique, unscrapeable first-hand content (owners wear EU X, recommendation-log trends): exactly what the update rewards.</p></div>
+        <div class="line need"><span class="lbl">Needs</span><p>More per-model community volume (thin today). Surface size-recommendation logs and shoe-rack data as on-page facts. Compounds over quarters.</p></div>
+      </div>
+      <div class="lever">
+        <h4>Cross-brand comparison pages</h4>
+        <div class="line effect"><span class="lbl">Effect</span><p>Captures a whole query class we do not cover ("X vs Y sizing"). Our size engine can generate accurate comparisons.</p></div>
+        <div class="line need"><span class="lbl">Needs</span><p>Generated from real chart data, not prose, with a strict quality bar. Start with high-demand brand pairs.</p></div>
+      </div>
+      <div class="lever">
+        <h4>International / locale expansion</h4>
+        <div class="line effect"><span class="lbl">Effect</span><p>Large impression pools at low CTR in DE, FR and NL point to non-English demand we under-serve.</p></div>
+        <div class="line need"><span class="lbl">Needs</span><p>Quality translation and correct hreflang/canonical (fix the localized product pages first), not machine-translated boilerplate.</p></div>
+      </div>
+    </div>
+    <div class="extend">
+      <span class="tag">De-risk rule</span>
+      <p>Any of these gets a controlled pilot first: ~150 pages, a held-out control set, a 4-8 week
+        GSC read, before any scaled rollout. We never push unproven content to thousands of pages.</p>
+    </div>
   </div>
 </section>
 
