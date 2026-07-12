@@ -312,9 +312,9 @@
   .lever { background: var(--surface); border: 1px solid var(--line); border-radius: 6px;
            padding: 18px 20px; display: flex; flex-direction: column; gap: 11px; }
   .lever h4 { margin: 0; font-size: 15.5px; letter-spacing: -0.01em; }
-  .lever .line { display: grid; grid-template-columns: 58px 1fr; gap: 12px; align-items: baseline; }
+  .lever .line { display: grid; grid-template-columns: 66px 1fr; gap: 12px; align-items: baseline; }
   .lever .line .lbl { font-family: var(--font-mono); font-size: 10px; letter-spacing: .09em;
-                      text-transform: uppercase; padding-top: 2px; }
+                      text-transform: uppercase; padding-top: 2px; white-space: nowrap; }
   .lever .line p { margin: 0; font-size: 13px; color: var(--ink-soft); line-height: 1.45; max-width: none; }
   .lever .line.effect .lbl { color: var(--pos); }
   .lever .line.need .lbl { color: var(--accent); }
@@ -552,40 +552,34 @@ chart = modifier <span class="k">!=</span> 0
 <section class="slide" id="s7">
   <div class="inner">
     <div class="eyebrow"><span class="num">07</span> The paths forward</div>
-    <h2>Three ways to act. Same foundation, different bet.</h2>
+    <h2>Three ways to act, and the traffic each puts at stake.</h2>
+    <p class="lead">Where our 3,183 clicks / 28 days come from today: <strong>brand hubs ~1,379</strong>,
+      <strong>editorial model pages 1,232</strong> (Adidas 737, Nike 454), <strong>product pages 558</strong>.
+      "Thin" does not mean "no traffic": Adidas model pages earn 737 clicks with only 4 of 1,173 carrying a distinct chart.</p>
     <div class="paths">
-      <div class="path">
-        <div><h4>Path 1 &middot; Surgical</h4><span class="bet">Bet: the editorial layer is the drag; the product pages that held are fine.</span></div>
-        <div class="path-stats">
-          <div><span class="k">Effort</span><span class="v good">Low&ndash;med</span></div>
-          <div><span class="k">Risk</span><span class="v good">Low</span></div>
-          <div><span class="k">Recovery</span><span class="v mid">Medium</span></div>
-        </div>
-        <p class="desc">Fold the 1,854 demoted editorial pages only. Keep and enrich the 15,500 product pages. Invest in hub CTR and the tool. The smallest change that could work.</p>
+      <div class="lever">
+        <h4>Path 1 &middot; Prune the thin editorial layer</h4>
+        <div class="line need"><span class="lbl">Do</span><p>Noindex or redirect the 1,854 thin editorial pages (index 20,700 &rarr; 18,850). Start with Adidas + Puma.</p></div>
+        <div class="line risk"><span class="lbl">At stake</span><p>~769 clicks/28d (Adidas 737, Puma 32) that rank for "[model] size chart". The generic brand hub may not recapture those model queries.</p></div>
+        <div class="line effect"><span class="lbl">The bet</span><p>Removing the thin bulk lifts sitewide quality enough that the rest recovers by more than the clicks lost. Low effort, unproven.</p></div>
       </div>
-      <div class="path">
-        <div><h4>Path 2 &middot; Aggressive</h4><span class="bet">Bet: sitewide quality is the whole game; cut all thin pages hard.</span></div>
-        <div class="path-stats">
-          <div><span class="k">Effort</span><span class="v mid">Medium</span></div>
-          <div><span class="k">Risk</span><span class="v bad">Higher</span></div>
-          <div><span class="k">Recovery</span><span class="v good">Fastest</span></div>
-        </div>
-        <p class="desc">Also noindex the ~12,500 thin product pages; the index drops to ~3,200. Strongest quality signal, but it touches a family that currently holds rankings.</p>
+      <div class="lever">
+        <h4>Path 2 &middot; Prune all thin pages</h4>
+        <div class="line need"><span class="lbl">Do</span><p>Also noindex the ~12,500 thin product pages; the index drops to ~3,200.</p></div>
+        <div class="line risk"><span class="lbl">At stake</span><p>The above, plus part of the 558 product clicks/28d. The biggest short-term traffic sacrifice we could make.</p></div>
+        <div class="line effect"><span class="lbl">The bet</span><p>The strongest quality reset, and the fastest recovery if recovery comes. Medium effort.</p></div>
       </div>
-      <div class="path">
-        <div><h4>Path 3 &middot; Differentiate</h4><span class="bet">Bet: our reach is worth saving; manufacture uniqueness from data.</span></div>
-        <div class="path-stats">
-          <div><span class="k">Effort</span><span class="v bad">High</span></div>
-          <div><span class="k">Risk</span><span class="v mid">Medium</span></div>
-          <div><span class="k">Recovery</span><span class="v mid">Slow</span></div>
-        </div>
-        <p class="desc">Keep the pages; make thin ones unique with data-backed content and community, prune only the truly empty. Preserves reach, but is expensive and slow, and cheap content would backfire.</p>
+      <div class="lever">
+        <h4>Path 3 &middot; Differentiate where the traffic is</h4>
+        <div class="line need"><span class="lbl">Do</span><p>Keep the pages. Add genuine per-model content to the ones that actually earn clicks (Adidas + Nike model pages = 1,191/28d). Prune only dead pages.</p></div>
+        <div class="line risk"><span class="lbl">At stake</span><p>Almost no traffic risk. Protects and hardens the 39% of clicks that model pages earn today.</p></div>
+        <div class="line effect"><span class="lbl">The bet</span><p>Uniqueness beats deletion. High effort, but aimed at hundreds of high-traffic pages, not 15,000.</p></div>
       </div>
     </div>
     <div class="extend">
       <span class="tag">Shared base</span>
       <p>All three start from the same no-regret moves: lift hub CTR, build the conversion tool,
-        clean the sitemap. What differs is how we handle the ~17,500 thin pages.</p>
+        clean the sitemap. What differs is how we treat the pages that still earn traffic.</p>
     </div>
   </div>
 </section>
@@ -683,10 +677,11 @@ chart = modifier <span class="k">!=</span> 0
     <div class="grid2">
       <div>
         <h2>What we give up, and what to avoid.</h2>
-        <p class="lead">Any prune path folds the 1,854 thin editorial pages first, and assesses the
-          ~12,500 thin product pages carefully, since that family still holds rankings. The pages
-          we prune convert at nearly 0% and are the anchor dragging the domain, so we trade
-          near-zero real clicks for a shot at sitewide recovery. Standard post-core-update playbook.</p>
+        <p class="lead">Pruning is not free. The thin editorial pages still earn real traffic
+          (Adidas model pages alone, 737 clicks/28d), and the generic hub may not recapture their
+          model-specific queries. So a prune trades known current clicks for a bet that a cleaner
+          index lifts everything that remains. Whether that bet pays out is the crux, and it is
+          genuinely uncertain.</p>
       </div>
       <div>
         <div class="proofcard gap" style="border-left-color:var(--neg);">
@@ -715,7 +710,7 @@ chart = modifier <span class="k">!=</span> 0
         <div class="kicker" style="margin-bottom:4px;">The judgment calls</div>
         <ul class="qlist">
           <li><div>How much short-term traffic will we trade for a faster, cleaner recovery?</div></li>
-          <li><div>Are the ~15,500 product pages an asset or dead weight?<span>We can settle this with a per-family impressions and clicks pull before we decide.</span></div></li>
+          <li><div>If we prune, how much of today's traffic moves to the hubs versus disappears?<span>The thin editorial pages still earn ~1,232 clicks/28d, mostly Adidas and Nike. That is what a prune risks.</span></div></li>
           <li><div>Do we cut, or invest in making thin pages unique?<span>An effort and headcount question as much as an SEO one.</span></div></li>
           <li><div>What is our moat: page coverage, or the tool plus brand authority?</div></li>
         </ul>
