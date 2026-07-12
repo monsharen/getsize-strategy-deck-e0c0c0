@@ -589,11 +589,12 @@ chart = modifier <span class="k">!=</span> 0
 <!-- 07b HOW THE NEW SYSTEM WORKS (TECHNICAL) -->
 <section class="slide" id="s7b">
   <div class="inner">
-    <div class="eyebrow"><span class="num">08</span> Under the hood &middot; new</div>
-    <h2>If we consolidate, this is the mechanism.</h2>
-    <p class="lead">For the paths that involve pruning, one rule decides what earns a slot in the
-      index. Everything that fails is folded into its brand hub instead of standing alone as a
-      near-duplicate. Shown here so the how is concrete, not the whether.</p>
+    <div class="eyebrow"><span class="num">08</span> Paths 1 &amp; 2 in detail</div>
+    <h2>How pruning would work.</h2>
+    <p class="lead">One rule decides what earns an index slot; whatever fails is folded into its
+      brand hub. <strong>Path 2</strong> applies it everywhere (&rarr; ~3,200 indexed).
+      <strong>Path 1</strong> applies it to the editorial layer only for now (&rarr; ~18,850),
+      deferring the product decision. Same rule, different scope.</p>
     <div class="tech-grid">
       <div>
         <div class="kicker" style="margin-bottom:10px;">The index decision</div>
@@ -639,10 +640,48 @@ chart = modifier <span class="k">!=</span> 0
   </div>
 </section>
 
-<!-- 08 EXPECTED PERFORMANCE -->
+<!-- 08c PATH 3 IN DETAIL -->
+<section class="slide" id="s7c">
+  <div class="inner">
+    <div class="eyebrow"><span class="num">09</span> Path 3 in detail</div>
+    <h2>How differentiating would work.</h2>
+    <p class="lead">No pages removed. We add genuine, data-derived content to the pages that earn
+      traffic, so they stop being brand-chart restatements. The honest constraint: we can only
+      differentiate where we actually have per-model data.</p>
+    <div class="tech-grid">
+      <div>
+        <div class="kicker" style="margin-bottom:10px;">What we add, and to which pages</div>
+        <ul class="tech-list">
+          <li>Target the traffic first: the Adidas + Nike model pages that earn 1,191 clicks/28d, then the next tier of high-demand pages.</li>
+          <li>A distinct <strong>fit component</strong>, separate from the size chart: what real owners wear (community), what our engine most often recommends (24,560 recommendation logs), and a callout where a model's official charts disagree.</li>
+          <li>No new URLs, so no scaled-content risk, as long as the content is data-derived, not templated filler.</li>
+        </ul>
+      </div>
+      <div>
+        <div class="kicker" style="margin-bottom:10px;">The mechanics, and the catch</div>
+        <div class="flow">
+          <span class="node">community + rec-logs</span><span class="arrow">&rarr;</span>
+          <span class="node good">per-model fit component</span>
+        </div>
+        <ul class="tech-list" style="margin-top:14px;">
+          <li>Rendered in the existing model template; every page keeps its current ranking while it gains unique content.</li>
+          <li>The catch: per-model community volume is thin today, so real coverage starts small and compounds over quarters. Pages with no signal stay as they are.</li>
+          <li>Cost is engineering plus growing the data, aimed at hundreds of high-traffic pages, not 15,000.</li>
+        </ul>
+      </div>
+    </div>
+    <div class="extend">
+      <span class="tag">Why low-risk</span>
+      <p>We enrich, we do not delete. No traffic is put at stake up front; the downside is effort
+        spent for uncertain ranking gains, not lost clicks.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 10 EXPECTED PERFORMANCE -->
 <section class="slide" id="s8">
   <div class="inner">
-    <div class="eyebrow"><span class="num">09</span> Expected performance</div>
+    <div class="eyebrow"><span class="num">10</span> Expected performance</div>
     <div class="grid2">
       <div>
         <h2>What is at stake: the recoverable upside.</h2>
@@ -675,7 +714,7 @@ chart = modifier <span class="k">!=</span> 0
 <!-- 09 THE HONEST TRADE -->
 <section class="slide" id="s9">
   <div class="inner">
-    <div class="eyebrow"><span class="num">10</span> The honest trade</div>
+    <div class="eyebrow"><span class="num">11</span> The honest trade</div>
     <div class="grid2">
       <div>
         <h2>What we give up, and what to avoid.</h2>
@@ -703,7 +742,7 @@ chart = modifier <span class="k">!=</span> 0
 <!-- 10 NEXT STEPS -->
 <section class="slide" id="s10">
   <div class="inner">
-    <div class="eyebrow"><span class="num">11</span> The decision</div>
+    <div class="eyebrow"><span class="num">12</span> The decision</div>
     <h2>This call is ours to make together.</h2>
     <p class="lead">The data narrows it to the three paths. Choosing between them is a judgment
       about risk, effort, and where we believe our moat is. Here is what we still have to weigh.</p>
