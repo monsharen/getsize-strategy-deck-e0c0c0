@@ -15,7 +15,8 @@
     --gs-radius: 14px; --gs-shadow: 0 1px 3px rgba(0,0,0,0.07); --gs-transition: 0.15s ease;
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
-  body { font-family: var(--gs-font); color: var(--gs-text); background: var(--gs-bg);
+  html { background: #fff; }
+  body { font-family: var(--gs-font); color: var(--gs-text);
     min-height: 100vh; display: flex; flex-direction: column; -webkit-font-smoothing: antialiased; line-height: 1.5; }
   a { color: inherit; text-decoration: none; }
 
@@ -30,7 +31,7 @@
   .gs-nav-link { font-size: 0.8125rem; font-weight: 500; color: var(--gs-text-secondary); transition: color 150ms ease; }
   .gs-nav-link:hover { color: var(--gs-text); }
 
-  main { flex: 1; }
+  main { flex: 1; background: var(--gs-bg); }
   .container { max-width: 640px; margin: 0 auto; padding: 1.5rem 1.5rem 1rem; }
   /* full-height tool hero, like the front page (gs-fp-screen) */
   .hero-screen { min-height: calc(100vh - 52px); display: flex; align-items: center; justify-content: center; }
@@ -163,7 +164,7 @@
   .empty-comments .ec-cta { display: inline-block; margin-top: 0.7rem; font-size: 0.85rem; font-weight: 600;
     color: #fff; background: var(--gs-accent); border-radius: 980px; padding: 0.55rem 1.2rem; }
 
-  .gs-footer { border-top: 1px solid var(--gs-separator); padding: 2.25rem 1.5rem; margin-top: 1.75rem; text-align: center; }
+  .gs-footer { border-top: 1px solid var(--gs-separator); padding: 2.25rem 1.5rem; margin-top: 1.75rem; text-align: center; background: var(--gs-bg); }
   .gs-footer a { font-size: 0.8125rem; color: var(--gs-text-secondary); margin: 0 0.75rem; }
   .gs-footer-bottom { font-size: 0.6875rem; color: rgba(60,60,67,0.4); margin-top: 1.25rem; }
 </style>
