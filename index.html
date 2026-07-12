@@ -385,8 +385,8 @@
         <h2>Traffic is falling, and it has not bottomed out.</h2>
         <p class="lead">Every 28-day window since the update is worse than the last. Clicks are
           down 59%, impressions down 54%, and our average position slid from 7.0 to 9.3.</p>
-        <div class="callout"><div class="big">We are not being outspent. We are being
-          out-quality-scored.</div></div>
+        <div class="callout"><div class="big">In April we earned 7,799 clicks per 28 days.
+          The latest window: 3,183.</div></div>
       </div>
       <div>
         <div class="barchart" id="chartTrend">
@@ -406,14 +406,14 @@
   </div>
 </section>
 
-<!-- 03 ROOT CAUSE -->
+<!-- 03 WHAT WE INDEX -->
 <section class="slide" id="s3">
   <div class="inner">
-    <div class="eyebrow"><span class="num">02</span> Root cause</div>
-    <h2>The real footprint is 10&times; bigger, and ~85% is thin.</h2>
-    <p class="lead">We ask Google to index ~20,700 URLs across five families. Only ~3,200 carry a
-      genuinely unique per-model chart. The rest restate the brand's generic chart, the exact
-      pattern the core update demotes.</p>
+    <div class="eyebrow"><span class="num">02</span> What we index</div>
+    <h2>We index ~20,700 URLs, and ~85% share the brand's generic chart.</h2>
+    <p class="lead">Across five families, only ~3,200 pages carry a genuinely unique per-model chart.
+      The other ~17,500 restate the brand's generic chart, the pattern Google's "scaled content"
+      policy describes. Shorthand in this deck: we call those "thin".</p>
 
     <div class="propbar" style="margin-top:22px;">
       <div class="seg real" style="flex: 32;"><span class="pct">~3,200</span><span class="txt">unique per-model charts (15%)</span></div>
@@ -434,26 +434,27 @@
 <!-- 04 WHY GOOGLE PUNISHES IT -->
 <section class="slide" id="s4">
   <div class="inner">
-    <div class="eyebrow"><span class="num">03</span> Why this sinks us</div>
+    <div class="eyebrow"><span class="num">03</span> The likely mechanism</div>
     <div class="grid2">
       <div>
-        <h2>Google now scores quality across the whole site.</h2>
+        <h2>The decline is broad, which points to a sitewide cause.</h2>
         <ul class="clean">
-          <li>Mass-generated, near-identical pages are the exact target of Google's core
-            updates and its <strong>"scaled content" spam policy</strong>.</li>
-          <li>Quality is judged <strong>sitewide</strong>. ~17,500 thin pages do not just fail on
-            their own, they drag down our good pages too.</li>
-          <li>That is why <strong>Gant and Zara are stuck at position 7</strong> instead of
-            top 3, even though their pages are genuinely strong.</li>
+          <li>Every page family fell since April: <strong>editorial pages &minus;65%</strong>,
+            <strong>product pages &minus;65%</strong>, <strong>brand hubs &minus;49%</strong>.</li>
+          <li>The families with the most duplicate pages fell hardest; the hubs, which are not
+            duplicates, held up best. That pattern is consistent with a <strong>sitewide quality
+            signal</strong> rather than a few pages losing individual rankings.</li>
+          <li>Google's published "scaled content" policy describes our profile directly: ~85% of
+            indexed pages restate the brand chart. <em>Leading explanation, not a proven one.</em></li>
         </ul>
       </div>
       <div>
         <div class="position" style="background:var(--surface-2);">
-          <div class="label">What Google sees today</div>
-          <div class="text">A <em>thin-page farm</em>: ~20,700 URLs, ~85% near-duplicate, wrapped
-            around a few good pages.</div>
-          <p style="margin:18px 0 0;font-size:14px;color:var(--ink-soft);">The few good pages
-            cannot outrun the dead weight attached to them.</p>
+          <div class="label">What the numbers show</div>
+          <div class="text">A broad decline across every family, steepest where the pages are most
+            duplicative.</div>
+          <p style="margin:18px 0 0;font-size:14px;color:var(--ink-soft);">Whether removing the
+            duplication reverses it is the open bet, not a certainty.</p>
         </div>
       </div>
     </div>
@@ -466,8 +467,8 @@
     <div class="eyebrow"><span class="num">04</span> Under the hood &middot; two systems</div>
     <h2>Two systems doing the same job.</h2>
     <p class="lead">We generate size content two ways, and they compete. One crawls each brand's
-      real per-product chart. The other restates the brand's generic chart under a model name.
-      The second is the layer Google demoted.</p>
+      real per-product chart; the other restates the brand's generic chart under a model name.
+      Both fell in the update, but only one was ever genuinely unique.</p>
     <div class="tech-grid">
       <div>
         <div class="kicker" style="margin-bottom:10px;">System A &middot; crawler product pages (the asset)</div>
@@ -479,19 +480,20 @@
         <ul class="tech-list">
           <li>Backed by ~1.3M crawled size rows. <strong>2,964 pages carry the brand's real
             per-product chart.</strong></li>
-          <li>This is our defensible uniqueness, and this family held its rankings.</li>
-          <li>~12,500 still fall back to a shared chart: a thinner tail to enrich, not delete.</li>
+          <li>By chart-uniqueness this is our strongest asset. It still fell &minus;65% since April,
+            like the rest.</li>
+          <li>The other ~12,500 fall back to the brand's shared chart.</li>
         </ul>
       </div>
       <div>
-        <div class="kicker" style="margin-bottom:10px;">System B &middot; editorial model pages (demoted)</div>
+        <div class="kicker" style="margin-bottom:10px;">System B &middot; editorial model pages (near-duplicate)</div>
         <pre class="codeblock hot"><span class="c">// size-guide-for-model.jte</span>
 chart = modifier <span class="k">!=</span> 0
       ? adjust(brandChart, modifier)
       : brandChart   <span class="n">// &larr; 1,854 land here</span></pre>
         <ul class="tech-list">
           <li>Only 13 editorial charts are model-specific; 1,854 restate the brand chart.</li>
-          <li>Adidas: 4 real of 1,173. Puma: 0 of 211. This is the demoted layer.</li>
+          <li>Adidas: 4 real of 1,173. Puma: 0 of 211. Converse: 72 of 77.</li>
         </ul>
       </div>
     </div>
@@ -502,26 +504,26 @@ chart = modifier <span class="k">!=</span> 0
 <section class="slide" id="s5">
   <div class="inner">
     <div class="eyebrow"><span class="num">05</span> What already works</div>
-    <h2>The winning pages point straight at the answer.</h2>
-    <p class="lead">Brand size-guide pages are our biggest traffic engine, and they convert
-      superbly the moment they reach the top of page 1. The demand and the capability are there.
-      The structure around them is what is broken.</p>
+    <h2>Brand hubs convert well, once they rank.</h2>
+    <p class="lead">Brand hubs are our biggest traffic engine (1,370 clicks / 28 days). Their CTR
+      tracks their position: strong near the top of page 1, weak in the middle. Same page type,
+      very different results.</p>
     <div class="proof">
       <div class="proofcard win">
-        <div class="h">Proof: Gant brand page</div>
+        <div class="h">Gant brand page (position ~6.7)</div>
         <div class="big">4.6%</div>
-        <div class="sub">click-through at position ~6, our #1 page (213 clicks). Small luxury
-          brand pages that reach the top 5 hit 5–12% CTR.</div>
+        <div class="sub">click-through, our #1 page at 213 clicks. Several smaller brand pages that
+          reach the top of page 1 sit at 5&ndash;12% (Shoe The Bear 12%, Jil Sander 5.5%).</div>
       </div>
       <div class="proofcard gap">
-        <div class="h">The gap: Zara brand page</div>
+        <div class="h">Zara brand page (position ~7.0)</div>
         <div class="big">1.0%</div>
-        <div class="sub">click-through on 19,734 impressions (203 clicks). At Gant's CTR, this
-          one page alone would be ~900 clicks.</div>
+        <div class="sub">click-through on 19,734 impressions (203 clicks). At Gant's CTR, this one
+          page would be ~900 clicks.</div>
       </div>
     </div>
-    <div class="callout"><div class="big">The model is not wrong. The execution, one thin page
-      per shoe, is.</div></div>
+    <div class="callout"><div class="big">The difference between them is rank, not page type. That
+      makes CTR the lever we most directly control.</div></div>
   </div>
 </section>
 
@@ -535,14 +537,14 @@ chart = modifier <span class="k">!=</span> 0
       <div class="text">GetSize is the <em>authoritative source for official, brand-verified shoe
         size charts</em> and <em>cross-brand size conversion</em>.</div>
       <p style="margin:16px 0 0;font-size:14.5px;color:var(--ink-soft);max-width:64ch;">Two things
-        competitors cannot copy back: we link every chart to the brand's own official source
-        (trust), and we recommend a size from the shoes you already own (utility).</p>
+        that are hard to copy: we link each chart to the brand's own official source (trust), and
+        we recommend a size from the shoes you already own (utility).</p>
     </div>
     <p class="kicker" style="margin-top:22px;">Structure the site as hub-and-spoke:</p>
     <div class="tiers">
       <div class="tier keep"><div class="tag">Front door</div><div><h4>Homepage + <span class="count">~130</span> brand hubs</h4><p>Our biggest engine and highest-volume terms. Made best-in-class, aimed at top 3.</p></div></div>
       <div class="tier keep2"><div class="tag">Spokes</div><div><h4><span class="count">~2,964</span> product pages with crawled charts + <span class="count">213</span> real editorial pages</h4><p>Kept and enriched. Each carries a genuinely unique per-model chart.</p></div></div>
-      <div class="tier prune"><div class="tag">Decide</div><div><h4><span class="count">~17,500</span> thin pages <span style="color:var(--ink-faint);font-weight:400;">(1,854 editorial + ~12,500 product)</span></h4><p>The editorial layer is demoted; the product pages held. <strong>How far and how fast we act on these is the open question</strong>, and the next slide lays out the choices.</p></div></div>
+      <div class="tier prune"><div class="tag">Decide</div><div><h4><span class="count">~17,500</span> thin pages <span style="color:var(--ink-faint);font-weight:400;">(1,854 editorial + ~12,500 product)</span></h4><p>They still earn real traffic (editorial 1,232 clicks/28d), so removing them is a trade, not a freebie. <strong>How far and how fast we act is the open question</strong>, laid out on the next slide.</p></div></div>
       <div class="tier tool"><div class="tag">Moat</div><div><h4>Cross-brand size-conversion tool</h4><p>Real interactive utility Google cannot call "thin", and the thing that earns links.</p></div></div>
     </div>
   </div>
@@ -553,7 +555,7 @@ chart = modifier <span class="k">!=</span> 0
   <div class="inner">
     <div class="eyebrow"><span class="num">07</span> The paths forward</div>
     <h2>Three ways to act, and the traffic each puts at stake.</h2>
-    <p class="lead">Where our 3,183 clicks / 28 days come from today: <strong>brand hubs ~1,379</strong>,
+    <p class="lead">Where our 3,183 clicks / 28 days come from today: <strong>brand hubs 1,370</strong>,
       <strong>editorial model pages 1,232</strong> (Adidas 737, Nike 454), <strong>product pages 558</strong>.
       "Thin" does not mean "no traffic": Adidas model pages earn 737 clicks with only 4 of 1,173 carrying a distinct chart.</p>
     <div class="paths">
@@ -645,27 +647,27 @@ chart = modifier <span class="k">!=</span> 0
       <div>
         <h2>What is at stake: the recoverable upside.</h2>
         <ul class="clean">
-          <li><strong>The ceiling is proven.</strong> We did 7,799 clicks / 28 days in April with
-            the same good pages we still have.</li>
-          <li><strong>CTR is the fast lever.</strong> Lifting the top 30 brand pages toward
-            4–5% CTR is +1,500 to +2,500 clicks with no new pages.</li>
-          <li><strong>Backlog is already mapped.</strong> 146 near-page-1 opportunities worth
-            ~900 clicks/month.</li>
+          <li><strong>A measured ceiling.</strong> We did 7,799 clicks / 28 days in April, with the
+            same pages we still have, only three months ago.</li>
+          <li><strong>CTR is the lever we control.</strong> Our hubs draw ~146,000 impressions/28d
+            at ~0.9% CTR; at Gant-level rates that is a large lift (estimate: +1,500 to +2,500 clicks).</li>
+          <li><strong>A mapped backlog.</strong> Google Search Console flags 146 near-page-1
+            queries worth an estimated ~900 clicks / 28 days.</li>
         </ul>
       </div>
       <div>
         <div class="barchart" id="chartProj">
-          <div class="bar mut"><span class="cap">3,400</span><div class="col" data-h="28%"></div><span class="foot">Now<br>/mo</span></div>
-          <div class="bar acc"><span class="cap">7,800</span><div class="col" data-h="65%"></div><span class="foot">April<br>ceiling</span></div>
-          <div class="bar ghost"><span class="cap">8–12k</span><div class="col" data-h="100%"></div><span class="foot">6-mo<br>target</span></div>
+          <div class="bar mut"><span class="cap">3,183</span><div class="col" data-h="29%"></div><span class="foot">Now<br>(measured)</span></div>
+          <div class="bar acc"><span class="cap">7,799</span><div class="col" data-h="71%"></div><span class="foot">April<br>(measured)</span></div>
+          <div class="bar ghost"><span class="cap">~8–11k</span><div class="col" data-h="100%"></div><span class="foot">Target<br>(estimate)</span></div>
         </div>
-        <div class="kicker" style="text-align:center;margin-top:12px;">Organic clicks per month</div>
+        <div class="kicker" style="text-align:center;margin-top:12px;">Organic clicks per 28 days</div>
       </div>
     </div>
     <div class="stats">
-      <div class="stat"><div class="v pos">8–12k</div><div class="l">Monthly clicks target (6 months)</div></div>
+      <div class="stat"><div class="v pos">~8–11k</div><div class="l">Clicks / 28 days, 6-month target (estimate)</div></div>
       <div class="stat"><div class="v acc">~3,200</div><div class="l">Unique pages (of ~20,700) if we consolidate</div></div>
-      <div class="stat"><div class="v pos">2.5–3.5x</div><div class="l">Traffic vs today</div></div>
+      <div class="stat"><div class="v pos">2.5–3.5x</div><div class="l">Target vs today (estimate)</div></div>
     </div>
   </div>
 </section>
@@ -690,8 +692,8 @@ chart = modifier <span class="k">!=</span> 0
             <li>Generating <strong>more</strong> model or product pages.</li>
             <li>Shipping the duplicate-only cleanup and hoping.</li>
           </ul>
-          <p style="margin:16px 0 0;font-size:13.5px;color:var(--ink-soft);">Both keep the
-            thin-content signal in place and prolong the decline.</p>
+          <p style="margin:16px 0 0;font-size:13.5px;color:var(--ink-soft);">Both leave the
+            duplicative pattern unchanged.</p>
         </div>
       </div>
     </div>
@@ -751,7 +753,7 @@ chart = modifier <span class="k">!=</span> 0
       </div>
       <div class="lever">
         <h4>Data-backed fit signals</h4>
-        <div class="line effect"><span class="lbl">Effect</span><p>Unique, unscrapeable first-hand content (owners wear EU X, recommendation-log trends): exactly what the update rewards.</p></div>
+        <div class="line effect"><span class="lbl">Effect</span><p>Unique first-hand content (owners wear EU X, recommendation-log trends), the kind Google's guidance favors.</p></div>
         <div class="line need"><span class="lbl">Needs</span><p>More per-model community volume (thin today). Surface size-recommendation logs and shoe-rack data as on-page facts. Compounds over quarters.</p></div>
       </div>
       <div class="lever">
@@ -761,7 +763,7 @@ chart = modifier <span class="k">!=</span> 0
       </div>
       <div class="lever">
         <h4>International / locale expansion</h4>
-        <div class="line effect"><span class="lbl">Effect</span><p>Large impression pools at low CTR in DE, FR and NL point to non-English demand we under-serve.</p></div>
+        <div class="line effect"><span class="lbl">Effect</span><p>Germany and the Netherlands draw 11,540 and 10,891 impressions/28d at ~1% CTR: non-English demand we under-serve.</p></div>
         <div class="line need"><span class="lbl">Needs</span><p>Quality translation and correct hreflang/canonical (fix the localized product pages first), not machine-translated boilerplate.</p></div>
       </div>
     </div>
