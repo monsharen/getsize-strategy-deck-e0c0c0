@@ -1,0 +1,589 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<meta name="description" content="GetSize search strategy review: why the current setup is failing and the new plan.">
+<title>GetSize Search Strategy</title>
+<style>
+  :root {
+    --bg: #EEF0F3;
+    --surface: #FFFFFF;
+    --surface-2: #F6F7F9;
+    --ink: #14181F;
+    --ink-soft: #565D69;
+    --ink-faint: #8A919D;
+    --line: #D5D9E0;
+    --line-strong: #B9BFC9;
+    --accent: #2547D8;
+    --accent-soft: #E4E8FB;
+    --neg: #CE3A34;
+    --neg-soft: #F6E0DE;
+    --pos: #1C8F55;
+    --pos-soft: #DBEEE4;
+    --font-display: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    --font-mono: ui-monospace, "SF Mono", "Cascadia Code", "Roboto Mono", Menlo, Consolas, monospace;
+    --maxw: 1080px;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #0C0F14;
+      --surface: #151A22;
+      --surface-2: #1B212B;
+      --ink: #ECEEF2;
+      --ink-soft: #9BA3AF;
+      --ink-faint: #6B7280;
+      --line: #262D38;
+      --line-strong: #384252;
+      --accent: #7B95FF;
+      --accent-soft: #1E2740;
+      --neg: #FF695F;
+      --neg-soft: #35201E;
+      --pos: #47C98B;
+      --pos-soft: #16281F;
+    }
+  }
+  :root[data-theme="light"] {
+    --bg: #EEF0F3; --surface: #FFFFFF; --surface-2: #F6F7F9;
+    --ink: #14181F; --ink-soft: #565D69; --ink-faint: #8A919D;
+    --line: #D5D9E0; --line-strong: #B9BFC9;
+    --accent: #2547D8; --accent-soft: #E4E8FB;
+    --neg: #CE3A34; --neg-soft: #F6E0DE; --pos: #1C8F55; --pos-soft: #DBEEE4;
+  }
+  :root[data-theme="dark"] {
+    --bg: #0C0F14; --surface: #151A22; --surface-2: #1B212B;
+    --ink: #ECEEF2; --ink-soft: #9BA3AF; --ink-faint: #6B7280;
+    --line: #262D38; --line-strong: #384252;
+    --accent: #7B95FF; --accent-soft: #1E2740;
+    --neg: #FF695F; --neg-soft: #35201E; --pos: #47C98B; --pos-soft: #16281F;
+  }
+
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; scroll-snap-type: y mandatory; }
+  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--font-display);
+    -webkit-font-smoothing: antialiased;
+    line-height: 1.5;
+  }
+
+  /* fixed measurement rail at top */
+  .rail {
+    position: fixed; top: 0; left: 0; right: 0; height: 6px;
+    background: var(--surface); border-bottom: 1px solid var(--line);
+    z-index: 50;
+  }
+  .rail-fill { height: 100%; width: 0; background: var(--accent); transition: width .25s ease; }
+
+  .counter {
+    position: fixed; right: 20px; bottom: 18px; z-index: 50;
+    font-family: var(--font-mono); font-size: 12px; letter-spacing: .06em;
+    color: var(--ink-soft); background: var(--surface);
+    border: 1px solid var(--line); border-radius: 2px;
+    padding: 5px 9px; font-variant-numeric: tabular-nums;
+  }
+  .hint {
+    position: fixed; left: 20px; bottom: 18px; z-index: 50;
+    font-family: var(--font-mono); font-size: 11px; letter-spacing: .04em;
+    color: var(--ink-faint);
+  }
+  @media (max-width: 640px){ .hint { display:none; } }
+
+  .slide {
+    min-height: 100vh;
+    scroll-snap-align: start;
+    display: flex; flex-direction: column; justify-content: center;
+    padding: 84px 40px 72px;
+    border-bottom: 1px solid var(--line);
+    position: relative;
+  }
+  .slide > .inner { width: 100%; max-width: var(--maxw); margin: 0 auto; }
+  @media (max-width: 640px){ .slide { padding: 72px 22px 64px; } }
+
+  .eyebrow {
+    font-family: var(--font-mono); font-size: 12px; letter-spacing: .16em;
+    text-transform: uppercase; color: var(--accent);
+    display: flex; align-items: center; gap: 12px; margin-bottom: 22px;
+  }
+  .eyebrow::before {
+    content: ""; width: 26px; height: 1px; background: var(--accent); display: inline-block;
+  }
+  .eyebrow .num { color: var(--ink-faint); }
+
+  h1 { font-size: clamp(2.4rem, 6vw, 4.6rem); line-height: 1.02; letter-spacing: -0.03em;
+       font-weight: 800; margin: 0 0 20px; text-wrap: balance; }
+  h2 { font-size: clamp(1.8rem, 4vw, 3rem); line-height: 1.06; letter-spacing: -0.02em;
+       font-weight: 800; margin: 0 0 18px; text-wrap: balance; }
+  .lead { font-size: clamp(1.05rem, 2vw, 1.4rem); color: var(--ink-soft); max-width: 62ch;
+          line-height: 1.5; margin: 0 0 8px; }
+  p { max-width: 66ch; }
+  strong { font-weight: 700; color: var(--ink); }
+
+  .kicker { font-family: var(--font-mono); font-size: 13px; color: var(--ink-soft);
+            letter-spacing: .02em; }
+
+  /* title slide */
+  .title-slide { background:
+      linear-gradient(var(--line) 1px, transparent 1px) 0 0 / 100% 46px,
+      var(--bg); }
+  .title-meta { display: flex; flex-wrap: wrap; gap: 10px 28px; margin-top: 34px;
+                font-family: var(--font-mono); font-size: 13px; color: var(--ink-soft); }
+  .title-meta span { display: inline-flex; align-items: center; gap: 8px; }
+  .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--accent); }
+
+  /* stat row */
+  .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px,1fr));
+           gap: 1px; background: var(--line); border: 1px solid var(--line);
+           border-radius: 4px; overflow: hidden; margin-top: 30px; }
+  .stat { background: var(--surface); padding: 20px 22px; }
+  .stat .v { font-family: var(--font-mono); font-size: clamp(1.6rem,3vw,2.3rem); font-weight: 600;
+             letter-spacing: -0.02em; font-variant-numeric: tabular-nums; line-height: 1; }
+  .stat .l { font-size: 12.5px; color: var(--ink-soft); margin-top: 9px; letter-spacing: .01em; }
+  .v.neg { color: var(--neg); } .v.pos { color: var(--pos); } .v.acc { color: var(--accent); }
+
+  /* generic card grid */
+  .grid2 { display: grid; grid-template-columns: 1.05fr .95fr; gap: 40px; align-items: center; }
+  @media (max-width: 860px){ .grid2 { grid-template-columns: 1fr; gap: 28px; } }
+
+  /* bar chart (vertical) */
+  .barchart { display: flex; align-items: flex-end; gap: 18px; height: 260px;
+              padding: 16px 4px 0; border-bottom: 2px solid var(--line-strong); }
+  .bar { flex: 1; display: flex; flex-direction: column; justify-content: flex-end;
+         align-items: center; height: 100%; gap: 10px; }
+  .bar .col { width: 100%; border-radius: 3px 3px 0 0; position: relative;
+              transition: height .7s cubic-bezier(.2,.7,.2,1); }
+  .bar .cap { font-family: var(--font-mono); font-size: 13px; font-weight: 600;
+              font-variant-numeric: tabular-nums; }
+  .bar .foot { font-size: 12px; color: var(--ink-soft); text-align: center; }
+  .bar.neg .col { background: var(--neg); }
+  .bar.mut .col { background: var(--line-strong); }
+  .bar.acc .col { background: var(--accent); }
+  .bar.pos .col { background: var(--pos); }
+  .bar.ghost .col { background: repeating-linear-gradient(135deg, var(--pos-soft), var(--pos-soft) 6px, transparent 6px, transparent 12px);
+                    border: 1.5px dashed var(--pos); }
+  .bar.ghost .cap { color: var(--pos); }
+
+  /* proportion bar (horizontal 100%) */
+  .propbar { display: flex; height: 92px; border-radius: 5px; overflow: hidden;
+             border: 1px solid var(--line); margin: 6px 0 18px; }
+  .propbar .seg { display: flex; flex-direction: column; justify-content: center;
+                  padding: 0 20px; color: #fff; }
+  .propbar .seg.real { background: var(--accent); }
+  .propbar .seg.thin { background: var(--neg); }
+  .propbar .seg .pct { font-family: var(--font-mono); font-size: 22px; font-weight: 700;
+                       font-variant-numeric: tabular-nums; }
+  .propbar .seg .txt { font-size: 12.5px; opacity: .92; }
+
+  /* brand ratio bars */
+  .ratios { display: flex; flex-direction: column; gap: 11px; }
+  .ratio { display: grid; grid-template-columns: 92px 1fr 74px; align-items: center; gap: 14px; }
+  .ratio .name { font-size: 14px; font-weight: 600; }
+  .ratio .track { height: 12px; background: var(--neg-soft); border-radius: 6px; overflow: hidden; }
+  .ratio .fill { height: 100%; background: var(--accent); border-radius: 6px;
+                 transition: width .7s ease; }
+  .ratio .frac { font-family: var(--font-mono); font-size: 12.5px; color: var(--ink-soft);
+                 text-align: right; font-variant-numeric: tabular-nums; }
+
+  /* callout / quote */
+  .callout { border-left: 3px solid var(--accent); padding: 4px 0 4px 22px; margin: 26px 0 0;
+             max-width: 60ch; }
+  .callout .big { font-size: clamp(1.2rem,2.4vw,1.7rem); font-weight: 700; letter-spacing: -0.01em;
+                  line-height: 1.28; }
+
+  /* positioning statement */
+  .position { background: var(--surface); border: 1px solid var(--line); border-radius: 6px;
+              padding: 30px 32px; margin-top: 8px; }
+  .position .label { font-family: var(--font-mono); font-size: 12px; letter-spacing: .12em;
+                     text-transform: uppercase; color: var(--accent); margin-bottom: 14px; }
+  .position .text { font-size: clamp(1.25rem,2.6vw,1.8rem); font-weight: 700; letter-spacing: -0.02em;
+                    line-height: 1.25; }
+  .position .text em { font-style: normal; color: var(--accent); }
+
+  /* hub & spoke tiers */
+  .tiers { display: flex; flex-direction: column; gap: 12px; margin-top: 6px; }
+  .tier { display: grid; grid-template-columns: 44px 1fr; gap: 18px; align-items: stretch;
+          background: var(--surface); border: 1px solid var(--line); border-radius: 5px;
+          padding: 16px 18px; }
+  .tier .tag { font-family: var(--font-mono); font-size: 11px; letter-spacing: .08em;
+               writing-mode: vertical-rl; transform: rotate(180deg); text-align: center;
+               align-self: center; text-transform: uppercase; color: var(--ink-faint); }
+  .tier h4 { margin: 0 0 5px; font-size: 16px; letter-spacing: -0.01em; }
+  .tier p { margin: 0; font-size: 14px; color: var(--ink-soft); max-width: none; }
+  .tier.keep { border-left: 3px solid var(--accent); }
+  .tier.keep2 { border-left: 3px solid var(--pos); }
+  .tier.prune { border-left: 3px solid var(--neg); }
+  .tier.tool { border-left: 3px solid var(--ink); }
+  .tier .count { font-family: var(--font-mono); font-weight: 600; color: var(--ink); }
+
+  /* moves list */
+  .moves { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--line);
+           border: 1px solid var(--line); border-radius: 5px; overflow: hidden; margin-top: 8px; }
+  @media (max-width: 720px){ .moves { grid-template-columns: 1fr; } }
+  .move { background: var(--surface); padding: 20px 22px; display: flex; gap: 16px; }
+  .move .mi { font-family: var(--font-mono); font-size: 13px; font-weight: 700; color: var(--accent);
+              padding-top: 2px; }
+  .move h4 { margin: 0 0 5px; font-size: 15.5px; letter-spacing: -0.01em; }
+  .move p { margin: 0; font-size: 13.5px; color: var(--ink-soft); max-width: none; }
+  .move.flag h4 { color: var(--accent); }
+
+  /* two-column proof */
+  .proof { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 10px; }
+  @media (max-width: 720px){ .proof { grid-template-columns: 1fr; } }
+  .proofcard { background: var(--surface); border: 1px solid var(--line); border-radius: 5px; padding: 22px 22px; }
+  .proofcard .h { font-family: var(--font-mono); font-size: 12px; letter-spacing: .08em; text-transform: uppercase;
+                  color: var(--ink-faint); margin-bottom: 12px; }
+  .proofcard .big { font-family: var(--font-mono); font-size: clamp(1.7rem,3.4vw,2.4rem); font-weight: 600;
+                    letter-spacing: -0.02em; font-variant-numeric: tabular-nums; line-height: 1; }
+  .proofcard .sub { font-size: 13.5px; color: var(--ink-soft); margin-top: 10px; }
+  .proofcard.win { border-left: 3px solid var(--pos); }
+  .proofcard.gap { border-left: 3px solid var(--neg); }
+
+  ul.clean { list-style: none; padding: 0; margin: 18px 0 0; display: flex; flex-direction: column; gap: 12px; }
+  ul.clean li { display: flex; gap: 13px; font-size: 15px; color: var(--ink-soft); max-width: 62ch; }
+  ul.clean li::before { content: ""; flex: 0 0 auto; width: 7px; height: 7px; margin-top: 8px;
+                        background: var(--accent); border-radius: 1px; transform: rotate(45deg); }
+  ul.clean li strong { color: var(--ink); }
+
+  .avoid li::before { background: var(--neg); }
+
+  /* next steps timeline */
+  .timeline { display: flex; flex-direction: column; gap: 0; margin-top: 8px;
+              border-left: 2px solid var(--line-strong); }
+  .step { position: relative; padding: 4px 0 26px 26px; }
+  .step:last-child { padding-bottom: 0; }
+  .step::before { content: ""; position: absolute; left: -7px; top: 6px; width: 12px; height: 12px;
+                  background: var(--accent); border: 2px solid var(--bg); border-radius: 50%; }
+  .step .w { font-family: var(--font-mono); font-size: 12px; color: var(--accent); letter-spacing: .04em; }
+  .step h4 { margin: 3px 0 4px; font-size: 16px; letter-spacing: -0.01em; }
+  .step p { margin: 0; font-size: 14px; color: var(--ink-soft); max-width: 60ch; }
+
+  .source { font-family: var(--font-mono); font-size: 11.5px; color: var(--ink-faint);
+            margin-top: 26px; letter-spacing: .01em; }
+
+  /* reveal */
+  .reveal { opacity: 0; transform: translateY(14px); transition: opacity .6s ease, transform .6s ease; }
+  .reveal.in { opacity: 1; transform: none; }
+  @media (prefers-reduced-motion: reduce){ .reveal { opacity: 1; transform: none; transition: none; } }
+
+  :focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+</style>
+</head>
+<body>
+
+<div class="rail"><div class="rail-fill" id="railFill"></div></div>
+<div class="counter" id="counter">01 / 10</div>
+<div class="hint">↓ scroll &nbsp;·&nbsp; → next slide</div>
+
+<!-- 01 TITLE -->
+<section class="slide title-slide" id="s1">
+  <div class="inner">
+    <div class="eyebrow"><span class="num">GETSIZE.SHOES</span> &nbsp; Search strategy review</div>
+    <h1>We are shrinking on Google.<br>Here is why, and the fix.</h1>
+    <p class="lead">Organic traffic has fallen 59% since April and is still dropping two months
+      after Google's May core update. This is not a slump we wait out. It is structural, and it
+      is fixable.</p>
+    <div class="title-meta">
+      <span><span class="dot"></span> Prepared 12 Jul 2026</span>
+      <span><span class="dot"></span> Source: Google Search Console + product database</span>
+      <span><span class="dot"></span> Audience: GetSize team</span>
+    </div>
+  </div>
+</section>
+
+<!-- 02 THE PROBLEM -->
+<section class="slide" id="s2">
+  <div class="inner">
+    <div class="eyebrow"><span class="num">01</span> The problem</div>
+    <div class="grid2">
+      <div>
+        <h2>Traffic is falling, and it has not bottomed out.</h2>
+        <p class="lead">Every 28-day window since the update is worse than the last. Clicks are
+          down 59%, impressions down 54%, and our average position slid from 7.0 to 9.3.</p>
+        <div class="callout"><div class="big">We are not being outspent. We are being
+          out-quality-scored.</div></div>
+      </div>
+      <div>
+        <div class="barchart" id="chartTrend">
+          <div class="bar neg"><span class="cap">7,799</span><div class="col" data-h="100%"></div><span class="foot">Apr<br>pre-update</span></div>
+          <div class="bar neg"><span class="cap">5,817</span><div class="col" data-h="75%"></div><span class="foot">May–Jun</span></div>
+          <div class="bar neg"><span class="cap">3,183</span><div class="col" data-h="41%"></div><span class="foot">Jun–Jul<br>now</span></div>
+        </div>
+        <div class="kicker" style="text-align:center;margin-top:12px;">Organic clicks per 28 days</div>
+      </div>
+    </div>
+    <div class="stats">
+      <div class="stat"><div class="v neg">−59%</div><div class="l">Clicks vs April</div></div>
+      <div class="stat"><div class="v neg">−54%</div><div class="l">Impressions vs April</div></div>
+      <div class="stat"><div class="v">7.0 → 9.3</div><div class="l">Avg Google position</div></div>
+      <div class="stat"><div class="v">~1.2%</div><div class="l">Sitewide click-through rate</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- 03 ROOT CAUSE -->
+<section class="slide" id="s3">
+  <div class="inner">
+    <div class="eyebrow"><span class="num">02</span> Root cause</div>
+    <h2>90% of our model pages are duplicates of each other.</h2>
+    <p class="lead">We have 2,067 model size-guide pages. Only 213 of them carry a size chart
+      that is actually different from the brand's generic chart. The other 1,854 are the same
+      chart with a different shoe name pasted into the template.</p>
+
+    <div class="propbar" style="margin-top:24px;">
+      <div class="seg real" style="flex: 213;"><span class="pct">213</span><span class="txt">real, differentiated pages (10%)</span></div>
+      <div class="seg thin" style="flex: 1854;"><span class="pct">1,854</span><span class="txt">thin duplicates (90%)</span></div>
+    </div>
+
+    <div class="grid2" style="margin-top:26px;align-items:start;">
+      <div>
+        <div class="kicker" style="margin-bottom:14px;">Differentiated pages, by brand</div>
+        <div class="ratios" id="ratios">
+          <div class="ratio"><span class="name">Adidas</span><div class="track"><div class="fill" data-w="0.3%"></div></div><span class="frac">4 / 1,173</span></div>
+          <div class="ratio"><span class="name">Puma</span><div class="track"><div class="fill" data-w="0%"></div></div><span class="frac">0 / 211</span></div>
+          <div class="ratio"><span class="name">Nike</span><div class="track"><div class="fill" data-w="17%"></div></div><span class="frac">94 / 541</span></div>
+          <div class="ratio"><span class="name">Converse</span><div class="track"><div class="fill" data-w="94%"></div></div><span class="frac">72 / 77</span></div>
+          <div class="ratio"><span class="name">Allbirds</span><div class="track"><div class="fill" data-w="100%"></div></div><span class="frac">43 / 43</span></div>
+        </div>
+      </div>
+      <div>
+        <div class="callout"><div class="big">Converse and Allbirds do it right. Adidas and Puma
+          are the liability: thousands of pages that say nothing new.</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 04 WHY GOOGLE PUNISHES IT -->
+<section class="slide" id="s4">
+  <div class="inner">
+    <div class="eyebrow"><span class="num">03</span> Why this sinks us</div>
+    <div class="grid2">
+      <div>
+        <h2>Google now scores quality across the whole site.</h2>
+        <ul class="clean">
+          <li>Mass-generated, near-identical pages are the exact target of Google's core
+            updates and its <strong>"scaled content" spam policy</strong>.</li>
+          <li>Quality is judged <strong>sitewide</strong>. 1,850 thin pages do not just fail on
+            their own, they drag down our good pages too.</li>
+          <li>That is why <strong>Gant and Zara are stuck at position 7</strong> instead of
+            top 3, even though their pages are genuinely strong.</li>
+        </ul>
+      </div>
+      <div>
+        <div class="position" style="background:var(--surface-2);">
+          <div class="label">What Google sees today</div>
+          <div class="text">A <em>thin-page farm</em> with 2,000+ near-duplicate URLs, wrapped
+            around a few good pages.</div>
+          <p style="margin:18px 0 0;font-size:14px;color:var(--ink-soft);">The few good pages
+            cannot outrun the dead weight attached to them.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 05 WHAT WORKS -->
+<section class="slide" id="s5">
+  <div class="inner">
+    <div class="eyebrow"><span class="num">04</span> What already works</div>
+    <h2>The winning pages point straight at the answer.</h2>
+    <p class="lead">Brand size-guide pages are our biggest traffic engine, and they convert
+      superbly the moment they reach the top of page 1. The demand and the capability are there.
+      The structure around them is what is broken.</p>
+    <div class="proof">
+      <div class="proofcard win">
+        <div class="h">Proof: Gant brand page</div>
+        <div class="big">4.6%</div>
+        <div class="sub">click-through at position ~6, our #1 page (213 clicks). Small luxury
+          brand pages that reach the top 5 hit 5–12% CTR.</div>
+      </div>
+      <div class="proofcard gap">
+        <div class="h">The gap: Zara brand page</div>
+        <div class="big">1.0%</div>
+        <div class="sub">click-through on 19,734 impressions (203 clicks). At Gant's CTR, this
+          one page alone would be ~900 clicks.</div>
+      </div>
+    </div>
+    <div class="callout"><div class="big">The model is not wrong. The execution, one thin page
+      per shoe, is.</div></div>
+  </div>
+</section>
+
+<!-- 06 THE STRATEGY / POSITIONING -->
+<section class="slide" id="s6">
+  <div class="inner">
+    <div class="eyebrow"><span class="num">05</span> The new strategy</div>
+    <h2>Stop selling page count. Sell authority and a tool.</h2>
+    <div class="position">
+      <div class="label">How Google should see us</div>
+      <div class="text">GetSize is the <em>authoritative source for official, brand-verified shoe
+        size charts</em> and <em>cross-brand size conversion</em>.</div>
+      <p style="margin:16px 0 0;font-size:14.5px;color:var(--ink-soft);max-width:64ch;">Two things
+        competitors cannot copy back: we link every chart to the brand's own official source
+        (trust), and we recommend a size from the shoes you already own (utility).</p>
+    </div>
+    <p class="kicker" style="margin-top:22px;">Structure the site as hub-and-spoke:</p>
+    <div class="tiers">
+      <div class="tier keep"><div class="tag">Front door</div><div><h4>Homepage + <span class="count">109</span> brand hubs</h4><p>Our biggest engine and highest-volume terms. Made best-in-class, aimed at top 3.</p></div></div>
+      <div class="tier keep2"><div class="tag">Spokes</div><div><h4><span class="count">213</span> real model pages + all Converse / Allbirds</h4><p>Kept and enriched. Each one says something the brand hub does not.</p></div></div>
+      <div class="tier prune"><div class="tag">Prune</div><div><h4><span class="count">1,854</span> thin model pages</h4><p>Folded into their brand hub, then noindexed or redirected. No longer separate index entries.</p></div></div>
+      <div class="tier tool"><div class="tag">Moat</div><div><h4>Cross-brand size-conversion tool</h4><p>Real interactive utility Google cannot call "thin", and the thing that earns links.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- 07 THE FIVE MOVES -->
+<section class="slide" id="s7">
+  <div class="inner">
+    <div class="eyebrow"><span class="num">06</span> Five moves</div>
+    <h2>What we actually do.</h2>
+    <div class="moves">
+      <div class="move flag"><div class="mi">01</div><div><h4>Fix the index footprint</h4><p>Noindex or redirect the ~1,850 thin pages, starting with Adidas + Puma. Staged and fully reversible. Index shrinks from ~2,000 to ~300 pages that earn their place.</p></div></div>
+      <div class="move"><div class="mi">02</div><div><h4>Make brand pages best-in-class</h4><p>Unique content per brand, prominent size tool, click-tuned titles, FAQ and table schema. Target top 3 for "[brand] size chart".</p></div></div>
+      <div class="move"><div class="mi">03</div><div><h4>Win the 213 real model pages</h4><p>Enrich with the first-hand data Google rewards: community fit and conflicting-official-chart callouts.</p></div></div>
+      <div class="move"><div class="mi">04</div><div><h4>Build the moat</h4><p>Ship the cross-brand size-conversion tool that answers real queries like "zara size 38 in US" and "haaland shoe size EU".</p></div></div>
+      <div class="move"><div class="mi">05</div><div><h4>Rebuild authority signals</h4><p>Clean sitemap, hub-centred internal links, weekly recovery monitoring in Search Console.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- 08 EXPECTED PERFORMANCE -->
+<section class="slide" id="s8">
+  <div class="inner">
+    <div class="eyebrow"><span class="num">07</span> Expected performance</div>
+    <div class="grid2">
+      <div>
+        <h2>A 2.5–3.5x recovery, mostly by pruning, not spending.</h2>
+        <ul class="clean">
+          <li><strong>The ceiling is proven.</strong> We did 7,799 clicks / 28 days in April with
+            the same good pages we still have.</li>
+          <li><strong>CTR is the fast lever.</strong> Lifting the top 30 brand pages toward
+            4–5% CTR is +1,500 to +2,500 clicks with no new pages.</li>
+          <li><strong>Backlog is already mapped.</strong> 146 near-page-1 opportunities worth
+            ~900 clicks/month.</li>
+        </ul>
+      </div>
+      <div>
+        <div class="barchart" id="chartProj">
+          <div class="bar mut"><span class="cap">3,400</span><div class="col" data-h="28%"></div><span class="foot">Now<br>/mo</span></div>
+          <div class="bar acc"><span class="cap">7,800</span><div class="col" data-h="65%"></div><span class="foot">April<br>ceiling</span></div>
+          <div class="bar ghost"><span class="cap">8–12k</span><div class="col" data-h="100%"></div><span class="foot">6-mo<br>target</span></div>
+        </div>
+        <div class="kicker" style="text-align:center;margin-top:12px;">Organic clicks per month</div>
+      </div>
+    </div>
+    <div class="stats">
+      <div class="stat"><div class="v pos">8–12k</div><div class="l">Monthly clicks target (6 months)</div></div>
+      <div class="stat"><div class="v acc">~300</div><div class="l">Indexed pages, down from ~2,000</div></div>
+      <div class="stat"><div class="v pos">2.5–3.5x</div><div class="l">Traffic vs today</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- 09 THE HONEST TRADE -->
+<section class="slide" id="s9">
+  <div class="inner">
+    <div class="eyebrow"><span class="num">08</span> The honest trade</div>
+    <div class="grid2">
+      <div>
+        <h2>What we give up, and what to avoid.</h2>
+        <p class="lead">Pruning 1,850 pages loses their impressions in the short term. But those
+          pages convert at nearly 0%, and they are the anchor dragging the domain. We trade
+          near-zero real clicks for a shot at sitewide recovery. This is the standard,
+          proven post-core-update playbook.</p>
+      </div>
+      <div>
+        <div class="proofcard gap" style="border-left-color:var(--neg);">
+          <div class="h">The route to avoid</div>
+          <ul class="clean avoid" style="margin-top:4px;">
+            <li>Generating <strong>more</strong> model or product pages.</li>
+            <li>Shipping the duplicate-only cleanup and hoping.</li>
+          </ul>
+          <p style="margin:16px 0 0;font-size:13.5px;color:var(--ink-soft);">Both keep the
+            thin-content signal in place and prolong the decline.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 10 NEXT STEPS -->
+<section class="slide" id="s10">
+  <div class="inner">
+    <div class="eyebrow"><span class="num">09</span> The ask</div>
+    <h2>Approve the prune. Start with Adidas + Puma.</h2>
+    <div class="timeline">
+      <div class="step"><div class="w">WEEK 0</div><h4>Ship the index-footprint fix</h4><p>Noindex/redirect Adidas + Puma thin pages, fold content into hubs, clean the sitemap.</p></div>
+      <div class="step"><div class="w">WEEK 1–4</div><h4>CTR pass on the top 30 brand pages</h4><p>Titles, meta, schema, prominent tool. Measure Adidas/Puma recovery.</p></div>
+      <div class="step"><div class="w">WEEK 4–8</div><h4>Extend the prune, enrich the keepers</h4><p>Roll out once lift is confirmed. Add community and official-chart data to the 213.</p></div>
+      <div class="step"><div class="w">WEEK 6–12</div><h4>Launch the cross-brand size tool</h4><p>The moat, plus the start of link outreach.</p></div>
+    </div>
+    <div class="source">Full strategy: docs/seo/seo-strategy-2026-07.md · Data: GSC sc-domain:getsize.shoes, 28 days to 2026-07-10</div>
+  </div>
+</section>
+
+<script>
+  (function () {
+    var slides = Array.prototype.slice.call(document.querySelectorAll('.slide'));
+    var counter = document.getElementById('counter');
+    var railFill = document.getElementById('railFill');
+    var total = slides.length;
+    var current = 0;
+
+    function pad(n){ return (n < 10 ? '0' : '') + n; }
+
+    // reveal + counter via IntersectionObserver
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) {
+          var idx = slides.indexOf(e.target);
+          if (idx > -1) {
+            current = idx;
+            counter.textContent = pad(idx + 1) + ' / ' + pad(total);
+            railFill.style.width = ((idx + 1) / total * 100) + '%';
+            e.target.querySelectorAll('.reveal').forEach(function (r, i) {
+              setTimeout(function(){ r.classList.add('in'); }, i * 70);
+            });
+            animateCharts(e.target);
+          }
+        }
+      });
+    }, { threshold: 0.55 });
+    slides.forEach(function (s) { io.observe(s); });
+
+    // grow bars / fills when a slide with charts appears
+    function animateCharts(scope) {
+      scope.querySelectorAll('.bar .col[data-h]').forEach(function (c) {
+        c.style.height = c.getAttribute('data-h');
+      });
+      scope.querySelectorAll('.ratio .fill[data-w]').forEach(function (f) {
+        f.style.width = f.getAttribute('data-w');
+      });
+    }
+    // init bar heights to 0 so they grow
+    document.querySelectorAll('.bar .col[data-h]').forEach(function(c){ c.style.height = '0%'; });
+    document.querySelectorAll('.ratio .fill[data-w]').forEach(function(f){ f.style.width = '0%'; });
+    // trigger first slide
+    animateCharts(slides[0]);
+    counter.textContent = '01 / ' + pad(total);
+    railFill.style.width = (1 / total * 100) + '%';
+
+    // keyboard navigation
+    function go(dir) {
+      var next = Math.min(total - 1, Math.max(0, current + dir));
+      slides[next].scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+    window.addEventListener('keydown', function (e) {
+      if (e.key === 'ArrowRight' || e.key === 'PageDown') { e.preventDefault(); go(1); }
+      else if (e.key === 'ArrowLeft' || e.key === 'PageUp') { e.preventDefault(); go(-1); }
+      else if (e.key === 'Home') { e.preventDefault(); slides[0].scrollIntoView({behavior:'smooth'}); }
+      else if (e.key === 'End') { e.preventDefault(); slides[total-1].scrollIntoView({behavior:'smooth'}); }
+    });
+  })();
+</script>
+</body>
+</html>
