@@ -290,6 +290,13 @@
                           background: var(--accent); border-radius: 1px; transform: rotate(45deg); }
   code { font-family: var(--font-mono); font-size: 12.5px; background: var(--surface-2);
          border: 1px solid var(--line); border-radius: 3px; padding: 1px 5px; color: var(--ink); }
+  .extend { margin-top: 22px; background: var(--accent-soft); border: 1px solid var(--line);
+            border-left: 3px solid var(--accent); border-radius: 5px; padding: 15px 20px;
+            display: flex; gap: 18px; align-items: baseline; }
+  @media (max-width: 640px){ .extend { flex-direction: column; gap: 8px; } }
+  .extend .tag { font-family: var(--font-mono); font-size: 11px; letter-spacing: .12em;
+                 text-transform: uppercase; color: var(--accent); white-space: nowrap; flex: 0 0 auto; }
+  .extend p { margin: 0; font-size: 14px; color: var(--ink); max-width: none; line-height: 1.5; }
 
   /* reveal */
   .reveal { opacity: 0; transform: translateY(14px); transition: opacity .6s ease, transform .6s ease; }
@@ -531,7 +538,7 @@ chart = modifier <span class="k">!=</span> 0
         <pre class="codeblock"><span class="k">fun</span> indexable(page) =
    page.sizeModifier <span class="k">!=</span> 0        <span class="c">// distinct chart</span>
    <span class="k">||</span> page.brand <span class="k">in</span> [Converse, Allbirds]
-   <span class="k">||</span> page.hasCommunityFit
+   <span class="k">||</span> page.hasCommunityFit   <span class="c">// the growth lever</span>
 
 <span class="g">// ~300 pass  -> index + enrich</span>
 <span class="n">// ~1,850 fail -> fold + noindex/301</span></pre>
@@ -557,6 +564,14 @@ chart = modifier <span class="k">!=</span> 0
           <li>Sitemap becomes indexable-only, so crawl budget concentrates on ~300 strong pages.</li>
         </ul>
       </div>
+    </div>
+    <div class="extend">
+      <span class="tag">Roadmap</span>
+      <p>The rule is a starting point, not a ceiling. As community feedback grows, a model where
+        real owners report a different fit earns a distinct <strong>community fit component</strong>
+        on its page, separate from the size chart and showing what actual owners wear. That unique
+        content lets the model re-enter the index on its own merit. <strong>Pruned pages are not
+        deleted, they are candidates to earn their way back.</strong></p>
     </div>
   </div>
 </section>
