@@ -6,22 +6,18 @@
 <title>Adidas Adizero Evo SL size chart | GetSize</title>
 <link rel="stylesheet" href="/css/fonts/plus-jakarta-sans.css">
 <style>
-  /* GetSize design system (Apple HIG: clarity, deference, depth) */
   :root {
     --gs-font: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
     --gs-text: #1c1c1e;
     --gs-text-secondary: #8e8e93;
     --gs-accent: #00d1b2;
     --gs-accent-deep: #009e86;
-    --gs-warn: #c77700;
     --gs-bg: #f5f5f7;
     --gs-surface: #ffffff;
     --gs-fill: #f0f1f3;
-    --gs-separator: rgba(60, 60, 67, 0.12);
-    --gs-separator-soft: rgba(60, 60, 67, 0.06);
-    --gs-radius: 12px;
-    --gs-radius-sm: 8px;
-    --gs-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+    --gs-separator: rgba(60, 60, 67, 0.11);
+    --gs-radius: 14px;
+    --gs-shadow: 0 1px 3px rgba(0, 0, 0, 0.07);
     --gs-transition: 0.15s ease;
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -30,130 +26,78 @@
   a { color: inherit; text-decoration: none; }
 
   .gs-nav { position: sticky; top: 0; z-index: 100; height: 52px;
-    background: rgba(245, 245, 247, 0.72); backdrop-filter: saturate(180%) blur(20px);
+    background: rgba(245,245,247,0.72); backdrop-filter: saturate(180%) blur(20px);
     -webkit-backdrop-filter: saturate(180%) blur(20px); border-bottom: 0.5px solid var(--gs-separator); }
-  .gs-nav-inner { max-width: 640px; margin: 0 auto; padding: 0 1.5rem; height: 100%;
+  .gs-nav-inner { max-width: 600px; margin: 0 auto; padding: 0 1.5rem; height: 100%;
     display: flex; align-items: center; justify-content: space-between; }
   .gs-nav-logo { font-size: 1.125rem; font-weight: 700; letter-spacing: -0.01em; }
   .gs-nav-logo span { color: var(--gs-accent); }
-  .gs-nav-links { display: flex; align-items: center; gap: 1.25rem; }
-  .gs-nav-link { font-size: 0.8125rem; font-weight: 500; color: var(--gs-text-secondary); transition: color var(--gs-transition); }
-  .gs-nav-link:hover { color: var(--gs-text); }
+  .gs-nav-link { font-size: 0.8125rem; font-weight: 500; color: var(--gs-text-secondary); }
 
   main { flex: 1; }
-  .container { max-width: 640px; margin: 0 auto; padding: 2rem 1.5rem 1rem; }
+  .container { max-width: 600px; margin: 0 auto; padding: 2.25rem 1.5rem 1rem; }
 
-  .poc-note { background: rgba(0, 209, 178, 0.08); border: 0.5px solid rgba(0, 209, 178, 0.28);
-    border-radius: var(--gs-radius-sm); padding: 0.7rem 0.9rem; font-size: 0.78rem; color: var(--gs-accent-deep);
-    margin-bottom: 1.75rem; line-height: 1.5; }
-  .poc-note strong { font-weight: 700; }
+  .proto { display: inline-block; font-size: 0.66rem; font-weight: 600; letter-spacing: 0.03em;
+    color: var(--gs-accent-deep); background: rgba(0,209,178,0.10); border-radius: 980px; padding: 3px 10px; margin-bottom: 1rem; }
+  .crumb { font-size: 0.75rem; color: var(--gs-text-secondary); margin-bottom: 0.4rem; }
+  h1.page-title { font-size: 1.7rem; font-weight: 700; letter-spacing: -0.022em; margin-bottom: 1.9rem; }
 
-  .crumb { font-size: 0.75rem; color: var(--gs-text-secondary); margin-bottom: 0.5rem; }
-  .crumb a:hover { color: var(--gs-accent-deep); }
-  h1.page-title { font-size: 1.75rem; font-weight: 700; letter-spacing: -0.021em; margin-bottom: 0.2rem; }
-  .page-sub { font-size: 0.95rem; color: var(--gs-text-secondary); margin-bottom: 1.75rem; }
-
+  /* card */
   .box { background: var(--gs-surface); border-radius: var(--gs-radius); box-shadow: var(--gs-shadow);
-    border: 0.5px solid var(--gs-separator); padding: 1.5rem; margin-bottom: 1.25rem; }
-  .box-head { display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
-  .box-title { font-size: 1.0625rem; font-weight: 600; letter-spacing: -0.01em; }
-  .box-note { font-size: 0.72rem; color: var(--gs-text-secondary); }
-  .box-lead { font-size: 0.9rem; color: var(--gs-text-secondary); margin-top: 0.35rem; }
-  .search-tag { display: inline-block; font-size: 0.68rem; color: var(--gs-text-secondary);
-    background: var(--gs-fill); border-radius: 980px; padding: 3px 10px; margin-top: 0.9rem; }
-  .search-tag b { color: var(--gs-text); font-weight: 600; }
+    border: 0.5px solid var(--gs-separator); padding: 1.5rem 1.5rem 1.65rem; margin-bottom: 1.1rem; }
+  .eyebrow { font-size: 0.7rem; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase;
+    color: var(--gs-text-secondary); margin-bottom: 0.9rem; }
 
-  .headline { margin: 1.35rem 0 0.15rem; display: flex; align-items: baseline; gap: 0.5rem; flex-wrap: wrap; }
-  .headline .big { font-size: 2.15rem; font-weight: 700; letter-spacing: -0.025em; color: var(--gs-accent-deep);
-    font-variant-numeric: tabular-nums; line-height: 1; }
-  .headline .lbl { font-size: 0.9rem; color: var(--gs-text-secondary); }
-  .headline .em { color: var(--gs-text); font-weight: 600; }
+  /* big answer */
+  .answer { font-size: 2.6rem; font-weight: 700; letter-spacing: -0.03em; line-height: 1; font-variant-numeric: tabular-nums; }
+  .answer.small { color: var(--gs-text); }
+  .answer .unit { font-size: 1.4rem; font-weight: 600; color: var(--gs-text-secondary); letter-spacing: -0.01em; }
+  .sub { font-size: 0.82rem; color: var(--gs-text-secondary); margin-top: 0.55rem; }
+  .sub b { color: var(--gs-text); font-weight: 600; }
 
   /* ruler */
-  .ruler-scroll { overflow-x: auto; padding-bottom: 0.25rem; margin-top: 1.35rem; -webkit-overflow-scrolling: touch; }
-  .ruler { min-width: 540px; }
-  .bars { display: flex; align-items: flex-end; gap: 4px; height: 148px; }
-  .bar { flex: 1 1 0; display: flex; flex-direction: column; justify-content: flex-end; height: 100%; position: relative; }
-  .bar .fill { width: 100%; border-radius: 4px 4px 2px 2px; height: 0; transition: height 0.6s cubic-bezier(0.22, 0.7, 0.24, 1); }
+  .ruler-scroll { overflow-x: auto; margin-top: 1.4rem; -webkit-overflow-scrolling: touch; }
+  .ruler { min-width: 500px; }
+  .bars { display: flex; align-items: flex-end; gap: 5px; height: 120px; }
+  .bar { flex: 1 1 0; display: flex; flex-direction: column; justify-content: flex-end; height: 100%; }
+  .bar .fill { width: 100%; border-radius: 4px 4px 2px 2px; height: 0; transition: height 0.65s cubic-bezier(0.22,0.7,0.24,1); }
   .bar.peak .fill { box-shadow: inset 0 0 0 1.5px var(--gs-accent-deep); }
-  .bar .count { position: absolute; top: -16px; left: 50%; transform: translateX(-50%);
-    font-size: 0.62rem; font-variant-numeric: tabular-nums; color: var(--gs-text-secondary); white-space: nowrap; opacity: 0; }
-  .bar.peak .count { opacity: 1; color: var(--gs-accent-deep); font-weight: 700; }
-  @media (prefers-reduced-motion: reduce) { .bar .fill { transition: none; } }
-  .axis { position: relative; height: 42px; margin-top: 7px; border-top: 1px solid var(--gs-separator); }
-  .tick { position: absolute; top: 0; transform: translateX(-50%); text-align: center; }
-  .tick .mark { width: 1px; height: 5px; background: var(--gs-separator); margin: 0 auto; }
-  .tick.major .mark { height: 9px; background: rgba(60, 60, 67, 0.28); }
-  .tick .eu { font-size: 0.72rem; font-weight: 600; margin-top: 3px; font-variant-numeric: tabular-nums; }
-  .tick .mm { font-size: 0.6rem; color: var(--gs-text-secondary); }
-  .rangeband { position: relative; height: 22px; margin-top: 1px; }
-  .rangeband .band { position: absolute; height: 100%; background: rgba(0, 209, 178, 0.10);
-    border-left: 1px dashed var(--gs-accent); border-right: 1px dashed var(--gs-accent); border-radius: 3px; }
-  .rangeband .band-lbl { position: absolute; font-size: 0.68rem; color: var(--gs-accent-deep); font-weight: 600; top: 3px; transform: translateX(-50%); white-space: nowrap; }
-  .legend { display: flex; align-items: center; gap: 0.5rem; margin-top: 1.35rem; font-size: 0.72rem; color: var(--gs-text-secondary); }
-  .legend .ramp { height: 8px; width: 110px; border-radius: 4px; background: linear-gradient(90deg, rgba(0,209,178,0.16), rgba(0,209,178,1)); }
-  .legend .spacer { margin-left: auto; }
-  .legend strong { color: var(--gs-text); font-weight: 600; }
+  @media (prefers-reduced-motion: reduce){ .bar .fill { transition: none; } }
+  .axis { position: relative; height: 20px; margin-top: 8px; }
+  .tick { position: absolute; transform: translateX(-50%); font-size: 0.72rem; font-weight: 600;
+    color: var(--gs-text-secondary); font-variant-numeric: tabular-nums; }
+  .tick.hot { color: var(--gs-accent-deep); }
 
-  .chips { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.6rem; margin-top: 1.35rem; }
-  @media (max-width: 460px){ .chips { grid-template-columns: 1fr; } }
-  .chip { background: var(--gs-fill); border-radius: var(--gs-radius-sm); padding: 0.8rem 0.85rem; }
-  .chip .v { font-size: 1.05rem; font-weight: 700; font-variant-numeric: tabular-nums; letter-spacing: -0.01em; }
-  .chip .k { font-size: 0.72rem; color: var(--gs-text-secondary); margin-top: 0.15rem; }
+  /* fit: runs small */
+  .fit-top { display: flex; align-items: center; gap: 0.7rem; }
+  .fit-icon { width: 34px; height: 34px; flex: 0 0 auto; border-radius: 50%; background: rgba(0,209,178,0.12);
+    display: flex; align-items: center; justify-content: center; color: var(--gs-accent-deep); font-size: 1.2rem; font-weight: 700; }
+  .fit-top .answer { font-size: 1.6rem; }
+  .convert { display: flex; gap: 0.5rem; margin-top: 1.25rem; }
+  .conv { flex: 1; background: var(--gs-fill); border-radius: 10px; padding: 0.8rem 0.5rem; text-align: center; }
+  .conv .from { font-size: 0.7rem; color: var(--gs-text-secondary); }
+  .conv .to { font-size: 1.15rem; font-weight: 700; letter-spacing: -0.01em; margin-top: 0.15rem; font-variant-numeric: tabular-nums; }
+  .conv .to .up { color: var(--gs-accent-deep); }
 
-  .caveat { font-size: 0.76rem; color: var(--gs-text-secondary); margin-top: 1.25rem; line-height: 1.5;
-    padding-top: 1rem; border-top: 0.5px solid var(--gs-separator-soft); }
-  .caveat strong { color: var(--gs-text); font-weight: 600; }
-
-  /* fit-vs-you-own verdict */
-  .verdict { display: flex; align-items: center; gap: 0.85rem; margin: 1.2rem 0 0.3rem; }
-  .verdict .pill { font-size: 0.78rem; font-weight: 700; color: #fff; background: var(--gs-warn);
-    border-radius: 980px; padding: 6px 14px; white-space: nowrap; }
-  .verdict .txt { font-size: 0.95rem; color: var(--gs-text); }
-  .verdict .txt b { font-weight: 700; }
-  .maptable { margin-top: 1.15rem; border-radius: var(--gs-radius-sm); overflow: hidden; border: 0.5px solid var(--gs-separator); }
-  .maprow { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 0.5rem;
-    padding: 0.65rem 1rem; font-size: 0.9rem; border-bottom: 0.5px solid var(--gs-separator-soft); }
-  .maprow:last-child { border-bottom: 0; }
-  .maprow:nth-child(odd) { background: var(--gs-fill); }
-  .maprow .own { color: var(--gs-text-secondary); }
-  .maprow .own b { color: var(--gs-text); font-weight: 600; font-variant-numeric: tabular-nums; }
-  .maprow .arrow { color: var(--gs-accent); font-weight: 700; }
-  .maprow .tgt { text-align: right; font-weight: 700; color: var(--gs-accent-deep); font-variant-numeric: tabular-nums; }
-  .maphead { display: grid; grid-template-columns: 1fr auto 1fr; gap: 0.5rem; padding: 0 1rem 0.5rem;
-    font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.04em; color: var(--gs-text-secondary); font-weight: 600; }
-  .maphead .r { text-align: right; }
-
-  /* commonly worn alongside */
-  .along { display: flex; flex-direction: column; gap: 0.7rem; margin-top: 1.2rem; }
-  .along-row { display: grid; grid-template-columns: 108px 1fr 34px; align-items: center; gap: 0.75rem; }
+  /* alongside */
+  .along { display: flex; flex-direction: column; gap: 0.85rem; margin-top: 1.2rem; }
+  .along-row { display: grid; grid-template-columns: 96px 1fr; align-items: center; gap: 0.85rem; }
   .along-row .name { font-size: 0.9rem; font-weight: 600; }
-  .along-row .track { height: 10px; background: var(--gs-fill); border-radius: 5px; overflow: hidden; }
-  .along-row .fill { height: 100%; background: var(--gs-accent); border-radius: 5px; width: 0; transition: width 0.6s cubic-bezier(0.22,0.7,0.24,1); }
-  .along-row .n { font-size: 0.8rem; color: var(--gs-text-secondary); text-align: right; font-variant-numeric: tabular-nums; }
-  @media (prefers-reduced-motion: reduce) { .along-row .fill { transition: none; } }
+  .along-row .track { height: 22px; background: var(--gs-fill); border-radius: 6px; overflow: hidden; position: relative; }
+  .along-row .fill { height: 100%; background: var(--gs-accent); border-radius: 6px; width: 0; transition: width 0.65s cubic-bezier(0.22,0.7,0.24,1); }
+  @media (prefers-reduced-motion: reduce){ .along-row .fill { transition: none; } }
 
   /* did it fit */
-  .fit-buttons { display: flex; gap: 0.5rem; margin-top: 1rem; flex-wrap: wrap; }
-  .fit-btn { flex: 1 1 auto; min-width: 104px; min-height: 44px; border: 0.5px solid var(--gs-separator);
-    background: var(--gs-surface); border-radius: 980px; padding: 0 0.9rem; font-family: var(--gs-font);
-    font-size: 0.875rem; font-weight: 600; color: var(--gs-text); cursor: pointer; transition: all var(--gs-transition);
-    display: inline-flex; align-items: center; justify-content: center; }
+  .fit-buttons { display: flex; gap: 0.5rem; margin-top: 1.1rem; }
+  .fit-btn { flex: 1; min-height: 46px; border: 0.5px solid var(--gs-separator); background: var(--gs-surface);
+    border-radius: 980px; font-family: var(--gs-font); font-size: 0.9rem; font-weight: 600; color: var(--gs-text);
+    cursor: pointer; transition: all var(--gs-transition); }
   .fit-btn:hover { border-color: var(--gs-accent); color: var(--gs-accent-deep); }
-  .fit-btn.sel { background: var(--gs-accent); color: #fff; border-color: var(--gs-accent); box-shadow: var(--gs-shadow); }
-  .fit-thanks { font-size: 0.82rem; color: var(--gs-accent-deep); margin-top: 0.85rem; font-weight: 600; display: none; }
-  .empty-badge { display: inline-block; font-size: 0.66rem; background: rgba(60,60,67,0.06); color: var(--gs-text-secondary);
-    border-radius: 980px; padding: 2px 9px; margin-left: 0.4rem; vertical-align: middle; font-weight: 600; }
+  .fit-btn.sel { background: var(--gs-accent); color: #fff; border-color: var(--gs-accent); }
 
-  .gs-footer { border-top: 1px solid var(--gs-separator-soft); padding: 2.5rem 1.5rem 2rem; margin-top: 1.5rem; }
-  .gs-footer-inner { max-width: 640px; margin: 0 auto; display: flex; justify-content: center; gap: 4rem; }
-  .gs-footer-col { display: flex; flex-direction: column; gap: 0.5rem; }
-  .gs-footer-label { font-size: 0.6875rem; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; color: var(--gs-text); margin-bottom: 0.25rem; }
-  .gs-footer-col a { font-size: 0.8125rem; color: var(--gs-text-secondary); }
-  .gs-footer-col a:hover { color: var(--gs-accent); }
-  .gs-footer-bottom { max-width: 640px; margin: 2rem auto 0; padding-top: 1.5rem; border-top: 1px solid var(--gs-separator-soft);
-    font-size: 0.6875rem; color: rgba(60,60,67,0.4); text-align: center; }
-  @media (max-width: 480px){ .gs-footer-inner { flex-direction: column; align-items: center; text-align: center; gap: 2rem; } }
+  .gs-footer { border-top: 1px solid var(--gs-separator); padding: 2.25rem 1.5rem; margin-top: 1.25rem; text-align: center; }
+  .gs-footer a { font-size: 0.8125rem; color: var(--gs-text-secondary); margin: 0 0.75rem; }
+  .gs-footer-bottom { font-size: 0.6875rem; color: rgba(60,60,67,0.4); margin-top: 1.25rem; }
 </style>
 </head>
 <body>
@@ -161,221 +105,113 @@
 <nav class="gs-nav">
   <div class="gs-nav-inner">
     <a class="gs-nav-logo" href="/">Get<span>Size</span></a>
-    <div class="gs-nav-links">
-      <a class="gs-nav-link" href="/size-guide">Size guides</a>
-      <a class="gs-nav-link" href="/login">Log in</a>
-    </div>
+    <a class="gs-nav-link" href="/size-guide">Size guides</a>
   </div>
 </nav>
 
 <main>
   <div class="container">
+    <span class="proto">Prototype · live data</span>
+    <div class="crumb">Adidas › Adizero Evo SL</div>
+    <h1 class="page-title">Adidas Adizero Evo SL</h1>
 
-    <div class="poc-note">
-      <strong>Prototype.</strong> Community-insights blocks designed to render <strong>server-side on the
-      model page</strong> (crawlable), fed by the recommendation engine and shoe racks. Every number below is
-      real, from the recommendation log joined to what those same people own.
-    </div>
-
-    <div class="crumb"><a href="/size-guide">Size guides</a> › <a href="/size-guide/brand/adidas">Adidas</a> › Adizero Evo SL</div>
-    <h1 class="page-title">Adidas Adizero Evo SL size chart</h1>
-    <p class="page-sub">EU, US, UK and CM, with real fit data from people who own it.</p>
-
-    <!-- ===== 1. SIZE POPULARITY ===== -->
+    <!-- 1. Popular size -->
     <div class="box">
-      <div class="box-head">
-        <div class="box-title">What size people get</div>
-        <div class="box-note" id="sampleNote"></div>
-      </div>
-      <div class="box-lead">How every recommendation for the Evo SL distributes across the chart. The deeper
-        the teal, the more people land there.</div>
-
-      <div class="headline">
-        <span class="big" id="peakSize">EU 44⅔</span>
-        <span class="lbl">is the most common recommendation <span class="em" id="peakPct"></span></span>
-      </div>
-
+      <div class="eyebrow">Most people wear</div>
+      <div class="answer"><span class="unit">EU</span> 44⅔</div>
       <div class="ruler-scroll"><div class="ruler">
         <div class="bars" id="bars"></div>
         <div class="axis" id="axis"></div>
-        <div class="rangeband" id="rangeband"></div>
       </div></div>
-
-      <div class="legend">
-        <span>fewer</span><span class="ramp"></span><span>more people</span>
-        <span class="spacer">common fit: <strong id="typicalRange"></strong></span>
-      </div>
-
-      <div class="chips">
-        <div class="chip"><div class="v" id="chipPeople"></div><div class="k">people sized it</div></div>
-        <div class="chip"><div class="v" id="chipFoot"></div><div class="k">typical foot length</div></div>
-        <div class="chip"><div class="v" id="chipSpread"></div><div class="k">full span seen</div></div>
-      </div>
-      <div class="search-tag">answers: <b>“what size adizero evo sl should I get”</b></div>
+      <div class="sub" id="popSub"></div>
     </div>
 
-    <!-- ===== 2. HOW IT FITS VS WHAT YOU OWN ===== -->
+    <!-- 2. Runs small -->
     <div class="box">
-      <div class="box-head">
-        <div class="box-title">How it fits vs shoes you own</div>
-        <div class="box-note">39 people own both</div>
+      <div class="eyebrow">How it fits</div>
+      <div class="fit-top">
+        <div class="fit-icon">↑</div>
+        <div><div class="answer small">Runs small</div></div>
       </div>
-      <div class="box-lead">We compared people's own shoes to the size they were recommended here. The clearest
-        signal comes from Asics, the brand Evo SL sizers most often already run in.</div>
-
-      <div class="verdict">
-        <span class="pill">Runs small</span>
-        <span class="txt">Owners of Asics size <b>up about ½ to a full size</b> in the Evo SL.</span>
+      <div class="sub" style="margin-top:0.7rem;">Most people <b>size up about ½</b>. If you own Asics:</div>
+      <div class="convert">
+        <div class="conv"><div class="from">Asics 42½</div><div class="to">→ <span class="up">43⅓</span></div></div>
+        <div class="conv"><div class="from">Asics 43½</div><div class="to">→ <span class="up">44⅔</span></div></div>
+        <div class="conv"><div class="from">Asics 44½</div><div class="to">→ <span class="up">45⅓</span></div></div>
       </div>
-
-      <div class="maphead"><span>Your Asics size</span><span></span><span class="r">Your Evo SL size</span></div>
-      <div class="maptable" id="mapTable"></div>
-
-      <p class="caveat"><strong>How we know:</strong> for people who own an Asics shoe and got sized for the Evo
-        SL, we lined up their Asics size against their Evo SL recommendation. As more people rate the fit, this
-        becomes a verified "runs small / true to size" verdict for every brand pairing, not just Asics.</p>
-      <div class="search-tag">answers: <b>“does the adidas evo sl run small”</b> · <b>“evo sl vs asics sizing”</b></div>
     </div>
 
-    <!-- ===== 3. COMMONLY WORN ALONGSIDE ===== -->
+    <!-- 3. Worn alongside -->
     <div class="box">
-      <div class="box-head">
-        <div class="box-title">Commonly worn alongside</div>
-        <div class="box-note">by 205 Evo SL sizers</div>
-      </div>
-      <div class="box-lead">The shoes people who sized the Evo SL most often already own. It sits in a serious
-        runner's rotation.</div>
+      <div class="eyebrow">Owners also run in</div>
       <div class="along" id="along"></div>
-      <div class="search-tag">answers: <b>“shoes like the adidas evo sl”</b> · <b>“evo sl alternatives”</b></div>
     </div>
 
-    <!-- ===== 4. DID IT FIT ===== -->
+    <!-- 4. Did it fit -->
     <div class="box">
-      <div class="box-head">
-        <div class="box-title">Did your size fit? <span class="empty-badge">0 responses yet</span></div>
-      </div>
-      <div class="box-lead">The recommendation log's fit fields are empty today. One tap starts filling them and
-        turns the "runs small" read above from inferred into verified.</div>
+      <div class="eyebrow">Did it fit you?</div>
       <div class="fit-buttons">
-        <button class="fit-btn" data-v="small">Ran small</button>
-        <button class="fit-btn" data-v="perfect">Fit perfectly</button>
-        <button class="fit-btn" data-v="large">Ran large</button>
+        <button class="fit-btn" data-v="s">Small</button>
+        <button class="fit-btn" data-v="p">Perfect</button>
+        <button class="fit-btn" data-v="l">Large</button>
       </div>
-      <div class="fit-thanks" id="fitThanks">Thanks. At ~200 sizings per shoe, a few taps each makes this a
-        trustworthy verdict within weeks.</div>
     </div>
-
   </div>
 </main>
 
 <footer class="gs-footer">
-  <div class="gs-footer-inner">
-    <div class="gs-footer-col">
-      <span class="gs-footer-label">GetSize</span>
-      <a href="/how-it-works">How it works</a>
-      <a href="/our-mission">Our mission</a>
-      <a href="/feedback">Feedback</a>
-    </div>
-    <div class="gs-footer-col">
-      <span class="gs-footer-label">Size guides</span>
-      <a href="/size-guide">Size guides</a>
-      <a href="/brand">Supported brands</a>
-      <a href="/buyers-guide">Buyer's guides</a>
-    </div>
-    <div class="gs-footer-col">
-      <span class="gs-footer-label">Legal</span>
-      <a href="/legal/privacy">Privacy</a>
-      <a href="/legal/terms">Terms</a>
-    </div>
-  </div>
-  <div class="gs-footer-bottom">GetSize AB 559533-7279 · prototype</div>
+  <div><a href="/size-guide">Size guides</a><a href="/brand">Brands</a><a href="/how-it-works">How it works</a></div>
+  <div class="gs-footer-bottom">GetSize AB · prototype</div>
 </footer>
 
 <script>
-  // Real recommended-size distribution for the Adidas Adizero Evo SL. [EU label, foot mm, recs]
+  // Real recommended-size distribution for the Adizero Evo SL. [EU, foot mm, recs]
   var DATA = [
     ["36",221,1],["36⅔",225,1],["37⅓",229,5],["38",233,8],["38⅔",238,7],["39⅓",242,6],
     ["40",246,17],["40⅔",250,27],["41⅓",255,43],["42",259,47],["42⅔",263,50],["43⅓",267,56],
     ["44",271,57],["44⅔",276,71],["45⅓",280,53],["46",284,28],["46⅔",288,11],["47⅓",293,16],
     ["48",297,9],["48⅔",301,5],["49⅓",305,17],["50",310,5],["50⅔",314,1],["51⅓",318,1]
   ];
-  var TOTAL_RECS = 542, PEOPLE = 205;
-
-  // Real Asics -> Evo SL correspondence (mode recommendation per Asics size).
-  var ASICS_MAP = [["41.5","42"],["42.5","43⅓"],["43.5","44⅔"],["44","45⅓"],["44.5","45⅓"]];
-  // Real co-ownership among Evo SL sizers. [brand, distinct people]
-  var ALONGSIDE = [["Asics",39],["New Balance",13],["Hoka",12],["Brooks",9],["Saucony",9],["Vans",7],["Salomon",6]];
+  var ALONGSIDE = [["Asics",39],["New Balance",13],["Hoka",12],["Brooks",9],["Saucony",9],["Salomon",6]];
 
   var max = Math.max.apply(null, DATA.map(function(d){ return d[2]; }));
   var peakIdx = DATA.reduce(function(bi,d,i){ return d[2] > DATA[bi][2] ? i : bi; }, 0);
-  function heat(recs){ return "rgba(0,209,178," + (0.16 + 0.84*(recs/max)).toFixed(2) + ")"; }
-
-  // ruler bars
-  var barsEl = document.getElementById("bars"), fills = [];
-  DATA.forEach(function(d, i){
-    var col = document.createElement("div");
-    col.className = "bar" + (i === peakIdx ? " peak" : "");
-    col.innerHTML = '<span class="count">' + d[2] + '</span><div class="fill" style="background:' + heat(d[2]) + '"></div>';
-    barsEl.appendChild(col);
-    fills.push([col.querySelector(".fill"), Math.max(2, (d[2]/max)*100)]);
-  });
+  function heat(r){ return "rgba(0,209,178," + (0.14 + 0.86*(r/max)).toFixed(2) + ")"; }
   var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  requestAnimationFrame(function(){
-    fills.forEach(function(f){ f[0].style.height = reduce ? f[1] + "%" : "0%"; });
-    if (!reduce) requestAnimationFrame(function(){ fills.forEach(function(f){ f[0].style.height = f[1] + "%"; }); });
-  });
 
-  var majors = { "38":1,"40":1,"42":1,"44":1,"46":1,"48":1,"50":1 };
+  var barsEl = document.getElementById("bars"), fills = [];
+  DATA.forEach(function(d,i){
+    var c = document.createElement("div"); c.className = "bar" + (i===peakIdx?" peak":"");
+    c.innerHTML = '<div class="fill" style="background:' + heat(d[2]) + '"></div>';
+    barsEl.appendChild(c); fills.push([c.firstChild, Math.max(3,(d[2]/max)*100)]);
+  });
+  requestAnimationFrame(function(){ fills.forEach(function(f){ f[0].style.height = reduce?f[1]+"%":"0%"; });
+    if(!reduce) requestAnimationFrame(function(){ fills.forEach(function(f){ f[0].style.height=f[1]+"%"; }); }); });
+
+  // axis: only a few EU labels, peak highlighted
+  var show = {"40":1,"42":1,"44⅔":1,"48":1};
   var axisEl = document.getElementById("axis");
-  DATA.forEach(function(d, i){
-    var pct = (i + 0.5)/DATA.length*100, isMajor = majors[d[0]];
-    var t = document.createElement("div"); t.className = "tick" + (isMajor ? " major" : ""); t.style.left = pct + "%";
-    t.innerHTML = '<div class="mark"></div>' + (isMajor ? ('<div class="eu">' + d[0] + '</div><div class="mm">' + d[1] + 'mm</div>') : '');
+  DATA.forEach(function(d,i){
+    if(!show[d[0]]) return;
+    var t = document.createElement("div"); t.className = "tick" + (i===peakIdx?" hot":"");
+    t.style.left = ((i+0.5)/DATA.length*100) + "%"; t.textContent = d[0];
     axisEl.appendChild(t);
   });
 
-  var lo = peakIdx, hi = peakIdx, acc = DATA[peakIdx][2];
-  while (acc/TOTAL_RECS < 0.6 && (lo > 0 || hi < DATA.length - 1)) {
-    var left = lo > 0 ? DATA[lo-1][2] : -1, right = hi < DATA.length-1 ? DATA[hi+1][2] : -1;
-    if (right >= left) { hi++; acc += DATA[hi][2]; } else { lo--; acc += DATA[lo][2]; }
-  }
-  var bandEl = document.getElementById("rangeband");
-  var leftPct = lo/DATA.length*100, widthPct = (hi-lo+1)/DATA.length*100;
-  var band = document.createElement("div"); band.className = "band"; band.style.left = leftPct + "%"; band.style.width = widthPct + "%";
-  bandEl.appendChild(band);
-  var blbl = document.createElement("div"); blbl.className = "band-lbl"; blbl.style.left = (leftPct + widthPct/2) + "%";
-  blbl.textContent = "EU " + DATA[lo][0] + "–" + DATA[hi][0]; bandEl.appendChild(blbl);
+  document.getElementById("popSub").innerHTML = "From <b>205 people</b> who sized it · most between EU 42 and 45⅓";
 
-  document.getElementById("peakSize").textContent = "EU " + DATA[peakIdx][0];
-  document.getElementById("peakPct").textContent = "(" + Math.round(DATA[peakIdx][2]/TOTAL_RECS*100) + "% of people)";
-  document.getElementById("sampleNote").textContent = TOTAL_RECS.toLocaleString() + " sizings · " + PEOPLE + " people";
-  document.getElementById("typicalRange").textContent = "EU " + DATA[lo][0] + "–" + DATA[hi][0];
-  document.getElementById("chipPeople").textContent = PEOPLE;
-  document.getElementById("chipFoot").textContent = DATA[lo][1] + "–" + DATA[hi][1] + "mm";
-  document.getElementById("chipSpread").textContent = DATA[0][1] + "–" + DATA[DATA.length-1][1] + "mm";
-
-  // Asics map table
-  var mapEl = document.getElementById("mapTable");
-  ASICS_MAP.forEach(function(m){
-    var r = document.createElement("div"); r.className = "maprow";
-    r.innerHTML = '<span class="own">Asics <b>EU ' + m[0] + '</b></span><span class="arrow">→</span><span class="tgt">EU ' + m[1] + '</span>';
-    mapEl.appendChild(r);
-  });
-
-  // alongside bars
-  var alongEl = document.getElementById("along"), amax = ALONGSIDE[0][1], arows = [];
+  var alongEl = document.getElementById("along"), amax = ALONGSIDE[0][1], rows = [];
   ALONGSIDE.forEach(function(a){
-    var row = document.createElement("div"); row.className = "along-row";
-    row.innerHTML = '<span class="name">' + a[0] + '</span><span class="track"><span class="fill"></span></span><span class="n">' + a[1] + '</span>';
-    alongEl.appendChild(row);
-    arows.push([row.querySelector(".fill"), (a[1]/amax*100)]);
+    var r = document.createElement("div"); r.className = "along-row";
+    r.innerHTML = '<span class="name">' + a[0] + '</span><span class="track"><span class="fill"></span></span>';
+    alongEl.appendChild(r); rows.push([r.querySelector(".fill"), Math.max(8,a[1]/amax*100)]);
   });
-  requestAnimationFrame(function(){ requestAnimationFrame(function(){ arows.forEach(function(r){ r[0].style.width = r[1] + "%"; }); }); });
+  requestAnimationFrame(function(){ requestAnimationFrame(function(){ rows.forEach(function(r){ r[0].style.width=r[1]+"%"; }); }); });
 
   document.querySelectorAll(".fit-btn").forEach(function(b){
     b.addEventListener("click", function(){
       document.querySelectorAll(".fit-btn").forEach(function(x){ x.classList.remove("sel"); });
-      b.classList.add("sel"); document.getElementById("fitThanks").style.display = "block";
+      b.classList.add("sel");
     });
   });
 </script>
