@@ -137,6 +137,21 @@
   .foot-ref .fr.hot { background: rgba(0,209,178,0.10); }
   .foot-ref .fr.hot .cm, .foot-ref .fr.hot .eu { color: var(--gs-accent-deep); }
 
+  /* combined size chart with community popularity */
+  .chart-wrap { max-height: 340px; overflow-y: auto; margin-top: 1.3rem; border: 0.5px solid var(--gs-separator); border-radius: 10px; }
+  .sizechart { width: 100%; border-collapse: collapse; font-size: 0.9rem; font-variant-numeric: tabular-nums; }
+  .sizechart thead th { position: sticky; top: 0; background: var(--gs-surface); font-size: 0.64rem; text-transform: uppercase;
+    letter-spacing: 0.04em; color: var(--gs-text-secondary); font-weight: 600; padding: 0.65rem 0.8rem; text-align: left;
+    border-bottom: 0.5px solid var(--gs-separator); }
+  .sizechart th.pop-h { width: 40%; }
+  .sizechart td { padding: 0.5rem 0.8rem; border-top: 0.5px solid var(--gs-separator-soft); }
+  .sizechart tbody tr:first-child td { border-top: none; }
+  .sizechart tr.hot td { color: var(--gs-accent-deep); font-weight: 700; background: rgba(0,209,178,0.07); }
+  .sizechart .popcell { width: 40%; }
+  .sizechart .popbar { display: block; height: 12px; background: var(--gs-fill); border-radius: 6px; overflow: hidden; }
+  .sizechart .popfill { display: block; height: 100%; background: var(--gs-accent); border-radius: 6px; }
+  .sizechart tr.hot .popfill { background: var(--gs-accent-deep); }
+
   .along { display: flex; flex-direction: column; gap: 0.85rem; margin-top: 1.2rem; }
   .along-row { display: grid; grid-template-columns: 96px 1fr; align-items: center; gap: 0.85rem; }
   .along-row .name { font-size: 0.9rem; font-weight: 600; }
@@ -240,15 +255,18 @@
   </div><!-- /.hero-screen -->
 
   <div class="container">
-    <!-- 1. Popular size -->
+    <!-- Size chart with community popularity baked in -->
     <div class="box">
-      <div class="eyebrow">What our community wears</div>
+      <div class="eyebrow">Size chart</div>
       <div class="answer"><span class="unit">EU</span> 44⅔</div>
-      <div class="ruler-scroll"><div class="ruler">
-        <div class="bars" id="bars"></div>
-        <div class="axis" id="axis"></div>
-      </div></div>
-      <div class="sub" id="popSub"></div>
+      <div class="sub" style="margin-top:0.5rem;">is what most of our community wears</div>
+      <div class="chart-wrap">
+        <table class="sizechart">
+          <thead><tr><th>EU</th><th>US</th><th>UK</th><th>Foot</th><th class="pop-h">Our community</th></tr></thead>
+          <tbody id="chartBody"></tbody>
+        </table>
+      </div>
+      <div class="sub">Every size, with how common it is among our <b>205 sizers</b>. US/UK are standard men's conversions.</div>
     </div>
 
     <!-- 2. Runs small -->
@@ -263,38 +281,6 @@
         <div class="conv"><div class="from">Asics 42½</div><div class="to">→ <span class="up">43⅓</span></div></div>
         <div class="conv"><div class="from">Asics 43½</div><div class="to">→ <span class="up">44⅔</span></div></div>
         <div class="conv"><div class="from">Asics 44½</div><div class="to">→ <span class="up">45⅓</span></div></div>
-      </div>
-    </div>
-
-    <!-- Size conversions -->
-    <div class="box">
-      <div class="eyebrow">Size conversions</div>
-      <table class="conv-table">
-        <thead><tr><th>EU</th><th>US</th><th>UK</th><th>Foot</th></tr></thead>
-        <tbody>
-          <tr><td>42</td><td>8.5</td><td>8</td><td>25.9cm</td></tr>
-          <tr><td>42⅔</td><td>9</td><td>8.5</td><td>26.3cm</td></tr>
-          <tr><td>43⅓</td><td>9.5</td><td>9</td><td>26.7cm</td></tr>
-          <tr><td>44</td><td>10</td><td>9.5</td><td>27.1cm</td></tr>
-          <tr class="hot"><td>44⅔</td><td>10.5</td><td>10</td><td>27.6cm</td></tr>
-          <tr><td>45⅓</td><td>11</td><td>10.5</td><td>28.0cm</td></tr>
-          <tr><td>46</td><td>11.5</td><td>11</td><td>28.4cm</td></tr>
-        </tbody>
-      </table>
-      <div class="sub">The Evo SL uses EU sizing. Men's US/UK shown; the popular size is highlighted.</div>
-    </div>
-
-    <!-- Size by foot length -->
-    <div class="box">
-      <div class="eyebrow">Our community's foot length</div>
-      <div class="answer small">255–280<span class="unit"> mm</span></div>
-      <div class="sub">is where most of our users who size the Evo SL measure. Match your own:</div>
-      <div class="foot-ref">
-        <div class="fr"><div class="cm">25.5cm</div><div class="eu">EU 41⅓</div></div>
-        <div class="fr"><div class="cm">26.3cm</div><div class="eu">EU 42⅔</div></div>
-        <div class="fr"><div class="cm">27.1cm</div><div class="eu">EU 44</div></div>
-        <div class="fr hot"><div class="cm">27.6cm</div><div class="eu">EU 44⅔</div></div>
-        <div class="fr"><div class="cm">28.4cm</div><div class="eu">EU 46</div></div>
       </div>
     </div>
 
@@ -371,23 +357,19 @@
   function heat(r){ return "rgba(0,209,178," + (0.14 + 0.86*(r/max)).toFixed(2) + ")"; }
   var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-  var barsEl = document.getElementById("bars"), fills = [];
+  // Full size chart: every size, all systems, with a community-popularity bar per row.
+  var chartBody = document.getElementById("chartBody");
   DATA.forEach(function(d,i){
-    var c = document.createElement("div"); c.className = "bar" + (i===peakIdx?" peak":"");
-    c.innerHTML = '<div class="fill" style="background:' + heat(d[2]) + '"></div>';
-    barsEl.appendChild(c); fills.push([c.firstChild, Math.max(3,(d[2]/max)*100)]);
+    var us = 4 + i * 0.5;          // standard men's EU -> US
+    var uk = us - 0.5;
+    var cm = (d[1] / 10).toFixed(1);
+    var w = Math.max(2, (d[2] / max) * 100);
+    var tr = document.createElement("tr");
+    if (i === peakIdx) tr.className = "hot";
+    tr.innerHTML = "<td>" + d[0] + "</td><td>" + us + "</td><td>" + uk + "</td><td>" + cm + "cm</td>" +
+      "<td class='popcell'><span class='popbar'><span class='popfill' style='width:" + w + "%'></span></span></td>";
+    chartBody.appendChild(tr);
   });
-  requestAnimationFrame(function(){ fills.forEach(function(f){ f[0].style.height = reduce?f[1]+"%":"0%"; });
-    if(!reduce) requestAnimationFrame(function(){ fills.forEach(function(f){ f[0].style.height=f[1]+"%"; }); }); });
-
-  var show = {"40":1,"42":1,"44⅔":1,"48":1};
-  var axisEl = document.getElementById("axis");
-  DATA.forEach(function(d,i){
-    if(!show[d[0]]) return;
-    var t = document.createElement("div"); t.className = "tick" + (i===peakIdx?" hot":"");
-    t.style.left = ((i+0.5)/DATA.length*100) + "%"; t.textContent = d[0]; axisEl.appendChild(t);
-  });
-  document.getElementById("popSub").innerHTML = "From <b>205 people</b> who sized it · most between EU 42 and 45⅓";
 
   var alongEl = document.getElementById("along"), amax = ALONGSIDE[0][1];
   ALONGSIDE.forEach(function(a){
