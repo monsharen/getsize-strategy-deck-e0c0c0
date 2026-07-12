@@ -83,9 +83,10 @@
   .along { display: flex; flex-direction: column; gap: 0.85rem; margin-top: 1.2rem; }
   .along-row { display: grid; grid-template-columns: 96px 1fr; align-items: center; gap: 0.85rem; }
   .along-row .name { font-size: 0.9rem; font-weight: 600; }
-  .along-row .track { height: 22px; background: var(--gs-fill); border-radius: 6px; overflow: hidden; position: relative; }
-  .along-row .fill { height: 100%; background: var(--gs-accent); border-radius: 6px; width: 0; transition: width 0.65s cubic-bezier(0.22,0.7,0.24,1); }
-  @media (prefers-reduced-motion: reduce){ .along-row .fill { transition: none; } }
+  .along-row .track { display: block; height: 22px; background: var(--gs-fill); border-radius: 6px; overflow: hidden; }
+  .along-row .fill { display: block; height: 100%; background: var(--gs-accent); border-radius: 6px; transform-origin: left; }
+  .along-row.animate .fill { animation: growW 0.65s cubic-bezier(0.22,0.7,0.24,1) both; }
+  @keyframes growW { from { transform: scaleX(0); } to { transform: scaleX(1); } }
 
   /* did it fit */
   .fit-buttons { display: flex; gap: 0.5rem; margin-top: 1.1rem; }
@@ -200,13 +201,13 @@
 
   document.getElementById("popSub").innerHTML = "From <b>205 people</b> who sized it · most between EU 42 and 45⅓";
 
-  var alongEl = document.getElementById("along"), amax = ALONGSIDE[0][1], rows = [];
+  var alongEl = document.getElementById("along"), amax = ALONGSIDE[0][1];
   ALONGSIDE.forEach(function(a){
-    var r = document.createElement("div"); r.className = "along-row";
-    r.innerHTML = '<span class="name">' + a[0] + '</span><span class="track"><span class="fill"></span></span>';
-    alongEl.appendChild(r); rows.push([r.querySelector(".fill"), Math.max(8,a[1]/amax*100)]);
+    var w = Math.max(8, a[1]/amax*100);
+    var r = document.createElement("div"); r.className = "along-row" + (reduce ? "" : " animate");
+    r.innerHTML = '<span class="name">' + a[0] + '</span><span class="track"><span class="fill" style="width:' + w + '%"></span></span>';
+    alongEl.appendChild(r);
   });
-  requestAnimationFrame(function(){ requestAnimationFrame(function(){ rows.forEach(function(r){ r[0].style.width=r[1]+"%"; }); }); });
 
   document.querySelectorAll(".fit-btn").forEach(function(b){
     b.addEventListener("click", function(){
