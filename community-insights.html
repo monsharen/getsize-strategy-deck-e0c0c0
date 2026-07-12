@@ -22,36 +22,63 @@
   .gs-nav { position: sticky; top: 0; z-index: 100; height: 52px; background: rgba(245,245,247,0.72);
     backdrop-filter: saturate(180%) blur(20px); -webkit-backdrop-filter: saturate(180%) blur(20px);
     border-bottom: 0.5px solid var(--gs-separator); }
-  .gs-nav-inner { max-width: 600px; margin: 0 auto; padding: 0 1.5rem; height: 100%;
+  .gs-nav-inner { max-width: 640px; margin: 0 auto; padding: 0 1.5rem; height: 100%;
     display: flex; align-items: center; justify-content: space-between; }
   .gs-nav-logo { font-size: 1.125rem; font-weight: 700; letter-spacing: -0.01em; }
   .gs-nav-logo span { color: var(--gs-accent); }
   .gs-nav-link { font-size: 0.8125rem; font-weight: 500; color: var(--gs-text-secondary); }
 
   main { flex: 1; }
-  .container { max-width: 600px; margin: 0 auto; padding: 1.5rem 1.5rem 1rem; }
+  .container { max-width: 640px; margin: 0 auto; padding: 1.5rem 1.5rem 1rem; }
 
   .proto { display: inline-block; font-size: 0.66rem; font-weight: 600; letter-spacing: 0.03em;
     color: var(--gs-accent-deep); background: rgba(0,209,178,0.10); border-radius: 980px; padding: 3px 10px; margin-bottom: 1.1rem; }
 
   /* header */
   .head { text-align: center; margin-bottom: 1.5rem; }
-  .head .brand { font-size: 0.875rem; color: var(--gs-text-secondary); margin-bottom: 0.15rem; }
-  .head h1 { font-size: 1.55rem; font-weight: 700; letter-spacing: -0.022em; margin-bottom: 0.5rem; }
-  .head .tag { font-size: 0.9rem; color: var(--gs-text-secondary); max-width: 42ch; margin: 0 auto; }
+  .head .brand { font-size: 0.875rem; color: var(--gs-text-secondary); margin-bottom: 0.25rem; }
+  .head h1 { font-size: 1.5rem; font-weight: 600; line-height: 1.125; margin-bottom: 0.5rem; }
+  .head .tag { font-size: 0.9375rem; line-height: 1.5; color: var(--gs-text-secondary); max-width: 42ch; margin: 0 auto; }
 
-  /* faked sizing tool */
-  .tool { background: var(--gs-surface); border-radius: var(--gs-radius); box-shadow: var(--gs-shadow);
-    border: 0.5px solid var(--gs-separator); padding: 1.4rem; margin-bottom: 1.6rem; }
-  .tool h2 { font-size: 1.05rem; font-weight: 600; letter-spacing: -0.01em; }
-  .tool p { font-size: 0.85rem; color: var(--gs-text-secondary); margin-top: 0.25rem; }
-  .tool-input { display: flex; gap: 0.5rem; margin-top: 1rem; }
-  .tool-field { flex: 1; height: 46px; border: 0.5px solid var(--gs-separator); background: var(--gs-fill);
-    border-radius: 980px; padding: 0 1.1rem; display: flex; align-items: center; color: var(--gs-text-secondary); font-size: 0.9rem; }
-  .tool-btn { height: 46px; padding: 0 1.4rem; border: none; border-radius: 980px; background: var(--gs-accent);
-    color: #fff; font-family: var(--gs-font); font-weight: 600; font-size: 0.9rem; cursor: pointer; white-space: nowrap; }
-  .tool-note { font-size: 0.75rem; color: var(--gs-text-secondary); margin-top: 0.7rem; text-align: center; }
-  .tool-note a { color: var(--gs-accent-deep); font-weight: 600; }
+  /* === Real sizing tool (from css/sizing-v2.css, scoped + inlined) === */
+  .sizing-v2 { --u-text: #1c1c1e; --u-text-tertiary: rgba(60,60,67,0.4); --u-accent: #00d1b2;
+    --u-surface: #fff; --u-separator: rgba(60,60,67,0.12); --u-separator-light: rgba(60,60,67,0.06);
+    --u-radius: 12px; --u-transition: 150ms ease; --u-spacing-sm: 0.5rem; --u-spacing-md: 1rem;
+    --u-spacing-lg: 1.5rem; --u-spacing-xl: 2rem; color: var(--u-text); line-height: 1.5; margin-bottom: 1.6rem; }
+  .sizing-v2 *, .sizing-v2 *::before, .sizing-v2 *::after { box-sizing: border-box; }
+  .sizing-v2 .u-widget { max-width: 600px; margin: 0 auto; }
+  .sizing-v2 .u-card { background: var(--u-surface); border-radius: var(--u-radius); overflow: hidden;
+    box-shadow: 0 0 0 0.5px rgba(0,0,0,0.04), 0 1px 2px rgba(0,0,0,0.02), 0 4px 12px rgba(0,0,0,0.04), 0 16px 40px rgba(0,0,0,0.06); }
+  .sizing-v2 .u-section { padding: var(--u-spacing-xl); }
+  .sizing-v2 .u-section.u-section-flush { padding-top: 0; padding-bottom: var(--u-spacing-md); }
+  .sizing-v2 .u-divider { height: 1px; background: var(--u-separator); }
+  .sizing-v2 .u-chips { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+  .sizing-v2 .u-empty-hint { font-size: 1rem; color: var(--u-text-tertiary); width: 100%; }
+  .sizing-v2 .u-add-btn { position: relative; overflow: hidden; display: inline-flex; align-items: center; gap: 4px;
+    background: none; border: 1.5px dashed rgba(60,60,67,0.2); border-radius: 980px; padding: 8px 18px;
+    font-family: var(--gs-font); font-size: 1rem; font-weight: 600; color: #1c1c1e; cursor: pointer; transition: all var(--u-transition); }
+  .sizing-v2 .u-add-btn::after { content: ''; position: absolute; top: -50%; left: -100%; width: 60%; height: 200%; pointer-events: none;
+    background: linear-gradient(105deg, transparent 30%, rgba(0,209,178,0.06) 45%, rgba(0,209,178,0.12) 50%, rgba(0,209,178,0.06) 55%, transparent 70%); }
+  .sizing-v2 .u-add-btn:hover::after { animation: u-sweep 0.6s linear; }
+  .sizing-v2 .u-add-btn:hover { border-color: rgba(60,60,67,0.35); }
+  .sizing-v2 .u-add-btn.u-pulse { animation: u-breathe 3s ease-in-out infinite; }
+  .sizing-v2 .u-add-btn.u-pulse:hover { animation: none; }
+  @keyframes u-sweep { from { left: -100%; } to { left: 200%; } }
+  @keyframes u-breathe { 0%,100% { border-color: rgba(60,60,67,0.12); box-shadow: 0 0 0 0 rgba(0,209,178,0); }
+    50% { border-color: rgba(0,209,178,0.4); box-shadow: 0 0 12px 2px rgba(0,209,178,0.15); } }
+  .sizing-v2 .u-target-row { display: flex; align-items: center; gap: var(--u-spacing-md); border-bottom: 1px solid var(--u-separator-light); }
+  .sizing-v2 .u-target-row:last-of-type { border-bottom: none; }
+  .sizing-v2 .u-target-row-info { flex: 1; min-width: 0; }
+  .sizing-v2 .u-target-row-name { font-size: 1rem; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .sizing-v2 .u-target-row-variant { font-size: 0.8125rem; color: rgba(60,60,67,0.5); }
+  .sizing-v2 .u-target-row-size { display: inline-flex; align-items: center; justify-content: center; gap: 4px; font-size: 0.875rem;
+    font-weight: 600; flex-shrink: 0; min-width: 56px; background: var(--u-accent); color: #fff; border-radius: 980px; padding: 4px 12px; }
+  .sizing-v2 .u-target-row-size.pending { background: rgba(60,60,67,0.08); color: rgba(60,60,67,0.2); }
+  .sizing-v2 .u-target-row-expand { cursor: pointer; padding: var(--u-spacing-md) var(--u-spacing-xl);
+    margin: 0 calc(-1 * var(--u-spacing-xl)); transition: background var(--u-transition); }
+  .sizing-v2 .u-target-row-expand:hover { background: rgba(60,60,67,0.06); }
+  @media (max-width: 480px){ .sizing-v2 .u-section { padding: var(--u-spacing-lg); }
+    .sizing-v2 .u-target-row-expand { padding: var(--u-spacing-md) var(--u-spacing-lg); margin: 0 calc(-1 * var(--u-spacing-lg)); } }
 
   /* insight cards */
   .box { background: var(--gs-surface); border-radius: var(--gs-radius); box-shadow: var(--gs-shadow);
@@ -152,15 +179,32 @@
       <div class="tag">Our tool compares official Adidas size charts to find your perfect size. No measuring needed.</div>
     </div>
 
-    <!-- Sizing tool (faked entry point) -->
-    <div class="tool">
-      <h2>Find your size</h2>
-      <p>Add a shoe you already own that fits you well.</p>
-      <div class="tool-input">
-        <div class="tool-field">Search a shoe you own…</div>
-        <button class="tool-btn" type="button">Find my size</button>
+    <!-- Real sizing tool (markup from sizing-v2-widget, static demo state) -->
+    <div class="sizing-v2">
+      <div class="u-widget">
+        <div class="u-card">
+          <div class="u-section">
+            <div class="u-chips">
+              <div class="u-empty-hint">Add shoes you already own that fit you well</div>
+              <button class="u-add-btn u-pulse" type="button">+ Shoe</button>
+              <button class="u-add-btn u-pulse" type="button">+ Foot</button>
+            </div>
+          </div>
+          <div class="u-divider"></div>
+          <div class="u-section u-section-flush">
+            <div class="u-target-row u-target-row-expand">
+              <div class="u-target-row-info">
+                <div class="u-target-row-name">Adidas Adizero Evo SL</div>
+                <div class="u-target-row-variant">Core Black / Cloud White</div>
+              </div>
+              <div class="u-target-row-size pending">--</div>
+            </div>
+            <div style="padding-top:0.5rem">
+              <button class="u-add-btn" type="button">+ Add shoe to compare</button>
+            </div>
+          </div>
+        </div>
       </div>
-      <div class="tool-note">or <a href="#">enter your foot measurement</a></div>
     </div>
 
     <!-- 1. Popular size -->
