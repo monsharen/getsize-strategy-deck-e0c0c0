@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Community Insights - Size popularity ruler (POC)</title>
+<style>
+  :root {
+    --color-accent: #2563eb;
+    --color-accent-ink: #1e3a8a;
+    --color-warm: #f59e0b;
+    --color-bg: #f8fafc;
+    --color-surface: #ffffff;
+    --color-text: #0f172a;
+    --color-text-secondary: #64748b;
+    --color-border: #e2e8f0;
+    --color-track: #eef2f7;
+    --font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    --font-mono: ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
+    --radius-sm: 4px;
+    --radius-md: 8px;
+    --radius-lg: 12px;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: var(--font-family);
+    background: var(--color-bg);
+    color: var(--color-text);
+    line-height: 1.5;
+    padding: 1.5rem 1rem 4rem;
+  }
+  .container { max-width: 680px; margin: 0 auto; }
+
+  /* POC framing banner */
+  .poc-note {
+    background: #eef4ff; border: 1px solid #cddbff; border-radius: var(--radius-md);
+    padding: 0.7rem 0.9rem; font-size: 0.78rem; color: #33477a; margin-bottom: 1.25rem;
+  }
+  .poc-note strong { color: var(--color-accent-ink); }
+
+  /* mock model-page context */
+  .crumb { font-size: 0.75rem; color: var(--color-text-secondary); margin-bottom: 0.35rem; }
+  .model-title { font-size: 1.35rem; font-weight: 700; letter-spacing: -0.02em; margin-bottom: 0.15rem; }
+  .model-sub { font-size: 0.85rem; color: var(--color-text-secondary); margin-bottom: 1.5rem; }
+
+  .card {
+    background: var(--color-surface); border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg); padding: 1.25rem 1.25rem 1.4rem;
+    box-shadow: 0 1px 3px rgba(15,23,42,0.06); margin-bottom: 1.1rem;
+  }
+  .card-head { display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; margin-bottom: 0.2rem; flex-wrap: wrap; }
+  .card-title { font-size: 1rem; font-weight: 650; }
+  .card-note { font-size: 0.72rem; color: var(--color-text-secondary); font-family: var(--font-mono); }
+  .card-lead { font-size: 0.85rem; color: var(--color-text-secondary); margin-bottom: 1.1rem; }
+
+  /* headline stat */
+  .headline { display: flex; align-items: baseline; gap: 0.5rem; margin: 0.2rem 0 0.1rem; }
+  .headline .big { font-size: 2rem; font-weight: 750; letter-spacing: -0.02em; color: var(--color-accent-ink); font-variant-numeric: tabular-nums; }
+  .headline .lbl { font-size: 0.9rem; color: var(--color-text-secondary); }
+  .headline .em { color: var(--color-accent); font-weight: 650; }
+
+  /* the ruler */
+  .ruler-scroll { overflow-x: auto; padding-bottom: 0.3rem; margin-top: 1rem; }
+  .ruler { min-width: 560px; }
+  .bars { display: flex; align-items: flex-end; gap: 3px; height: 150px; }
+  .bar { flex: 1 1 0; display: flex; flex-direction: column; justify-content: flex-end; height: 100%; position: relative; }
+  .bar .fill { width: 100%; border-radius: 3px 3px 0 0; transition: height 0.5s ease; }
+  .bar.peak .fill { outline: 2px solid var(--color-accent-ink); outline-offset: -2px; }
+  .bar .count { position: absolute; top: -15px; left: 50%; transform: translateX(-50%); font-size: 0.6rem; color: var(--color-text-secondary); font-family: var(--font-mono); opacity: 0; white-space: nowrap; }
+  .bar.peak .count { opacity: 1; color: var(--color-accent-ink); font-weight: 700; }
+
+  /* axis: real mm ruler with EU labels */
+  .axis { position: relative; height: 44px; margin-top: 6px; border-top: 2px solid #cbd5e1; }
+  .tick { position: absolute; top: 0; transform: translateX(-50%); text-align: center; }
+  .tick .mark { width: 1px; height: 6px; background: #cbd5e1; margin: 0 auto; }
+  .tick.major .mark { height: 10px; background: #94a3b8; }
+  .tick .eu { font-size: 0.72rem; font-weight: 650; margin-top: 2px; font-variant-numeric: tabular-nums; }
+  .tick .mm { font-size: 0.6rem; color: var(--color-text-secondary); font-family: var(--font-mono); }
+
+  .rangeband { position: relative; height: 22px; margin-top: 2px; }
+  .rangeband .band { position: absolute; height: 100%; background: rgba(37,99,235,0.10); border-left: 1px dashed var(--color-accent); border-right: 1px dashed var(--color-accent); border-radius: 3px; }
+  .rangeband .band-lbl { position: absolute; font-size: 0.68rem; color: var(--color-accent); font-weight: 600; top: 3px; transform: translateX(-50%); white-space: nowrap; }
+
+  .legend { display: flex; align-items: center; gap: 0.5rem; margin-top: 1.1rem; font-size: 0.72rem; color: var(--color-text-secondary); }
+  .legend .ramp { height: 10px; width: 120px; border-radius: 5px; background: linear-gradient(90deg, rgba(37,99,235,0.18), rgba(37,99,235,1)); }
+
+  /* insight chips row */
+  .chips { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.6rem; margin-top: 1.2rem; }
+  @media (max-width: 480px){ .chips { grid-template-columns: 1fr; } }
+  .chip { background: var(--color-track); border-radius: var(--radius-md); padding: 0.7rem 0.8rem; }
+  .chip .v { font-size: 1.05rem; font-weight: 700; font-variant-numeric: tabular-nums; }
+  .chip .k { font-size: 0.72rem; color: var(--color-text-secondary); margin-top: 0.1rem; }
+
+  /* did-it-fit capture */
+  .fit-card { background: linear-gradient(180deg,#ffffff,#fbfcfe); }
+  .fit-buttons { display: flex; gap: 0.5rem; margin-top: 0.9rem; flex-wrap: wrap; }
+  .fit-btn { flex: 1 1 auto; min-width: 100px; border: 1px solid var(--color-border); background: #fff; border-radius: var(--radius-md); padding: 0.7rem 0.6rem; font-size: 0.85rem; font-weight: 600; cursor: pointer; transition: all 0.15s ease; display: flex; align-items: center; justify-content: center; gap: 0.35rem; }
+  .fit-btn:hover { border-color: var(--color-accent); color: var(--color-accent); }
+  .fit-btn.sel { background: var(--color-accent); color: #fff; border-color: var(--color-accent); }
+  .fit-thanks { font-size: 0.82rem; color: #15803d; margin-top: 0.7rem; font-weight: 600; display: none; }
+  .empty-badge { display: inline-block; font-size: 0.66rem; font-family: var(--font-mono); background: #fef3c7; color: #92400e; border-radius: 4px; padding: 1px 6px; margin-left: 0.4rem; vertical-align: middle; }
+
+  .caveat { font-size: 0.74rem; color: var(--color-text-secondary); margin-top: 0.4rem; line-height: 1.45; }
+  .caveat strong { color: var(--color-text); }
+  .foot { font-size: 0.72rem; color: var(--color-text-secondary); font-family: var(--font-mono); margin-top: 1.5rem; text-align: center; }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <div class="poc-note">
+    <strong>Prototype.</strong> This block is designed to render <strong>server-side on the model
+    size-guide page</strong> (crawlable content), fed by the recommendation engine. The one
+    interactive piece, "Did it fit?", is how we would start collecting the fit data we do not have yet.
+    All numbers below are real, from <span style="font-family:var(--font-mono)">size_recommendation_log</span>.
+  </div>
+
+  <div class="crumb">Size guides › Adidas › Samba</div>
+  <div class="model-title">Adidas Samba size chart</div>
+  <div class="model-sub">EU · US · UK · CM, with what real visitors get sized to.</div>
+
+  <!-- ===== SIZE POPULARITY RULER ===== -->
+  <div class="card">
+    <div class="card-head">
+      <div class="card-title">Where people land on the size chart</div>
+      <div class="card-note" id="sampleNote"></div>
+    </div>
+    <div class="card-lead">Each bar is how often that size is the recommendation. Read it like a
+      ruler: the dark zone is the common fit, the pale tails are the outliers.</div>
+
+    <div class="headline">
+      <span class="big" id="peakSize">EU 44⅔</span>
+      <span class="lbl">is the single most common recommendation <span class="em" id="peakPct"></span></span>
+    </div>
+
+    <div class="ruler-scroll">
+      <div class="ruler">
+        <div class="bars" id="bars"></div>
+        <div class="axis" id="axis"></div>
+        <div class="rangeband" id="rangeband"></div>
+      </div>
+    </div>
+
+    <div class="legend">
+      <span>fewer</span><span class="ramp"></span><span>more people</span>
+      <span style="margin-left:auto">popular fit: <strong id="typicalRange" style="color:var(--color-text)"></strong></span>
+    </div>
+
+    <div class="chips">
+      <div class="chip"><div class="v" id="chipPeople"></div><div class="k">people sized this chart</div></div>
+      <div class="chip"><div class="v" id="chipFoot"></div><div class="k">typical foot length</div></div>
+      <div class="chip"><div class="v" id="chipSpread"></div><div class="k">span of foot sizes seen</div></div>
+    </div>
+
+    <p class="caveat" style="margin-top:1rem;">
+      <strong>What this is:</strong> recommended sizes for Adidas's standard chart (shared across many
+      Adidas models), so here it is brand-level. On a model with its own chart (Converse, Allbirds,
+      and ~213 others) the same block is genuinely model-specific. It shows recommendations, not
+      verified purchases.
+    </p>
+  </div>
+
+  <!-- ===== DID IT FIT (data we don't have yet) ===== -->
+  <div class="card fit-card">
+    <div class="card-head">
+      <div class="card-title">Did your size fit? <span class="empty-badge">0 responses today</span></div>
+    </div>
+    <div class="card-lead">The recommendation log has empty <span style="font-family:var(--font-mono)">fitted</span>
+      / <span style="font-family:var(--font-mono)">purchased</span> columns. One tap here starts filling them,
+      and unlocks the answer to the query we cannot serve yet: <em>does this shoe run small or large?</em></div>
+    <div class="fit-buttons">
+      <button class="fit-btn" data-v="small">👎 Ran small</button>
+      <button class="fit-btn" data-v="perfect">👍 Fit perfectly</button>
+      <button class="fit-btn" data-v="large">👎 Ran large</button>
+    </div>
+    <div class="fit-thanks" id="fitThanks">Thanks. With ~5,000 real sizings a period, this becomes a
+      trustworthy "runs small / true to size / runs large" verdict within a couple of months.</div>
+  </div>
+
+  <div class="foot">POC · getsize.shoes/ux-poc/community-insights.html · data pulled 2026-07-12</div>
+</div>
+
+<script>
+  // Real data: recommended-size distribution for Adidas standard chart (variation 726).
+  // [EU size label, foot length mm, recommendations]
+  var DATA = [
+    ["36",221,20],["36⅔",225,26],["37⅓",229,110],["38",233,131],["38⅔",238,103],
+    ["39⅓",242,118],["40",246,268],["40⅔",250,239],["41⅓",255,421],["42",259,529],
+    ["42⅔",263,435],["43⅓",267,391],["44",271,582],["44⅔",276,781],["45⅓",280,644],
+    ["46",284,287],["46⅔",288,370],["47⅓",293,126],["48",297,65],["48⅔",301,85],
+    ["49⅓",305,40],["50",310,49],["50⅔",314,6],["51⅓",318,11],["52⅔",326,3],
+    ["53⅓",335,1],["55⅔",352,1]
+  ];
+  var TOTAL_RECS = 5842, PEOPLE = 1484;
+
+  var max = Math.max.apply(null, DATA.map(function(d){ return d[2]; }));
+  var peakIdx = DATA.reduce(function(bi,d,i){ return d[2] > DATA[bi][2] ? i : bi; }, 0);
+
+  // heat color in brand blue: alpha scales with frequency
+  function heat(recs){ var a = 0.16 + 0.84 * (recs / max); return "rgba(37,99,235," + a.toFixed(2) + ")"; }
+
+  // bars
+  var barsEl = document.getElementById("bars");
+  DATA.forEach(function(d, i){
+    var col = document.createElement("div");
+    col.className = "bar" + (i === peakIdx ? " peak" : "");
+    var h = Math.max(2, (d[2] / max) * 100);
+    col.innerHTML = '<span class="count">' + d[2] + '</span>' +
+      '<div class="fill" style="height:' + h + '%;background:' + heat(d[2]) + '"></div>';
+    barsEl.appendChild(col);
+  });
+
+  // axis ticks (label majors only to avoid clutter)
+  var majors = { "40":1,"42":1,"44":1,"46":1,"48":1,"50":1,"38":1 };
+  var axisEl = document.getElementById("axis");
+  DATA.forEach(function(d, i){
+    var pct = (i + 0.5) / DATA.length * 100;
+    var isMajor = majors[d[0]];
+    var t = document.createElement("div");
+    t.className = "tick" + (isMajor ? " major" : "");
+    t.style.left = pct + "%";
+    t.innerHTML = '<div class="mark"></div>' + (isMajor ? ('<div class="eu">' + d[0] + '</div><div class="mm">' + d[1] + 'mm</div>') : '');
+    axisEl.appendChild(t);
+  });
+
+  // popular-fit band: contiguous core covering ~60% of recommendations around the peak
+  var order = DATA.map(function(d,i){ return i; });
+  var lo = peakIdx, hi = peakIdx, acc = DATA[peakIdx][2];
+  while (acc / TOTAL_RECS < 0.6 && (lo > 0 || hi < DATA.length - 1)) {
+    var left = lo > 0 ? DATA[lo-1][2] : -1;
+    var right = hi < DATA.length-1 ? DATA[hi+1][2] : -1;
+    if (right >= left) { hi++; acc += DATA[hi][2]; } else { lo--; acc += DATA[lo][2]; }
+  }
+  var bandEl = document.getElementById("rangeband");
+  var leftPct = (lo) / DATA.length * 100;
+  var widthPct = (hi - lo + 1) / DATA.length * 100;
+  var band = document.createElement("div");
+  band.className = "band"; band.style.left = leftPct + "%"; band.style.width = widthPct + "%";
+  bandEl.appendChild(band);
+  var lbl = document.createElement("div");
+  lbl.className = "band-lbl"; lbl.style.left = (leftPct + widthPct/2) + "%";
+  lbl.textContent = "EU " + DATA[lo][0] + "–" + DATA[hi][0];
+  bandEl.appendChild(lbl);
+
+  // fill text stats
+  document.getElementById("peakSize").textContent = "EU " + DATA[peakIdx][0];
+  document.getElementById("peakPct").textContent = "(" + Math.round(DATA[peakIdx][2]/TOTAL_RECS*100) + "% of sizings)";
+  document.getElementById("sampleNote").textContent = TOTAL_RECS.toLocaleString() + " sizings · " + PEOPLE.toLocaleString() + " people";
+  document.getElementById("typicalRange").textContent = "EU " + DATA[lo][0] + "–" + DATA[hi][0];
+  document.getElementById("chipPeople").textContent = PEOPLE.toLocaleString();
+  document.getElementById("chipFoot").textContent = DATA[lo][1] + "–" + DATA[hi][1] + "mm";
+  document.getElementById("chipSpread").textContent = DATA[0][1] + "–" + DATA[DATA.length-1][1] + "mm";
+
+  // did-it-fit interaction (mock)
+  document.querySelectorAll(".fit-btn").forEach(function(b){
+    b.addEventListener("click", function(){
+      document.querySelectorAll(".fit-btn").forEach(function(x){ x.classList.remove("sel"); });
+      b.classList.add("sel");
+      document.getElementById("fitThanks").style.display = "block";
+    });
+  });
+</script>
+</body>
+</html>
