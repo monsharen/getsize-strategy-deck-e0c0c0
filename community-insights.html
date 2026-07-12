@@ -32,6 +32,14 @@
 
   main { flex: 1; }
   .container { max-width: 640px; margin: 0 auto; padding: 1.5rem 1.5rem 1rem; }
+  /* full-height tool hero, like the front page (gs-fp-screen) */
+  .hero-screen { min-height: calc(100vh - 52px); display: flex; align-items: center; justify-content: center; }
+  .scroll-cue { text-align: center; color: var(--gs-text-secondary); font-size: 0.72rem; letter-spacing: 0.04em;
+    text-transform: uppercase; margin-top: 1.75rem; }
+  .scroll-cue svg { display: block; margin: 0.4rem auto 0; width: 18px; height: 18px; opacity: 0.5;
+    animation: nudge 1.8s ease-in-out infinite; }
+  @keyframes nudge { 0%,100% { transform: translateY(0); } 50% { transform: translateY(4px); } }
+  @media (prefers-reduced-motion: reduce){ .scroll-cue svg { animation: none; } }
 
   .proto { display: inline-block; font-size: 0.66rem; font-weight: 600; letter-spacing: 0.03em;
     color: var(--gs-accent-deep); background: rgba(0,209,178,0.10); border-radius: 980px; padding: 3px 10px; margin-bottom: 1.1rem; }
@@ -175,6 +183,7 @@
 </nav>
 
 <main>
+  <div class="hero-screen">
   <div class="container">
     <span class="proto">Prototype · live data</span>
 
@@ -212,6 +221,13 @@
       </div>
     </div>
 
+    <div class="scroll-cue">See how it fits
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+    </div>
+  </div><!-- /.container (hero) -->
+  </div><!-- /.hero-screen -->
+
+  <div class="container">
     <!-- 1. Popular size -->
     <div class="box">
       <div class="eyebrow">What our community wears</div>
