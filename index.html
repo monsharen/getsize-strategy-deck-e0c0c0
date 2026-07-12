@@ -319,6 +319,32 @@
   .lever .line.effect .lbl { color: var(--pos); }
   .lever .line.need .lbl { color: var(--accent); }
   .lever .line.risk .lbl { color: var(--neg); }
+  /* decision: paths comparison */
+  .paths { display: flex; flex-direction: column; gap: 14px; margin-top: 6px; }
+  .path { background: var(--surface); border: 1px solid var(--line); border-radius: 6px;
+          padding: 18px 20px; display: grid; grid-template-columns: 1fr auto; gap: 12px 26px;
+          align-items: center; }
+  @media (max-width: 760px){ .path { grid-template-columns: 1fr; } }
+  .path h4 { margin: 0 0 5px; font-size: 16.5px; letter-spacing: -0.01em; }
+  .path .bet { font-size: 13.5px; color: var(--ink-soft); }
+  .path .desc { grid-column: 1 / -1; margin: 0; padding-top: 12px; border-top: 1px solid var(--line);
+                font-size: 13.5px; color: var(--ink-soft); max-width: none; }
+  .path-stats { display: flex; gap: 22px; }
+  .path-stats > div { display: flex; flex-direction: column; gap: 3px; text-align: right; }
+  .path-stats .k { font-family: var(--font-mono); font-size: 9.5px; letter-spacing: .08em;
+                   text-transform: uppercase; color: var(--ink-faint); }
+  .path-stats .v { font-family: var(--font-mono); font-size: 13px; font-weight: 600; white-space: nowrap; }
+  .path-stats .v.good { color: var(--pos); }
+  .path-stats .v.mid { color: var(--ink-soft); }
+  .path-stats .v.bad { color: var(--neg); }
+  /* decision: judgment-call questions */
+  .qlist { list-style: none; padding: 0; margin: 16px 0 0; display: flex; flex-direction: column;
+           gap: 15px; counter-reset: q; }
+  .qlist li { display: grid; grid-template-columns: 30px 1fr; gap: 12px; max-width: 58ch; }
+  .qlist li::before { counter-increment: q; content: "Q" counter(q); font-family: var(--font-mono);
+                      font-size: 12px; color: var(--accent); padding-top: 3px; }
+  .qlist li div { font-size: 15px; color: var(--ink); }
+  .qlist li span { color: var(--ink-soft); font-size: 13px; display: block; margin-top: 4px; }
 
   /* reveal */
   .reveal { opacity: 0; transform: translateY(14px); transition: opacity .6s ease, transform .6s ease; }
@@ -337,11 +363,11 @@
 <!-- 01 TITLE -->
 <section class="slide title-slide" id="s1">
   <div class="inner">
-    <div class="eyebrow"><span class="num">GETSIZE.SHOES</span> &nbsp; Search strategy review</div>
-    <h1>We are shrinking on Google.<br>Here is why, and the fix.</h1>
+    <div class="eyebrow"><span class="num">GETSIZE.SHOES</span> &nbsp; Search strategy &middot; for the three of us to decide</div>
+    <h1>We are shrinking on Google.<br>The data, and our options.</h1>
     <p class="lead">Organic traffic has fallen 59% since April and is still dropping two months
-      after Google's May core update. This is not a slump we wait out. It is structural, and it
-      is fixable.</p>
+      after Google's May core update. This is structural, not a slump we wait out. This deck lays
+      out what the data shows and the paths open to us, so the three of us can decide together.</p>
     <div class="title-meta">
       <span><span class="dot"></span> Prepared 12 Jul 2026</span>
       <span><span class="dot"></span> Source: Google Search Console + product database</span>
@@ -502,8 +528,8 @@ chart = modifier <span class="k">!=</span> 0
 <!-- 06 THE STRATEGY / POSITIONING -->
 <section class="slide" id="s6">
   <div class="inner">
-    <div class="eyebrow"><span class="num">06</span> The new strategy</div>
-    <h2>Stop selling page count. Sell authority and a tool.</h2>
+    <div class="eyebrow"><span class="num">06</span> Where the data points</div>
+    <h2>What the data points to, and the one open question.</h2>
     <div class="position">
       <div class="label">How Google should see us</div>
       <div class="text">GetSize is the <em>authoritative source for official, brand-verified shoe
@@ -516,7 +542,7 @@ chart = modifier <span class="k">!=</span> 0
     <div class="tiers">
       <div class="tier keep"><div class="tag">Front door</div><div><h4>Homepage + <span class="count">~130</span> brand hubs</h4><p>Our biggest engine and highest-volume terms. Made best-in-class, aimed at top 3.</p></div></div>
       <div class="tier keep2"><div class="tag">Spokes</div><div><h4><span class="count">~2,964</span> product pages with crawled charts + <span class="count">213</span> real editorial pages</h4><p>Kept and enriched. Each carries a genuinely unique per-model chart.</p></div></div>
-      <div class="tier prune"><div class="tag">Prune</div><div><h4><span class="count">1,854</span> thin editorial pages <span style="color:var(--ink-faint);font-weight:400;">(+ assess ~12,500 thin product pages)</span></h4><p>Folded into their brand hub, then noindexed or redirected. No longer separate index entries.</p></div></div>
+      <div class="tier prune"><div class="tag">Decide</div><div><h4><span class="count">~17,500</span> thin pages <span style="color:var(--ink-faint);font-weight:400;">(1,854 editorial + ~12,500 product)</span></h4><p>The editorial layer is demoted; the product pages held. <strong>How far and how fast we act on these is the open question</strong>, and the next slide lays out the choices.</p></div></div>
       <div class="tier tool"><div class="tag">Moat</div><div><h4>Cross-brand size-conversion tool</h4><p>Real interactive utility Google cannot call "thin", and the thing that earns links.</p></div></div>
     </div>
   </div>
@@ -525,14 +551,41 @@ chart = modifier <span class="k">!=</span> 0
 <!-- 07 THE FIVE MOVES -->
 <section class="slide" id="s7">
   <div class="inner">
-    <div class="eyebrow"><span class="num">07</span> Five moves</div>
-    <h2>What we actually do.</h2>
-    <div class="moves">
-      <div class="move flag"><div class="mi">01</div><div><h4>Fix the index footprint</h4><p>Fold the 1,854 thin editorial pages first (Adidas + Puma), then assess the ~12,500 thin product pages. Index shrinks from ~20,700 toward ~3,200 pages that earn their place. Staged and reversible.</p></div></div>
-      <div class="move"><div class="mi">02</div><div><h4>Make brand pages best-in-class</h4><p>Unique content per brand, prominent size tool, click-tuned titles, FAQ and table schema. Target top 3 for "[brand] size chart".</p></div></div>
-      <div class="move"><div class="mi">03</div><div><h4>Win the 213 real model pages</h4><p>Enrich with the first-hand data Google rewards: community fit and conflicting-official-chart callouts.</p></div></div>
-      <div class="move"><div class="mi">04</div><div><h4>Build the moat</h4><p>Ship the cross-brand size-conversion tool that answers real queries like "zara size 38 in US" and "haaland shoe size EU".</p></div></div>
-      <div class="move"><div class="mi">05</div><div><h4>Rebuild authority signals</h4><p>Clean sitemap, hub-centred internal links, weekly recovery monitoring in Search Console.</p></div></div>
+    <div class="eyebrow"><span class="num">07</span> The paths forward</div>
+    <h2>Three ways to act. Same foundation, different bet.</h2>
+    <div class="paths">
+      <div class="path">
+        <div><h4>Path 1 &middot; Surgical</h4><span class="bet">Bet: the editorial layer is the drag; the product pages that held are fine.</span></div>
+        <div class="path-stats">
+          <div><span class="k">Effort</span><span class="v good">Low&ndash;med</span></div>
+          <div><span class="k">Risk</span><span class="v good">Low</span></div>
+          <div><span class="k">Recovery</span><span class="v mid">Medium</span></div>
+        </div>
+        <p class="desc">Fold the 1,854 demoted editorial pages only. Keep and enrich the 15,500 product pages. Invest in hub CTR and the tool. The smallest change that could work.</p>
+      </div>
+      <div class="path">
+        <div><h4>Path 2 &middot; Aggressive</h4><span class="bet">Bet: sitewide quality is the whole game; cut all thin pages hard.</span></div>
+        <div class="path-stats">
+          <div><span class="k">Effort</span><span class="v mid">Medium</span></div>
+          <div><span class="k">Risk</span><span class="v bad">Higher</span></div>
+          <div><span class="k">Recovery</span><span class="v good">Fastest</span></div>
+        </div>
+        <p class="desc">Also noindex the ~12,500 thin product pages; the index drops to ~3,200. Strongest quality signal, but it touches a family that currently holds rankings.</p>
+      </div>
+      <div class="path">
+        <div><h4>Path 3 &middot; Differentiate</h4><span class="bet">Bet: our reach is worth saving; manufacture uniqueness from data.</span></div>
+        <div class="path-stats">
+          <div><span class="k">Effort</span><span class="v bad">High</span></div>
+          <div><span class="k">Risk</span><span class="v mid">Medium</span></div>
+          <div><span class="k">Recovery</span><span class="v mid">Slow</span></div>
+        </div>
+        <p class="desc">Keep the pages; make thin ones unique with data-backed content and community, prune only the truly empty. Preserves reach, but is expensive and slow, and cheap content would backfire.</p>
+      </div>
+    </div>
+    <div class="extend">
+      <span class="tag">Shared base</span>
+      <p>All three start from the same no-regret moves: lift hub CTR, build the conversion tool,
+        clean the sitemap. What differs is how we handle the ~17,500 thin pages.</p>
     </div>
   </div>
 </section>
@@ -541,9 +594,10 @@ chart = modifier <span class="k">!=</span> 0
 <section class="slide" id="s7b">
   <div class="inner">
     <div class="eyebrow"><span class="num">08</span> Under the hood &middot; new</div>
-    <h2>How the new system decides what to index.</h2>
-    <p class="lead">Every page has to earn its slot in the index. One rule decides. Everything that
-      fails is folded into its brand hub instead of standing alone as a near-duplicate.</p>
+    <h2>If we consolidate, this is the mechanism.</h2>
+    <p class="lead">For the paths that involve pruning, one rule decides what earns a slot in the
+      index. Everything that fails is folded into its brand hub instead of standing alone as a
+      near-duplicate. Shown here so the how is concrete, not the whether.</p>
     <div class="tech-grid">
       <div>
         <div class="kicker" style="margin-bottom:10px;">The index decision</div>
@@ -595,7 +649,7 @@ chart = modifier <span class="k">!=</span> 0
     <div class="eyebrow"><span class="num">09</span> Expected performance</div>
     <div class="grid2">
       <div>
-        <h2>A 2.5–3.5x recovery, mostly by pruning, not spending.</h2>
+        <h2>What is at stake: the recoverable upside.</h2>
         <ul class="clean">
           <li><strong>The ceiling is proven.</strong> We did 7,799 clicks / 28 days in April with
             the same good pages we still have.</li>
@@ -616,7 +670,7 @@ chart = modifier <span class="k">!=</span> 0
     </div>
     <div class="stats">
       <div class="stat"><div class="v pos">8–12k</div><div class="l">Monthly clicks target (6 months)</div></div>
-      <div class="stat"><div class="v acc">~3,200</div><div class="l">Indexed pages, down from ~20,700</div></div>
+      <div class="stat"><div class="v acc">~3,200</div><div class="l">Unique pages (of ~20,700) if we consolidate</div></div>
       <div class="stat"><div class="v pos">2.5–3.5x</div><div class="l">Traffic vs today</div></div>
     </div>
   </div>
@@ -629,7 +683,7 @@ chart = modifier <span class="k">!=</span> 0
     <div class="grid2">
       <div>
         <h2>What we give up, and what to avoid.</h2>
-        <p class="lead">We start by folding the 1,854 thin editorial pages, then assess the
+        <p class="lead">Any prune path folds the 1,854 thin editorial pages first, and assesses the
           ~12,500 thin product pages carefully, since that family still holds rankings. The pages
           we prune convert at nearly 0% and are the anchor dragging the domain, so we trade
           near-zero real clicks for a shot at sitewide recovery. Standard post-core-update playbook.</p>
@@ -652,13 +706,35 @@ chart = modifier <span class="k">!=</span> 0
 <!-- 10 NEXT STEPS -->
 <section class="slide" id="s10">
   <div class="inner">
-    <div class="eyebrow"><span class="num">11</span> The ask</div>
-    <h2>Approve the prune. Start with Adidas + Puma.</h2>
-    <div class="timeline">
-      <div class="step"><div class="w">WEEK 0</div><h4>Ship the index-footprint fix</h4><p>Noindex/redirect Adidas + Puma thin pages, fold content into hubs, clean the sitemap.</p></div>
-      <div class="step"><div class="w">WEEK 1–4</div><h4>CTR pass on the top 30 brand pages</h4><p>Titles, meta, schema, prominent tool. Measure Adidas/Puma recovery.</p></div>
-      <div class="step"><div class="w">WEEK 4–8</div><h4>Extend the prune, enrich the keepers</h4><p>Roll out once lift is confirmed. Add community and official-chart data to the 213.</p></div>
-      <div class="step"><div class="w">WEEK 6–12</div><h4>Launch the cross-brand size tool</h4><p>The moat, plus the start of link outreach.</p></div>
+    <div class="eyebrow"><span class="num">11</span> The decision</div>
+    <h2>This call is ours to make together.</h2>
+    <p class="lead">The data narrows it to the three paths. Choosing between them is a judgment
+      about risk, effort, and where we believe our moat is. Here is what we still have to weigh.</p>
+    <div class="grid2" style="align-items:start;margin-top:6px;">
+      <div>
+        <div class="kicker" style="margin-bottom:4px;">The judgment calls</div>
+        <ul class="qlist">
+          <li><div>How much short-term traffic will we trade for a faster, cleaner recovery?</div></li>
+          <li><div>Are the ~15,500 product pages an asset or dead weight?<span>We can settle this with a per-family impressions and clicks pull before we decide.</span></div></li>
+          <li><div>Do we cut, or invest in making thin pages unique?<span>An effort and headcount question as much as an SEO one.</span></div></li>
+          <li><div>What is our moat: page coverage, or the tool plus brand authority?</div></li>
+        </ul>
+      </div>
+      <div>
+        <div class="proofcard win" style="border-left-color:var(--pos);">
+          <div class="h">No-regret moves, start on any path</div>
+          <ul class="tech-list" style="margin-top:2px;">
+            <li>Lift hub CTR: titles, meta, FAQ and table schema.</li>
+            <li>Build the cross-brand conversion tool.</li>
+            <li>Clean the sitemap; fix hreflang on localized pages.</li>
+          </ul>
+        </div>
+        <div class="extend" style="margin-top:16px;">
+          <span class="tag">De-risk</span>
+          <p>Whichever way we lean on the thin pages, pilot it first (Adidas + Puma, or ~150
+            product pages), read GSC for 4-8 weeks, then commit.</p>
+        </div>
+      </div>
     </div>
     <div class="source">Full strategy: docs/seo/seo-strategy-2026-07.md · Data: GSC sc-domain:getsize.shoes, 28 days to 2026-07-10</div>
   </div>
@@ -668,9 +744,9 @@ chart = modifier <span class="k">!=</span> 0
 <section class="slide" id="sA">
   <div class="inner">
     <div class="eyebrow"><span class="num">A</span> Appendix &middot; levers under evaluation</div>
-    <h2>Other levers we are weighing.</h2>
-    <p class="lead">Not part of the committed plan. Each is shown with its potential effect and
-      what would have to be true to make it help rather than hurt.</p>
+    <h2>Longer-term levers, beyond the three paths.</h2>
+    <p class="lead">Separate from the near-term decision. Each is shown with its potential effect
+      and what would have to be true to make it help rather than hurt.</p>
     <div class="levers">
       <div class="lever">
         <h4>Product-specific editorial content</h4>
