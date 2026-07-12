@@ -8,26 +8,20 @@
 <style>
   :root {
     --gs-font: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-    --gs-text: #1c1c1e;
-    --gs-text-secondary: #8e8e93;
-    --gs-accent: #00d1b2;
-    --gs-accent-deep: #009e86;
-    --gs-bg: #f5f5f7;
-    --gs-surface: #ffffff;
-    --gs-fill: #f0f1f3;
-    --gs-separator: rgba(60, 60, 67, 0.11);
-    --gs-radius: 14px;
-    --gs-shadow: 0 1px 3px rgba(0, 0, 0, 0.07);
-    --gs-transition: 0.15s ease;
+    --gs-text: #1c1c1e; --gs-text-secondary: #8e8e93;
+    --gs-accent: #00d1b2; --gs-accent-deep: #009e86;
+    --gs-bg: #f5f5f7; --gs-surface: #ffffff; --gs-fill: #f0f1f3;
+    --gs-separator: rgba(60,60,67,0.11); --gs-separator-soft: rgba(60,60,67,0.06);
+    --gs-radius: 14px; --gs-shadow: 0 1px 3px rgba(0,0,0,0.07); --gs-transition: 0.15s ease;
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
   body { font-family: var(--gs-font); color: var(--gs-text); background: var(--gs-bg);
     min-height: 100vh; display: flex; flex-direction: column; -webkit-font-smoothing: antialiased; line-height: 1.5; }
   a { color: inherit; text-decoration: none; }
 
-  .gs-nav { position: sticky; top: 0; z-index: 100; height: 52px;
-    background: rgba(245,245,247,0.72); backdrop-filter: saturate(180%) blur(20px);
-    -webkit-backdrop-filter: saturate(180%) blur(20px); border-bottom: 0.5px solid var(--gs-separator); }
+  .gs-nav { position: sticky; top: 0; z-index: 100; height: 52px; background: rgba(245,245,247,0.72);
+    backdrop-filter: saturate(180%) blur(20px); -webkit-backdrop-filter: saturate(180%) blur(20px);
+    border-bottom: 0.5px solid var(--gs-separator); }
   .gs-nav-inner { max-width: 600px; margin: 0 auto; padding: 0 1.5rem; height: 100%;
     display: flex; align-items: center; justify-content: space-between; }
   .gs-nav-logo { font-size: 1.125rem; font-weight: 700; letter-spacing: -0.01em; }
@@ -35,27 +29,41 @@
   .gs-nav-link { font-size: 0.8125rem; font-weight: 500; color: var(--gs-text-secondary); }
 
   main { flex: 1; }
-  .container { max-width: 600px; margin: 0 auto; padding: 2.25rem 1.5rem 1rem; }
+  .container { max-width: 600px; margin: 0 auto; padding: 1.5rem 1.5rem 1rem; }
 
   .proto { display: inline-block; font-size: 0.66rem; font-weight: 600; letter-spacing: 0.03em;
-    color: var(--gs-accent-deep); background: rgba(0,209,178,0.10); border-radius: 980px; padding: 3px 10px; margin-bottom: 1rem; }
-  .crumb { font-size: 0.75rem; color: var(--gs-text-secondary); margin-bottom: 0.4rem; }
-  h1.page-title { font-size: 1.7rem; font-weight: 700; letter-spacing: -0.022em; margin-bottom: 1.9rem; }
+    color: var(--gs-accent-deep); background: rgba(0,209,178,0.10); border-radius: 980px; padding: 3px 10px; margin-bottom: 1.1rem; }
 
-  /* card */
+  /* header */
+  .head { text-align: center; margin-bottom: 1.5rem; }
+  .head .brand { font-size: 0.875rem; color: var(--gs-text-secondary); margin-bottom: 0.15rem; }
+  .head h1 { font-size: 1.55rem; font-weight: 700; letter-spacing: -0.022em; margin-bottom: 0.5rem; }
+  .head .tag { font-size: 0.9rem; color: var(--gs-text-secondary); max-width: 42ch; margin: 0 auto; }
+
+  /* faked sizing tool */
+  .tool { background: var(--gs-surface); border-radius: var(--gs-radius); box-shadow: var(--gs-shadow);
+    border: 0.5px solid var(--gs-separator); padding: 1.4rem; margin-bottom: 1.6rem; }
+  .tool h2 { font-size: 1.05rem; font-weight: 600; letter-spacing: -0.01em; }
+  .tool p { font-size: 0.85rem; color: var(--gs-text-secondary); margin-top: 0.25rem; }
+  .tool-input { display: flex; gap: 0.5rem; margin-top: 1rem; }
+  .tool-field { flex: 1; height: 46px; border: 0.5px solid var(--gs-separator); background: var(--gs-fill);
+    border-radius: 980px; padding: 0 1.1rem; display: flex; align-items: center; color: var(--gs-text-secondary); font-size: 0.9rem; }
+  .tool-btn { height: 46px; padding: 0 1.4rem; border: none; border-radius: 980px; background: var(--gs-accent);
+    color: #fff; font-family: var(--gs-font); font-weight: 600; font-size: 0.9rem; cursor: pointer; white-space: nowrap; }
+  .tool-note { font-size: 0.75rem; color: var(--gs-text-secondary); margin-top: 0.7rem; text-align: center; }
+  .tool-note a { color: var(--gs-accent-deep); font-weight: 600; }
+
+  /* insight cards */
   .box { background: var(--gs-surface); border-radius: var(--gs-radius); box-shadow: var(--gs-shadow);
     border: 0.5px solid var(--gs-separator); padding: 1.5rem 1.5rem 1.65rem; margin-bottom: 1.1rem; }
   .eyebrow { font-size: 0.7rem; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase;
     color: var(--gs-text-secondary); margin-bottom: 0.9rem; }
-
-  /* big answer */
   .answer { font-size: 2.6rem; font-weight: 700; letter-spacing: -0.03em; line-height: 1; font-variant-numeric: tabular-nums; }
   .answer.small { color: var(--gs-text); }
   .answer .unit { font-size: 1.4rem; font-weight: 600; color: var(--gs-text-secondary); letter-spacing: -0.01em; }
   .sub { font-size: 0.82rem; color: var(--gs-text-secondary); margin-top: 0.55rem; }
   .sub b { color: var(--gs-text); font-weight: 600; }
 
-  /* ruler */
   .ruler-scroll { overflow-x: auto; margin-top: 1.4rem; -webkit-overflow-scrolling: touch; }
   .ruler { min-width: 500px; }
   .bars { display: flex; align-items: flex-end; gap: 5px; height: 120px; }
@@ -68,7 +76,6 @@
     color: var(--gs-text-secondary); font-variant-numeric: tabular-nums; }
   .tick.hot { color: var(--gs-accent-deep); }
 
-  /* fit: runs small */
   .fit-top { display: flex; align-items: center; gap: 0.7rem; }
   .fit-icon { width: 34px; height: 34px; flex: 0 0 auto; border-radius: 50%; background: rgba(0,209,178,0.12);
     display: flex; align-items: center; justify-content: center; color: var(--gs-accent-deep); font-size: 1.2rem; font-weight: 700; }
@@ -79,7 +86,6 @@
   .conv .to { font-size: 1.15rem; font-weight: 700; letter-spacing: -0.01em; margin-top: 0.15rem; font-variant-numeric: tabular-nums; }
   .conv .to .up { color: var(--gs-accent-deep); }
 
-  /* alongside */
   .along { display: flex; flex-direction: column; gap: 0.85rem; margin-top: 1.2rem; }
   .along-row { display: grid; grid-template-columns: 96px 1fr; align-items: center; gap: 0.85rem; }
   .along-row .name { font-size: 0.9rem; font-weight: 600; }
@@ -88,7 +94,6 @@
   .along-row.animate .fill { animation: growW 0.65s cubic-bezier(0.22,0.7,0.24,1) both; }
   @keyframes growW { from { transform: scaleX(0); } to { transform: scaleX(1); } }
 
-  /* did it fit */
   .fit-buttons { display: flex; gap: 0.5rem; margin-top: 1.1rem; }
   .fit-btn { flex: 1; min-height: 46px; border: 0.5px solid var(--gs-separator); background: var(--gs-surface);
     border-radius: 980px; font-family: var(--gs-font); font-size: 0.9rem; font-weight: 600; color: var(--gs-text);
@@ -96,7 +101,34 @@
   .fit-btn:hover { border-color: var(--gs-accent); color: var(--gs-accent-deep); }
   .fit-btn.sel { background: var(--gs-accent); color: #fff; border-color: var(--gs-accent); }
 
-  .gs-footer { border-top: 1px solid var(--gs-separator); padding: 2.25rem 1.5rem; margin-top: 1.25rem; text-align: center; }
+  /* below-fold accordions */
+  .below { margin-top: 1.6rem; }
+  .section-label { font-size: 0.6875rem; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase;
+    color: var(--gs-text-secondary); margin: 1.6rem 0 0.2rem; }
+  .acc { border-top: 0.5px solid var(--gs-separator); }
+  .acc:last-of-type { border-bottom: 0.5px solid var(--gs-separator); }
+  .acc-trigger { width: 100%; background: none; border: none; padding: 1.1rem 0; display: flex; align-items: center;
+    justify-content: space-between; gap: 1rem; font-family: var(--gs-font); font-size: 0.95rem; font-weight: 600;
+    color: var(--gs-text); cursor: pointer; text-align: left; }
+  .acc-trigger:hover { color: var(--gs-accent-deep); }
+  .acc-chevron { width: 18px; height: 18px; flex: 0 0 auto; color: var(--gs-text-secondary); transition: transform 0.25s ease; }
+  .acc.open .acc-chevron { transform: rotate(180deg); }
+  .acc-body { max-height: 0; overflow: hidden; transition: max-height 0.3s ease; }
+  .acc.open .acc-body { max-height: 720px; }
+  .acc-inner { padding: 0 0 1.2rem; font-size: 0.9rem; color: var(--gs-text-secondary); line-height: 1.6; }
+  .acc-inner p + p { margin-top: 0.7rem; }
+
+  table.chart { width: 100%; border-collapse: collapse; font-size: 0.85rem; font-variant-numeric: tabular-nums; }
+  table.chart th { text-align: left; font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.04em;
+    color: var(--gs-text-secondary); font-weight: 600; padding: 0 0 0.5rem; }
+  table.chart td { padding: 0.4rem 0; border-top: 0.5px solid var(--gs-separator-soft); color: var(--gs-text); }
+  table.chart tr.hot td { color: var(--gs-accent-deep); font-weight: 700; }
+  .empty-comments { text-align: center; padding: 0.5rem 0 0.3rem; }
+  .empty-comments .ec-title { font-weight: 600; color: var(--gs-text); font-size: 0.9rem; }
+  .empty-comments .ec-cta { display: inline-block; margin-top: 0.7rem; font-size: 0.85rem; font-weight: 600;
+    color: #fff; background: var(--gs-accent); border-radius: 980px; padding: 0.55rem 1.2rem; }
+
+  .gs-footer { border-top: 1px solid var(--gs-separator); padding: 2.25rem 1.5rem; margin-top: 1.75rem; text-align: center; }
   .gs-footer a { font-size: 0.8125rem; color: var(--gs-text-secondary); margin: 0 0.75rem; }
   .gs-footer-bottom { font-size: 0.6875rem; color: rgba(60,60,67,0.4); margin-top: 1.25rem; }
 </style>
@@ -113,8 +145,23 @@
 <main>
   <div class="container">
     <span class="proto">Prototype · live data</span>
-    <div class="crumb">Adidas › Adizero Evo SL</div>
-    <h1 class="page-title">Adidas Adizero Evo SL</h1>
+
+    <div class="head">
+      <div class="brand">Adidas</div>
+      <h1>Adizero Evo SL</h1>
+      <div class="tag">Our tool compares official Adidas size charts to find your perfect size. No measuring needed.</div>
+    </div>
+
+    <!-- Sizing tool (faked entry point) -->
+    <div class="tool">
+      <h2>Find your size</h2>
+      <p>Add a shoe you already own that fits you well.</p>
+      <div class="tool-input">
+        <div class="tool-field">Search a shoe you own…</div>
+        <button class="tool-btn" type="button">Find my size</button>
+      </div>
+      <div class="tool-note">or <a href="#">enter your foot measurement</a></div>
+    </div>
 
     <!-- 1. Popular size -->
     <div class="box">
@@ -157,6 +204,62 @@
         <button class="fit-btn" data-v="l">Large</button>
       </div>
     </div>
+
+    <!-- Below-fold standard content -->
+    <div class="below">
+      <div class="acc" id="acc-chart">
+        <button class="acc-trigger" onclick="accToggle('acc-chart')">Official Adidas size chart
+          <svg class="acc-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg></button>
+        <div class="acc-body"><div class="acc-inner">
+          <table class="chart">
+            <thead><tr><th>EU</th><th>US</th><th>UK</th><th>Foot (cm)</th></tr></thead>
+            <tbody>
+              <tr><td>41⅓</td><td>8</td><td>7.5</td><td>25.5</td></tr>
+              <tr><td>42</td><td>8.5</td><td>8</td><td>25.9</td></tr>
+              <tr><td>42⅔</td><td>9</td><td>8.5</td><td>26.3</td></tr>
+              <tr><td>43⅓</td><td>9.5</td><td>9</td><td>26.7</td></tr>
+              <tr><td>44</td><td>10</td><td>9.5</td><td>27.1</td></tr>
+              <tr class="hot"><td>44⅔</td><td>10.5</td><td>10</td><td>27.6</td></tr>
+              <tr><td>45⅓</td><td>11</td><td>10.5</td><td>28.0</td></tr>
+              <tr><td>46</td><td>11.5</td><td>11</td><td>28.4</td></tr>
+            </tbody>
+          </table>
+        </div></div>
+      </div>
+
+      <div class="section-label">Frequently asked</div>
+      <div class="acc" id="acc-faq1">
+        <button class="acc-trigger" onclick="accToggle('acc-faq1')">Does the Adizero Evo SL run small or large?
+          <svg class="acc-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg></button>
+        <div class="acc-body"><div class="acc-inner"><p>The Adizero Evo SL runs slightly small. People who own an Asics running shoe are typically recommended about half a size larger in the Evo SL, so plan to size up. Use the tool above to get your exact size from a shoe you already own.</p></div></div>
+      </div>
+      <div class="acc" id="acc-faq2">
+        <button class="acc-trigger" onclick="accToggle('acc-faq2')">What size Adizero Evo SL should I get?
+          <svg class="acc-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg></button>
+        <div class="acc-body"><div class="acc-inner"><p>Your Adizero Evo SL size depends on the shoes you already wear. Most people are recommended EU 42–45⅓, with EU 44⅔ the single most common. Add a shoe you own to the tool above for a personal recommendation.</p></div></div>
+      </div>
+
+      <div class="section-label">Community</div>
+      <div class="acc" id="acc-comments">
+        <button class="acc-trigger" onclick="accToggle('acc-comments')">Comments
+          <svg class="acc-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg></button>
+        <div class="acc-body"><div class="acc-inner"><div class="empty-comments">
+          <div class="ec-title">No comments yet</div>
+          <div>Own the Evo SL? Share how it fits.</div>
+          <span class="ec-cta">Add a comment</span>
+        </div></div></div>
+      </div>
+
+      <div class="acc" id="acc-brand">
+        <button class="acc-trigger" onclick="accToggle('acc-brand')">About Adidas sizing
+          <svg class="acc-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg></button>
+        <div class="acc-body"><div class="acc-inner">
+          <p>Adidas is a German sportswear giant founded in 1949. It is one of the largest athletic shoe manufacturers worldwide, known for its three-stripe trademark and technologies like Boost, 4DFWD and Lightstrike cushioning.</p>
+          <p>Adidas sizing varies by category. Running shoes typically run true to size; lifestyle models fit true but can feel narrow; football boots are snug by design. For most Adidas sneakers, order your regular size.</p>
+        </div></div>
+      </div>
+    </div>
+
   </div>
 </main>
 
@@ -166,7 +269,6 @@
 </footer>
 
 <script>
-  // Real recommended-size distribution for the Adizero Evo SL. [EU, foot mm, recs]
   var DATA = [
     ["36",221,1],["36⅔",225,1],["37⅓",229,5],["38",233,8],["38⅔",238,7],["39⅓",242,6],
     ["40",246,17],["40⅔",250,27],["41⅓",255,43],["42",259,47],["42⅔",263,50],["43⅓",267,56],
@@ -189,16 +291,13 @@
   requestAnimationFrame(function(){ fills.forEach(function(f){ f[0].style.height = reduce?f[1]+"%":"0%"; });
     if(!reduce) requestAnimationFrame(function(){ fills.forEach(function(f){ f[0].style.height=f[1]+"%"; }); }); });
 
-  // axis: only a few EU labels, peak highlighted
   var show = {"40":1,"42":1,"44⅔":1,"48":1};
   var axisEl = document.getElementById("axis");
   DATA.forEach(function(d,i){
     if(!show[d[0]]) return;
     var t = document.createElement("div"); t.className = "tick" + (i===peakIdx?" hot":"");
-    t.style.left = ((i+0.5)/DATA.length*100) + "%"; t.textContent = d[0];
-    axisEl.appendChild(t);
+    t.style.left = ((i+0.5)/DATA.length*100) + "%"; t.textContent = d[0]; axisEl.appendChild(t);
   });
-
   document.getElementById("popSub").innerHTML = "From <b>205 people</b> who sized it · most between EU 42 and 45⅓";
 
   var alongEl = document.getElementById("along"), amax = ALONGSIDE[0][1];
@@ -215,6 +314,9 @@
       b.classList.add("sel");
     });
   });
+
+  function accToggle(id){ document.getElementById(id).classList.toggle("open"); }
+  window.accToggle = accToggle;
 </script>
 </body>
 </html>
