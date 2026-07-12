@@ -3,8 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Adidas Samba size chart | GetSize</title>
-<!-- Real font in-app; falls back to San Francisco / system elsewhere -->
+<title>Adidas Adizero Evo SL size chart | GetSize</title>
 <link rel="stylesheet" href="/css/fonts/plus-jakarta-sans.css">
 <style>
   /* GetSize design system (Apple HIG: clarity, deference, depth) */
@@ -14,6 +13,7 @@
     --gs-text-secondary: #8e8e93;
     --gs-accent: #00d1b2;
     --gs-accent-deep: #009e86;
+    --gs-warn: #c77700;
     --gs-bg: #f5f5f7;
     --gs-surface: #ffffff;
     --gs-fill: #f0f1f3;
@@ -25,26 +25,13 @@
     --gs-transition: 0.15s ease;
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
-  body {
-    font-family: var(--gs-font);
-    color: var(--gs-text);
-    background: var(--gs-bg);
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    -webkit-font-smoothing: antialiased;
-    line-height: 1.5;
-  }
+  body { font-family: var(--gs-font); color: var(--gs-text); background: var(--gs-bg);
+    min-height: 100vh; display: flex; flex-direction: column; -webkit-font-smoothing: antialiased; line-height: 1.5; }
   a { color: inherit; text-decoration: none; }
 
-  /* --- Navbar (deference via translucency) --- */
-  .gs-nav {
-    position: sticky; top: 0; z-index: 100; height: 52px;
-    background: rgba(245, 245, 247, 0.72);
-    backdrop-filter: saturate(180%) blur(20px);
-    -webkit-backdrop-filter: saturate(180%) blur(20px);
-    border-bottom: 0.5px solid var(--gs-separator);
-  }
+  .gs-nav { position: sticky; top: 0; z-index: 100; height: 52px;
+    background: rgba(245, 245, 247, 0.72); backdrop-filter: saturate(180%) blur(20px);
+    -webkit-backdrop-filter: saturate(180%) blur(20px); border-bottom: 0.5px solid var(--gs-separator); }
   .gs-nav-inner { max-width: 640px; margin: 0 auto; padding: 0 1.5rem; height: 100%;
     display: flex; align-items: center; justify-content: space-between; }
   .gs-nav-logo { font-size: 1.125rem; font-weight: 700; letter-spacing: -0.01em; }
@@ -56,41 +43,33 @@
   main { flex: 1; }
   .container { max-width: 640px; margin: 0 auto; padding: 2rem 1.5rem 1rem; }
 
-  /* --- POC banner (Apple info style, quiet) --- */
-  .poc-note {
-    background: rgba(0, 209, 178, 0.08);
-    border: 0.5px solid rgba(0, 209, 178, 0.28);
-    border-radius: var(--gs-radius-sm);
-    padding: 0.7rem 0.9rem; font-size: 0.78rem; color: var(--gs-accent-deep);
-    margin-bottom: 1.75rem; line-height: 1.5;
-  }
-  .poc-note strong { color: var(--gs-accent-deep); font-weight: 700; }
+  .poc-note { background: rgba(0, 209, 178, 0.08); border: 0.5px solid rgba(0, 209, 178, 0.28);
+    border-radius: var(--gs-radius-sm); padding: 0.7rem 0.9rem; font-size: 0.78rem; color: var(--gs-accent-deep);
+    margin-bottom: 1.75rem; line-height: 1.5; }
+  .poc-note strong { font-weight: 700; }
 
-  /* --- Page header --- */
-  .crumb { font-size: 0.75rem; color: var(--gs-text-secondary); margin-bottom: 0.5rem; letter-spacing: 0.01em; }
+  .crumb { font-size: 0.75rem; color: var(--gs-text-secondary); margin-bottom: 0.5rem; }
   .crumb a:hover { color: var(--gs-accent-deep); }
   h1.page-title { font-size: 1.75rem; font-weight: 700; letter-spacing: -0.021em; margin-bottom: 0.2rem; }
   .page-sub { font-size: 0.95rem; color: var(--gs-text-secondary); margin-bottom: 1.75rem; }
 
-  /* --- Cards (.box, soft depth) --- */
-  .box {
-    background: var(--gs-surface); border-radius: var(--gs-radius);
-    box-shadow: var(--gs-shadow); border: 0.5px solid var(--gs-separator);
-    padding: 1.5rem; margin-bottom: 1.25rem;
-  }
+  .box { background: var(--gs-surface); border-radius: var(--gs-radius); box-shadow: var(--gs-shadow);
+    border: 0.5px solid var(--gs-separator); padding: 1.5rem; margin-bottom: 1.25rem; }
   .box-head { display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
   .box-title { font-size: 1.0625rem; font-weight: 600; letter-spacing: -0.01em; }
   .box-note { font-size: 0.72rem; color: var(--gs-text-secondary); }
   .box-lead { font-size: 0.9rem; color: var(--gs-text-secondary); margin-top: 0.35rem; }
+  .search-tag { display: inline-block; font-size: 0.68rem; color: var(--gs-text-secondary);
+    background: var(--gs-fill); border-radius: 980px; padding: 3px 10px; margin-top: 0.9rem; }
+  .search-tag b { color: var(--gs-text); font-weight: 600; }
 
-  /* --- Headline stat (clear focal point) --- */
   .headline { margin: 1.35rem 0 0.15rem; display: flex; align-items: baseline; gap: 0.5rem; flex-wrap: wrap; }
   .headline .big { font-size: 2.15rem; font-weight: 700; letter-spacing: -0.025em; color: var(--gs-accent-deep);
     font-variant-numeric: tabular-nums; line-height: 1; }
   .headline .lbl { font-size: 0.9rem; color: var(--gs-text-secondary); }
   .headline .em { color: var(--gs-text); font-weight: 600; }
 
-  /* --- The ruler --- */
+  /* ruler */
   .ruler-scroll { overflow-x: auto; padding-bottom: 0.25rem; margin-top: 1.35rem; -webkit-overflow-scrolling: touch; }
   .ruler { min-width: 540px; }
   .bars { display: flex; align-items: flex-end; gap: 4px; height: 148px; }
@@ -98,29 +77,24 @@
   .bar .fill { width: 100%; border-radius: 4px 4px 2px 2px; height: 0; transition: height 0.6s cubic-bezier(0.22, 0.7, 0.24, 1); }
   .bar.peak .fill { box-shadow: inset 0 0 0 1.5px var(--gs-accent-deep); }
   .bar .count { position: absolute; top: -16px; left: 50%; transform: translateX(-50%);
-    font-size: 0.62rem; font-variant-numeric: tabular-nums; color: var(--gs-text-secondary);
-    white-space: nowrap; opacity: 0; }
+    font-size: 0.62rem; font-variant-numeric: tabular-nums; color: var(--gs-text-secondary); white-space: nowrap; opacity: 0; }
   .bar.peak .count { opacity: 1; color: var(--gs-accent-deep); font-weight: 700; }
   @media (prefers-reduced-motion: reduce) { .bar .fill { transition: none; } }
-
   .axis { position: relative; height: 42px; margin-top: 7px; border-top: 1px solid var(--gs-separator); }
   .tick { position: absolute; top: 0; transform: translateX(-50%); text-align: center; }
   .tick .mark { width: 1px; height: 5px; background: var(--gs-separator); margin: 0 auto; }
   .tick.major .mark { height: 9px; background: rgba(60, 60, 67, 0.28); }
   .tick .eu { font-size: 0.72rem; font-weight: 600; margin-top: 3px; font-variant-numeric: tabular-nums; }
   .tick .mm { font-size: 0.6rem; color: var(--gs-text-secondary); }
-
   .rangeband { position: relative; height: 22px; margin-top: 1px; }
   .rangeband .band { position: absolute; height: 100%; background: rgba(0, 209, 178, 0.10);
     border-left: 1px dashed var(--gs-accent); border-right: 1px dashed var(--gs-accent); border-radius: 3px; }
   .rangeband .band-lbl { position: absolute; font-size: 0.68rem; color: var(--gs-accent-deep); font-weight: 600; top: 3px; transform: translateX(-50%); white-space: nowrap; }
-
   .legend { display: flex; align-items: center; gap: 0.5rem; margin-top: 1.35rem; font-size: 0.72rem; color: var(--gs-text-secondary); }
   .legend .ramp { height: 8px; width: 110px; border-radius: 4px; background: linear-gradient(90deg, rgba(0,209,178,0.16), rgba(0,209,178,1)); }
   .legend .spacer { margin-left: auto; }
   .legend strong { color: var(--gs-text); font-weight: 600; }
 
-  /* --- Stat chips (Apple grouped style) --- */
   .chips { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.6rem; margin-top: 1.35rem; }
   @media (max-width: 460px){ .chips { grid-template-columns: 1fr; } }
   .chip { background: var(--gs-fill); border-radius: var(--gs-radius-sm); padding: 0.8rem 0.85rem; }
@@ -131,19 +105,46 @@
     padding-top: 1rem; border-top: 0.5px solid var(--gs-separator-soft); }
   .caveat strong { color: var(--gs-text); font-weight: 600; }
 
-  /* --- Did it fit (pill buttons, 44px targets) --- */
+  /* fit-vs-you-own verdict */
+  .verdict { display: flex; align-items: center; gap: 0.85rem; margin: 1.2rem 0 0.3rem; }
+  .verdict .pill { font-size: 0.78rem; font-weight: 700; color: #fff; background: var(--gs-warn);
+    border-radius: 980px; padding: 6px 14px; white-space: nowrap; }
+  .verdict .txt { font-size: 0.95rem; color: var(--gs-text); }
+  .verdict .txt b { font-weight: 700; }
+  .maptable { margin-top: 1.15rem; border-radius: var(--gs-radius-sm); overflow: hidden; border: 0.5px solid var(--gs-separator); }
+  .maprow { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 0.5rem;
+    padding: 0.65rem 1rem; font-size: 0.9rem; border-bottom: 0.5px solid var(--gs-separator-soft); }
+  .maprow:last-child { border-bottom: 0; }
+  .maprow:nth-child(odd) { background: var(--gs-fill); }
+  .maprow .own { color: var(--gs-text-secondary); }
+  .maprow .own b { color: var(--gs-text); font-weight: 600; font-variant-numeric: tabular-nums; }
+  .maprow .arrow { color: var(--gs-accent); font-weight: 700; }
+  .maprow .tgt { text-align: right; font-weight: 700; color: var(--gs-accent-deep); font-variant-numeric: tabular-nums; }
+  .maphead { display: grid; grid-template-columns: 1fr auto 1fr; gap: 0.5rem; padding: 0 1rem 0.5rem;
+    font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.04em; color: var(--gs-text-secondary); font-weight: 600; }
+  .maphead .r { text-align: right; }
+
+  /* commonly worn alongside */
+  .along { display: flex; flex-direction: column; gap: 0.7rem; margin-top: 1.2rem; }
+  .along-row { display: grid; grid-template-columns: 108px 1fr 34px; align-items: center; gap: 0.75rem; }
+  .along-row .name { font-size: 0.9rem; font-weight: 600; }
+  .along-row .track { height: 10px; background: var(--gs-fill); border-radius: 5px; overflow: hidden; }
+  .along-row .fill { height: 100%; background: var(--gs-accent); border-radius: 5px; width: 0; transition: width 0.6s cubic-bezier(0.22,0.7,0.24,1); }
+  .along-row .n { font-size: 0.8rem; color: var(--gs-text-secondary); text-align: right; font-variant-numeric: tabular-nums; }
+  @media (prefers-reduced-motion: reduce) { .along-row .fill { transition: none; } }
+
+  /* did it fit */
   .fit-buttons { display: flex; gap: 0.5rem; margin-top: 1rem; flex-wrap: wrap; }
   .fit-btn { flex: 1 1 auto; min-width: 104px; min-height: 44px; border: 0.5px solid var(--gs-separator);
     background: var(--gs-surface); border-radius: 980px; padding: 0 0.9rem; font-family: var(--gs-font);
-    font-size: 0.875rem; font-weight: 600; color: var(--gs-text); cursor: pointer;
-    transition: all var(--gs-transition); display: inline-flex; align-items: center; justify-content: center; gap: 0.4rem; }
+    font-size: 0.875rem; font-weight: 600; color: var(--gs-text); cursor: pointer; transition: all var(--gs-transition);
+    display: inline-flex; align-items: center; justify-content: center; }
   .fit-btn:hover { border-color: var(--gs-accent); color: var(--gs-accent-deep); }
   .fit-btn.sel { background: var(--gs-accent); color: #fff; border-color: var(--gs-accent); box-shadow: var(--gs-shadow); }
   .fit-thanks { font-size: 0.82rem; color: var(--gs-accent-deep); margin-top: 0.85rem; font-weight: 600; display: none; }
   .empty-badge { display: inline-block; font-size: 0.66rem; background: rgba(60,60,67,0.06); color: var(--gs-text-secondary);
     border-radius: 980px; padding: 2px 9px; margin-left: 0.4rem; vertical-align: middle; font-weight: 600; }
 
-  /* --- Footer --- */
   .gs-footer { border-top: 1px solid var(--gs-separator-soft); padding: 2.5rem 1.5rem 2rem; margin-top: 1.5rem; }
   .gs-footer-inner { max-width: 640px; margin: 0 auto; display: flex; justify-content: center; gap: 4rem; }
   .gs-footer-col { display: flex; flex-direction: column; gap: 0.5rem; }
@@ -171,37 +172,34 @@
   <div class="container">
 
     <div class="poc-note">
-      <strong>Prototype.</strong> A community-insights block designed to render <strong>server-side on the
-      model page</strong> (crawlable), fed by the recommendation engine. The one interactive piece,
-      "Did it fit?", is how we start collecting fit data we do not have yet. Numbers are real, from the
-      recommendation log.
+      <strong>Prototype.</strong> Community-insights blocks designed to render <strong>server-side on the
+      model page</strong> (crawlable), fed by the recommendation engine and shoe racks. Every number below is
+      real, from the recommendation log joined to what those same people own.
     </div>
 
-    <div class="crumb"><a href="/size-guide">Size guides</a> › <a href="/size-guide/brand/adidas">Adidas</a> › Samba</div>
-    <h1 class="page-title">Adidas Samba size chart</h1>
-    <p class="page-sub">EU, US, UK and CM, with what real visitors get sized to.</p>
+    <div class="crumb"><a href="/size-guide">Size guides</a> › <a href="/size-guide/brand/adidas">Adidas</a> › Adizero Evo SL</div>
+    <h1 class="page-title">Adidas Adizero Evo SL size chart</h1>
+    <p class="page-sub">EU, US, UK and CM, with real fit data from people who own it.</p>
 
-    <!-- ===== SIZE POPULARITY RULER ===== -->
+    <!-- ===== 1. SIZE POPULARITY ===== -->
     <div class="box">
       <div class="box-head">
-        <div class="box-title">Where people land on the size chart</div>
+        <div class="box-title">What size people get</div>
         <div class="box-note" id="sampleNote"></div>
       </div>
-      <div class="box-lead">Each bar is how often that size is the recommendation. Read it like a ruler:
-        the deeper the teal, the more people land there. Pale tails are the outliers.</div>
+      <div class="box-lead">How every recommendation for the Evo SL distributes across the chart. The deeper
+        the teal, the more people land there.</div>
 
       <div class="headline">
         <span class="big" id="peakSize">EU 44⅔</span>
         <span class="lbl">is the most common recommendation <span class="em" id="peakPct"></span></span>
       </div>
 
-      <div class="ruler-scroll">
-        <div class="ruler">
-          <div class="bars" id="bars"></div>
-          <div class="axis" id="axis"></div>
-          <div class="rangeband" id="rangeband"></div>
-        </div>
-      </div>
+      <div class="ruler-scroll"><div class="ruler">
+        <div class="bars" id="bars"></div>
+        <div class="axis" id="axis"></div>
+        <div class="rangeband" id="rangeband"></div>
+      </div></div>
 
       <div class="legend">
         <span>fewer</span><span class="ramp"></span><span>more people</span>
@@ -209,34 +207,62 @@
       </div>
 
       <div class="chips">
-        <div class="chip"><div class="v" id="chipPeople"></div><div class="k">people sized this chart</div></div>
+        <div class="chip"><div class="v" id="chipPeople"></div><div class="k">people sized it</div></div>
         <div class="chip"><div class="v" id="chipFoot"></div><div class="k">typical foot length</div></div>
         <div class="chip"><div class="v" id="chipSpread"></div><div class="k">full span seen</div></div>
       </div>
-
-      <p class="caveat">
-        <strong>What this is:</strong> recommended sizes for Adidas's standard chart (shared across many
-        Adidas models), so here it reads brand-level. On a model with its own chart (Converse, Allbirds
-        and ~213 others) the same block is genuinely model-specific. It reflects recommendations, not
-        verified purchases.
-      </p>
+      <div class="search-tag">answers: <b>“what size adizero evo sl should I get”</b></div>
     </div>
 
-    <!-- ===== DID IT FIT ===== -->
+    <!-- ===== 2. HOW IT FITS VS WHAT YOU OWN ===== -->
+    <div class="box">
+      <div class="box-head">
+        <div class="box-title">How it fits vs shoes you own</div>
+        <div class="box-note">39 people own both</div>
+      </div>
+      <div class="box-lead">We compared people's own shoes to the size they were recommended here. The clearest
+        signal comes from Asics, the brand Evo SL sizers most often already run in.</div>
+
+      <div class="verdict">
+        <span class="pill">Runs small</span>
+        <span class="txt">Owners of Asics size <b>up about ½ to a full size</b> in the Evo SL.</span>
+      </div>
+
+      <div class="maphead"><span>Your Asics size</span><span></span><span class="r">Your Evo SL size</span></div>
+      <div class="maptable" id="mapTable"></div>
+
+      <p class="caveat"><strong>How we know:</strong> for people who own an Asics shoe and got sized for the Evo
+        SL, we lined up their Asics size against their Evo SL recommendation. As more people rate the fit, this
+        becomes a verified "runs small / true to size" verdict for every brand pairing, not just Asics.</p>
+      <div class="search-tag">answers: <b>“does the adidas evo sl run small”</b> · <b>“evo sl vs asics sizing”</b></div>
+    </div>
+
+    <!-- ===== 3. COMMONLY WORN ALONGSIDE ===== -->
+    <div class="box">
+      <div class="box-head">
+        <div class="box-title">Commonly worn alongside</div>
+        <div class="box-note">by 205 Evo SL sizers</div>
+      </div>
+      <div class="box-lead">The shoes people who sized the Evo SL most often already own. It sits in a serious
+        runner's rotation.</div>
+      <div class="along" id="along"></div>
+      <div class="search-tag">answers: <b>“shoes like the adidas evo sl”</b> · <b>“evo sl alternatives”</b></div>
+    </div>
+
+    <!-- ===== 4. DID IT FIT ===== -->
     <div class="box">
       <div class="box-head">
         <div class="box-title">Did your size fit? <span class="empty-badge">0 responses yet</span></div>
       </div>
-      <div class="box-lead">The recommendation log's <em>fitted</em> and <em>purchased</em> fields are empty
-        today. One tap starts filling them, and unlocks the question we cannot answer yet: does this shoe
-        run small or large?</div>
+      <div class="box-lead">The recommendation log's fit fields are empty today. One tap starts filling them and
+        turns the "runs small" read above from inferred into verified.</div>
       <div class="fit-buttons">
         <button class="fit-btn" data-v="small">Ran small</button>
         <button class="fit-btn" data-v="perfect">Fit perfectly</button>
         <button class="fit-btn" data-v="large">Ran large</button>
       </div>
-      <div class="fit-thanks" id="fitThanks">Thanks. At ~5,000 real sizings a period, this becomes a trustworthy
-        "runs small / true to size / runs large" verdict within a couple of months.</div>
+      <div class="fit-thanks" id="fitThanks">Thanks. At ~200 sizings per shoe, a few taps each makes this a
+        trustworthy verdict within weeks.</div>
     </div>
 
   </div>
@@ -266,86 +292,90 @@
 </footer>
 
 <script>
-  // Real data: recommended-size distribution for Adidas standard chart (variation 726).
-  // [EU size label, foot length mm, recommendations]
+  // Real recommended-size distribution for the Adidas Adizero Evo SL. [EU label, foot mm, recs]
   var DATA = [
-    ["36",221,20],["36⅔",225,26],["37⅓",229,110],["38",233,131],["38⅔",238,103],
-    ["39⅓",242,118],["40",246,268],["40⅔",250,239],["41⅓",255,421],["42",259,529],
-    ["42⅔",263,435],["43⅓",267,391],["44",271,582],["44⅔",276,781],["45⅓",280,644],
-    ["46",284,287],["46⅔",288,370],["47⅓",293,126],["48",297,65],["48⅔",301,85],
-    ["49⅓",305,40],["50",310,49],["50⅔",314,6],["51⅓",318,11],["52⅔",326,3],
-    ["53⅓",335,1],["55⅔",352,1]
+    ["36",221,1],["36⅔",225,1],["37⅓",229,5],["38",233,8],["38⅔",238,7],["39⅓",242,6],
+    ["40",246,17],["40⅔",250,27],["41⅓",255,43],["42",259,47],["42⅔",263,50],["43⅓",267,56],
+    ["44",271,57],["44⅔",276,71],["45⅓",280,53],["46",284,28],["46⅔",288,11],["47⅓",293,16],
+    ["48",297,9],["48⅔",301,5],["49⅓",305,17],["50",310,5],["50⅔",314,1],["51⅓",318,1]
   ];
-  var TOTAL_RECS = 5842, PEOPLE = 1484;
+  var TOTAL_RECS = 542, PEOPLE = 205;
+
+  // Real Asics -> Evo SL correspondence (mode recommendation per Asics size).
+  var ASICS_MAP = [["41.5","42"],["42.5","43⅓"],["43.5","44⅔"],["44","45⅓"],["44.5","45⅓"]];
+  // Real co-ownership among Evo SL sizers. [brand, distinct people]
+  var ALONGSIDE = [["Asics",39],["New Balance",13],["Hoka",12],["Brooks",9],["Saucony",9],["Vans",7],["Salomon",6]];
 
   var max = Math.max.apply(null, DATA.map(function(d){ return d[2]; }));
   var peakIdx = DATA.reduce(function(bi,d,i){ return d[2] > DATA[bi][2] ? i : bi; }, 0);
+  function heat(recs){ return "rgba(0,209,178," + (0.16 + 0.84*(recs/max)).toFixed(2) + ")"; }
 
-  // teal heat: alpha scales with frequency
-  function heat(recs){ var a = 0.16 + 0.84 * (recs / max); return "rgba(0,209,178," + a.toFixed(2) + ")"; }
-
-  var barsEl = document.getElementById("bars");
-  var fills = [];
+  // ruler bars
+  var barsEl = document.getElementById("bars"), fills = [];
   DATA.forEach(function(d, i){
     var col = document.createElement("div");
     col.className = "bar" + (i === peakIdx ? " peak" : "");
-    col.innerHTML = '<span class="count">' + d[2] + '</span>' +
-      '<div class="fill" style="background:' + heat(d[2]) + '"></div>';
+    col.innerHTML = '<span class="count">' + d[2] + '</span><div class="fill" style="background:' + heat(d[2]) + '"></div>';
     barsEl.appendChild(col);
-    fills.push([col.querySelector(".fill"), Math.max(2, (d[2] / max) * 100)]);
+    fills.push([col.querySelector(".fill"), Math.max(2, (d[2]/max)*100)]);
   });
-  // subtle grow-in (Apple: purposeful motion), unless reduced-motion
   var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   requestAnimationFrame(function(){
     fills.forEach(function(f){ f[0].style.height = reduce ? f[1] + "%" : "0%"; });
     if (!reduce) requestAnimationFrame(function(){ fills.forEach(function(f){ f[0].style.height = f[1] + "%"; }); });
   });
 
-  // axis ticks (label majors only)
   var majors = { "38":1,"40":1,"42":1,"44":1,"46":1,"48":1,"50":1 };
   var axisEl = document.getElementById("axis");
   DATA.forEach(function(d, i){
-    var pct = (i + 0.5) / DATA.length * 100;
-    var isMajor = majors[d[0]];
-    var t = document.createElement("div");
-    t.className = "tick" + (isMajor ? " major" : "");
-    t.style.left = pct + "%";
+    var pct = (i + 0.5)/DATA.length*100, isMajor = majors[d[0]];
+    var t = document.createElement("div"); t.className = "tick" + (isMajor ? " major" : ""); t.style.left = pct + "%";
     t.innerHTML = '<div class="mark"></div>' + (isMajor ? ('<div class="eu">' + d[0] + '</div><div class="mm">' + d[1] + 'mm</div>') : '');
     axisEl.appendChild(t);
   });
 
-  // popular-fit band: contiguous core around the peak covering ~60% of recommendations
   var lo = peakIdx, hi = peakIdx, acc = DATA[peakIdx][2];
-  while (acc / TOTAL_RECS < 0.6 && (lo > 0 || hi < DATA.length - 1)) {
-    var left = lo > 0 ? DATA[lo-1][2] : -1;
-    var right = hi < DATA.length-1 ? DATA[hi+1][2] : -1;
+  while (acc/TOTAL_RECS < 0.6 && (lo > 0 || hi < DATA.length - 1)) {
+    var left = lo > 0 ? DATA[lo-1][2] : -1, right = hi < DATA.length-1 ? DATA[hi+1][2] : -1;
     if (right >= left) { hi++; acc += DATA[hi][2]; } else { lo--; acc += DATA[lo][2]; }
   }
   var bandEl = document.getElementById("rangeband");
-  var leftPct = lo / DATA.length * 100, widthPct = (hi - lo + 1) / DATA.length * 100;
-  var band = document.createElement("div");
-  band.className = "band"; band.style.left = leftPct + "%"; band.style.width = widthPct + "%";
+  var leftPct = lo/DATA.length*100, widthPct = (hi-lo+1)/DATA.length*100;
+  var band = document.createElement("div"); band.className = "band"; band.style.left = leftPct + "%"; band.style.width = widthPct + "%";
   bandEl.appendChild(band);
-  var lbl = document.createElement("div");
-  lbl.className = "band-lbl"; lbl.style.left = (leftPct + widthPct/2) + "%";
-  lbl.textContent = "EU " + DATA[lo][0] + "–" + DATA[hi][0];
-  bandEl.appendChild(lbl);
+  var blbl = document.createElement("div"); blbl.className = "band-lbl"; blbl.style.left = (leftPct + widthPct/2) + "%";
+  blbl.textContent = "EU " + DATA[lo][0] + "–" + DATA[hi][0]; bandEl.appendChild(blbl);
 
-  // text stats
   document.getElementById("peakSize").textContent = "EU " + DATA[peakIdx][0];
-  document.getElementById("peakPct").textContent = "(" + Math.round(DATA[peakIdx][2]/TOTAL_RECS*100) + "% of sizings)";
-  document.getElementById("sampleNote").textContent = TOTAL_RECS.toLocaleString() + " sizings · " + PEOPLE.toLocaleString() + " people";
+  document.getElementById("peakPct").textContent = "(" + Math.round(DATA[peakIdx][2]/TOTAL_RECS*100) + "% of people)";
+  document.getElementById("sampleNote").textContent = TOTAL_RECS.toLocaleString() + " sizings · " + PEOPLE + " people";
   document.getElementById("typicalRange").textContent = "EU " + DATA[lo][0] + "–" + DATA[hi][0];
-  document.getElementById("chipPeople").textContent = PEOPLE.toLocaleString();
+  document.getElementById("chipPeople").textContent = PEOPLE;
   document.getElementById("chipFoot").textContent = DATA[lo][1] + "–" + DATA[hi][1] + "mm";
   document.getElementById("chipSpread").textContent = DATA[0][1] + "–" + DATA[DATA.length-1][1] + "mm";
 
-  // did-it-fit interaction (mock)
+  // Asics map table
+  var mapEl = document.getElementById("mapTable");
+  ASICS_MAP.forEach(function(m){
+    var r = document.createElement("div"); r.className = "maprow";
+    r.innerHTML = '<span class="own">Asics <b>EU ' + m[0] + '</b></span><span class="arrow">→</span><span class="tgt">EU ' + m[1] + '</span>';
+    mapEl.appendChild(r);
+  });
+
+  // alongside bars
+  var alongEl = document.getElementById("along"), amax = ALONGSIDE[0][1], arows = [];
+  ALONGSIDE.forEach(function(a){
+    var row = document.createElement("div"); row.className = "along-row";
+    row.innerHTML = '<span class="name">' + a[0] + '</span><span class="track"><span class="fill"></span></span><span class="n">' + a[1] + '</span>';
+    alongEl.appendChild(row);
+    arows.push([row.querySelector(".fill"), (a[1]/amax*100)]);
+  });
+  requestAnimationFrame(function(){ requestAnimationFrame(function(){ arows.forEach(function(r){ r[0].style.width = r[1] + "%"; }); }); });
+
   document.querySelectorAll(".fit-btn").forEach(function(b){
     b.addEventListener("click", function(){
       document.querySelectorAll(".fit-btn").forEach(function(x){ x.classList.remove("sel"); });
-      b.classList.add("sel");
-      document.getElementById("fitThanks").style.display = "block";
+      b.classList.add("sel"); document.getElementById("fitThanks").style.display = "block";
     });
   });
 </script>
