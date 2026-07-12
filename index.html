@@ -264,6 +264,33 @@
   .source { font-family: var(--font-mono); font-size: 11.5px; color: var(--ink-faint);
             margin-top: 26px; letter-spacing: .01em; }
 
+  /* technical slides: pipeline + code */
+  .tech-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; align-items: start; margin-top: 8px; }
+  @media (max-width: 880px){ .tech-grid { grid-template-columns: 1fr; gap: 24px; } }
+  .flow { display: flex; flex-wrap: wrap; align-items: center; gap: 8px;
+          font-family: var(--font-mono); font-size: 12.5px; margin: 2px 0 6px; }
+  .flow .node { background: var(--surface); border: 1px solid var(--line); border-radius: 4px;
+                padding: 7px 10px; white-space: nowrap; }
+  .flow .node.hot { border-color: var(--neg); color: var(--neg); }
+  .flow .node.good { border-color: var(--pos); color: var(--pos); }
+  .flow .arrow { color: var(--ink-faint); }
+  .codeblock { background: var(--surface-2); border: 1px solid var(--line);
+               border-left: 3px solid var(--accent); border-radius: 5px; padding: 16px 18px;
+               font-family: var(--font-mono); font-size: 13px; line-height: 1.65;
+               overflow-x: auto; white-space: pre; margin: 0; }
+  .codeblock.hot { border-left-color: var(--neg); }
+  .codeblock .c { color: var(--ink-faint); }
+  .codeblock .k { color: var(--accent); font-weight: 600; }
+  .codeblock .n { color: var(--neg); }
+  .codeblock .g { color: var(--pos); }
+  .tech-note { font-size: 14px; color: var(--ink-soft); max-width: none; }
+  .tech-list { list-style: none; padding: 0; margin: 14px 0 0; display: flex; flex-direction: column; gap: 10px; }
+  .tech-list li { font-size: 14px; color: var(--ink-soft); display: flex; gap: 11px; max-width: none; }
+  .tech-list li::before { content: ""; flex: 0 0 auto; width: 6px; height: 6px; margin-top: 7px;
+                          background: var(--accent); border-radius: 1px; transform: rotate(45deg); }
+  code { font-family: var(--font-mono); font-size: 12.5px; background: var(--surface-2);
+         border: 1px solid var(--line); border-radius: 3px; padding: 1px 5px; color: var(--ink); }
+
   /* reveal */
   .reveal { opacity: 0; transform: translateY(14px); transition: opacity .6s ease, transform .6s ease; }
   .reveal.in { opacity: 1; transform: none; }
@@ -386,10 +413,50 @@
   </div>
 </section>
 
+<!-- 04b HOW IT WORKS TODAY (TECHNICAL) -->
+<section class="slide" id="s4b">
+  <div class="inner">
+    <div class="eyebrow"><span class="num">04</span> Under the hood &middot; today</div>
+    <h2>How our pages are built right now.</h2>
+    <p class="lead">The site is programmatic SEO: every shoe becomes a URL, rendered from one
+      template plus one database row. Excellent for scale, until the rows stop being different.</p>
+    <div class="tech-grid">
+      <div>
+        <div class="kicker" style="margin-bottom:10px;">The generation pipeline</div>
+        <div class="flow">
+          <span class="node">crawler</span><span class="arrow">&rarr;</span>
+          <span class="node">model row</span><span class="arrow">&rarr;</span>
+          <span class="node">size_chart_variation</span><span class="arrow">&rarr;</span>
+          <span class="node">JTE template</span><span class="arrow">&rarr;</span>
+          <span class="node hot">/brand/{brand}/model/{slug}</span>
+        </div>
+        <ul class="tech-list">
+          <li><code>SeoContentController</code> serves one route for all 2,067 model URLs.</li>
+          <li>The chart is the brand's, adjusted only if the variation carries a size modifier.</li>
+          <li><code>SiteMapController</code> lists every URL, so Google crawls and indexes them all.</li>
+        </ul>
+      </div>
+      <div>
+        <div class="kicker" style="margin-bottom:10px;">The flaw, in one branch</div>
+        <pre class="codeblock hot"><span class="c">// size-guide-for-model.jte</span>
+chart = modifier <span class="k">!=</span> 0
+      ? adjust(brandChart, modifier)
+      : brandChart   <span class="n">// &larr; 90% land here</span>
+
+<span class="c">// 1,854 URLs render the exact</span>
+<span class="c">// same brand chart, verbatim.</span></pre>
+        <p class="tech-note" style="margin-top:14px;">The bet was to capture the long tail of
+          "[model] size chart" queries at scale. Google's 2024&ndash;26 updates reclassified that
+          exact pattern as <strong>scaled content</strong>.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- 05 WHAT WORKS -->
 <section class="slide" id="s5">
   <div class="inner">
-    <div class="eyebrow"><span class="num">04</span> What already works</div>
+    <div class="eyebrow"><span class="num">05</span> What already works</div>
     <h2>The winning pages point straight at the answer.</h2>
     <p class="lead">Brand size-guide pages are our biggest traffic engine, and they convert
       superbly the moment they reach the top of page 1. The demand and the capability are there.
@@ -416,7 +483,7 @@
 <!-- 06 THE STRATEGY / POSITIONING -->
 <section class="slide" id="s6">
   <div class="inner">
-    <div class="eyebrow"><span class="num">05</span> The new strategy</div>
+    <div class="eyebrow"><span class="num">06</span> The new strategy</div>
     <h2>Stop selling page count. Sell authority and a tool.</h2>
     <div class="position">
       <div class="label">How Google should see us</div>
@@ -439,7 +506,7 @@
 <!-- 07 THE FIVE MOVES -->
 <section class="slide" id="s7">
   <div class="inner">
-    <div class="eyebrow"><span class="num">06</span> Five moves</div>
+    <div class="eyebrow"><span class="num">07</span> Five moves</div>
     <h2>What we actually do.</h2>
     <div class="moves">
       <div class="move flag"><div class="mi">01</div><div><h4>Fix the index footprint</h4><p>Noindex or redirect the ~1,850 thin pages, starting with Adidas + Puma. Staged and fully reversible. Index shrinks from ~2,000 to ~300 pages that earn their place.</p></div></div>
@@ -451,10 +518,53 @@
   </div>
 </section>
 
+<!-- 07b HOW THE NEW SYSTEM WORKS (TECHNICAL) -->
+<section class="slide" id="s7b">
+  <div class="inner">
+    <div class="eyebrow"><span class="num">08</span> Under the hood &middot; new</div>
+    <h2>How the new system decides what to index.</h2>
+    <p class="lead">Every page has to earn its slot in the index. One rule decides. Everything that
+      fails is folded into its brand hub instead of standing alone as a near-duplicate.</p>
+    <div class="tech-grid">
+      <div>
+        <div class="kicker" style="margin-bottom:10px;">The index decision</div>
+        <pre class="codeblock"><span class="k">fun</span> indexable(page) =
+   page.sizeModifier <span class="k">!=</span> 0        <span class="c">// distinct chart</span>
+   <span class="k">||</span> page.brand <span class="k">in</span> [Converse, Allbirds]
+   <span class="k">||</span> page.hasCommunityFit
+
+<span class="g">// ~300 pass  -> index + enrich</span>
+<span class="n">// ~1,850 fail -> fold + noindex/301</span></pre>
+        <ul class="tech-list">
+          <li>Failing pages get <code>robots: noindex</code> and leave the sitemap, or 301 to the hub.</li>
+          <li>Their content becomes an anchored section on the brand hub; <code>rel=canonical</code> points there.</li>
+          <li>The <code>redirectToSlug</code> path already in the controller extends from duplicates to thin pages.</li>
+        </ul>
+      </div>
+      <div>
+        <div class="kicker" style="margin-bottom:10px;">Where the equity flows</div>
+        <div class="flow">
+          <span class="node hot">1,854 thin URLs</span><span class="arrow">&rarr;</span>
+          <span class="node">brand hub #section</span>
+        </div>
+        <div class="flow" style="margin-top:4px;">
+          <span class="node good">~300 real URLs</span><span class="arrow">&rarr;</span>
+          <span class="node">indexed &amp; enriched</span>
+        </div>
+        <ul class="tech-list" style="margin-top:16px;">
+          <li>Hubs gain <code>FAQPage</code> and size-chart <code>Table</code> schema, one canonical per brand.</li>
+          <li>The size-conversion tool: server-rendered result at a stable URL, real interactivity, not template-thin.</li>
+          <li>Sitemap becomes indexable-only, so crawl budget concentrates on ~300 strong pages.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- 08 EXPECTED PERFORMANCE -->
 <section class="slide" id="s8">
   <div class="inner">
-    <div class="eyebrow"><span class="num">07</span> Expected performance</div>
+    <div class="eyebrow"><span class="num">09</span> Expected performance</div>
     <div class="grid2">
       <div>
         <h2>A 2.5–3.5x recovery, mostly by pruning, not spending.</h2>
@@ -487,7 +597,7 @@
 <!-- 09 THE HONEST TRADE -->
 <section class="slide" id="s9">
   <div class="inner">
-    <div class="eyebrow"><span class="num">08</span> The honest trade</div>
+    <div class="eyebrow"><span class="num">10</span> The honest trade</div>
     <div class="grid2">
       <div>
         <h2>What we give up, and what to avoid.</h2>
@@ -514,7 +624,7 @@
 <!-- 10 NEXT STEPS -->
 <section class="slide" id="s10">
   <div class="inner">
-    <div class="eyebrow"><span class="num">09</span> The ask</div>
+    <div class="eyebrow"><span class="num">11</span> The ask</div>
     <h2>Approve the prune. Start with Adidas + Puma.</h2>
     <div class="timeline">
       <div class="step"><div class="w">WEEK 0</div><h4>Ship the index-footprint fix</h4><p>Noindex/redirect Adidas + Puma thin pages, fold content into hubs, clean the sitemap.</p></div>
