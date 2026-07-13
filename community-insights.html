@@ -317,16 +317,6 @@
       <div class="sub">Add your usual shoe to the tool above for an exact cross-brand size.</div>
     </div>
 
-    <!-- 4. Did it fit -->
-    <div class="box">
-      <div class="eyebrow">Did it fit you?</div>
-      <div class="fit-buttons">
-        <button class="fit-btn" data-v="s">Small</button>
-        <button class="fit-btn" data-v="p">Perfect</button>
-        <button class="fit-btn" data-v="l">Large</button>
-      </div>
-    </div>
-
     <!-- Below-fold standard content -->
     <div class="below">
       <div class="section-label">Frequently asked</div>
@@ -422,13 +412,6 @@
     var r = document.createElement("div"); r.className = "along-row" + (reduce ? "" : " animate");
     r.innerHTML = '<span class="name">' + a[0] + '</span><span class="track"><span class="fill" style="width:' + w + '%"></span></span>';
     alongEl.appendChild(r);
-  });
-
-  document.querySelectorAll(".fit-btn").forEach(function(b){
-    b.addEventListener("click", function(){
-      document.querySelectorAll(".fit-btn").forEach(function(x){ x.classList.remove("sel"); });
-      b.classList.add("sel");
-    });
   });
 
   function accToggle(id){ document.getElementById(id).classList.toggle("open"); }
