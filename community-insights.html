@@ -153,6 +153,17 @@
   .sizechart tr.hot .popfill { background: var(--gs-accent-deep); }
   .sizechart td.comm { color: var(--gs-accent-deep); font-weight: 600; white-space: nowrap; }
   .sizechart td.comm.none { color: var(--gs-text-secondary); font-weight: 400; }
+  /* live community foot dot plot */
+  .dotplot { margin-top: 1.1rem; }
+  .dp-dots { position: relative; height: 76px; }
+  .dp-dot { position: absolute; bottom: 0; width: 11px; height: 11px; border-radius: 50%;
+    background: var(--gs-accent); transform: translateX(-50%); box-shadow: 0 1px 2px rgba(0,0,0,0.12); }
+  .dp-dot.flag { background: var(--gs-warn); }
+  .dp-axis { position: relative; height: 32px; border-top: 1px solid var(--gs-separator); margin-top: 4px; }
+  .dp-tick { position: absolute; top: 0; transform: translateX(-50%); text-align: center; }
+  .dp-tick .m { width: 1px; height: 6px; background: rgba(60,60,67,0.28); margin: 0 auto; }
+  .dp-tick .eu { font-size: 0.72rem; font-weight: 600; margin-top: 2px; font-variant-numeric: tabular-nums; }
+  .dp-tick .mm { font-size: 0.6rem; color: var(--gs-text-secondary); }
 
   .along { display: flex; flex-direction: column; gap: 0.85rem; margin-top: 1.2rem; }
   .along-row { display: grid; grid-template-columns: 96px 1fr; align-items: center; gap: 0.85rem; }
@@ -280,18 +291,29 @@
   </div><!-- /.hero-screen -->
 
   <div class="container">
-    <!-- Community size chart: official chart vs real measured feet -->
+    <!-- Size chart: official chart + community popularity -->
     <div class="box">
-      <h2 class="eyebrow">Community size chart</h2>
+      <h2 class="eyebrow">Size chart</h2>
       <div class="answer"><span class="unit">EU</span> 44⅔</div>
-      <div class="sub" style="margin-top:0.5rem;">is what most of our community wears. The official chart, checked against real feet:</div>
+      <div class="sub" style="margin-top:0.5rem;">is what most of our community wears</div>
       <div class="chart-wrap">
         <table class="sizechart">
-          <thead><tr><th>EU</th><th>US</th><th>UK</th><th>Chart (mm)</th><th class="pop-h">Community (mm)</th></tr></thead>
+          <thead><tr><th>EU</th><th>US</th><th>UK</th><th>Foot (mm)</th><th class="pop-h">Our community</th></tr></thead>
           <tbody id="chartBody"></tbody>
         </table>
       </div>
-      <div class="sub"><b>Chart (mm)</b> = the brand's official foot length. <b>Community (mm)</b> = the real measured foot range of people who wear each size. Row shading shows how common the size is. Overlaps between sizes are normal — fit is a range, not a point.</div>
+      <div class="sub">Every size, with how common it is among our <b>205 sizers</b>. US/UK are standard men's conversions.</div>
+    </div>
+
+    <!-- Community foot measurements (live dot plot) -->
+    <div class="box">
+      <h2 class="eyebrow">Measured by our community</h2>
+      <div class="sub" style="margin-bottom:0.2rem;"><b>10 people</b> have measured their foot for this shoe. Each dot is one person — <span style="color:var(--gs-accent-deep);font-weight:600;">add yours</span>.</div>
+      <div class="dotplot">
+        <div class="dp-dots" id="dpDots"></div>
+        <div class="dp-axis" id="dpAxis"></div>
+      </div>
+      <div class="sub">Real measured feet from people who own this exact shoe, on the official size scale. Sparse today, and it fills in with every measurement.</div>
     </div>
 
     <!-- 2. Runs small -->
@@ -384,26 +406,42 @@
   function heat(r){ return "rgba(0,209,178," + (0.14 + 0.86*(r/max)).toFixed(2) + ")"; }
   var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-  // Community foot ranges, keyed by chart length (mm): length -> [people, avg_mm, sd_mm].
-  // Real measured feet of users who picked each size (junk filtered, ≥10 people).
-  var COMMFOOT = {229:[16,233,11],238:[12,239,5],242:[14,244,5],246:[35,246,7],250:[46,253,5],
-    255:[36,254,10],259:[22,262,7],263:[13,260,7],267:[35,268,6],271:[36,274,11],276:[20,278,5],
-    280:[40,279,7],288:[18,288,8]};
-
-  // Community size chart: official chart + real measured feet, popularity as row shading.
+  // Size chart: official chart with a community-popularity bar per row.
   var chartBody = document.getElementById("chartBody");
   DATA.forEach(function(d,i){
     var us = 4 + i * 0.5;          // standard men's EU -> US
     var uk = us - 0.5;
-    var mm = d[1];
-    var cf = COMMFOOT[d[1]];
-    var comm = cf ? (cf[1]-cf[2]) + "–" + (cf[1]+cf[2]) : "—";
+    var w = Math.max(2, (d[2] / max) * 100);
     var tr = document.createElement("tr");
-    if (i === peakIdx) { tr.className = "hot"; }
-    else { tr.style.background = "rgba(0,209,178," + (0.02 + 0.16*(d[2]/max)).toFixed(3) + ")"; }
-    tr.innerHTML = "<td>" + d[0] + "</td><td>" + us + "</td><td>" + uk + "</td><td>" + mm + "</td>" +
-      "<td class='comm" + (cf ? "" : " none") + "'>" + comm + "</td>";
+    if (i === peakIdx) tr.className = "hot";
+    tr.innerHTML = "<td>" + d[0] + "</td><td>" + us + "</td><td>" + uk + "</td><td>" + d[1] + "</td>" +
+      "<td class='popcell'><span class='popbar'><span class='popfill' style='width:" + w + "%'></span></span></td>";
     chartBody.appendChild(tr);
+  });
+
+  // Community foot measurements: real (foot mm, picked EU) for THIS model, plotted live.
+  var FEET = [[245,"40"],[246,"39⅓"],[250,"40⅔"],[250,"41⅓"],[260,"42"],[260,"42"],[267,"43⅓"],[285,"46"],[285,"46⅔"],[308,"49⅓"]];
+  var AXMIN = 235, AXMAX = 315;
+  function xpct(mm){ return (mm - AXMIN) / (AXMAX - AXMIN) * 100; }
+  // flag a point only when its foot is well outside the picked size (>= ~1.5 sizes ≈ 7mm) — a real chart/fit mismatch, not noise
+  function nominalFor(eu){ for (var k=0;k<DATA.length;k++){ if (DATA[k][0]===eu) return DATA[k][1]; } return null; }
+  var dpDots = document.getElementById("dpDots"), placed = [];
+  FEET.slice().sort(function(a,b){ return a[0]-b[0]; }).forEach(function(p){
+    var x = xpct(p[0]), level = 0;
+    while (placed.some(function(q){ return q.level === level && Math.abs(q.x - x) < 3; })) level++;
+    placed.push({x:x, level:level});
+    var nom = nominalFor(p[1]);
+    var flagged = nom != null && Math.abs(p[0] - nom) >= 7;
+    var dot = document.createElement("div"); dot.className = "dp-dot" + (flagged ? " flag" : "");
+    dot.style.left = x + "%"; dot.style.bottom = (level * 15) + "px";
+    dot.title = "Foot " + p[0] + "mm · wears EU " + p[1];
+    dpDots.appendChild(dot);
+  });
+  var dpAxis = document.getElementById("dpAxis");
+  [["40",246],["42",259],["44",271],["46",284],["48",297]].forEach(function(t){
+    var el = document.createElement("div"); el.className = "dp-tick"; el.style.left = xpct(t[1]) + "%";
+    el.innerHTML = '<div class="m"></div><div class="eu">' + t[0] + '</div><div class="mm">' + t[1] + '</div>';
+    dpAxis.appendChild(el);
   });
 
   var alongEl = document.getElementById("along"), amax = ALONGSIDE[0][1];
