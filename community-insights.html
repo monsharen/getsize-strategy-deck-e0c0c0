@@ -287,11 +287,11 @@
       <div class="sub" style="margin-top:0.5rem;">is what most of our community wears. The official chart, checked against real feet:</div>
       <div class="chart-wrap">
         <table class="sizechart">
-          <thead><tr><th>EU</th><th>US</th><th>UK</th><th>Chart</th><th class="pop-h">Community feet</th></tr></thead>
+          <thead><tr><th>EU</th><th>US</th><th>UK</th><th>Chart (mm)</th><th class="pop-h">Community (mm)</th></tr></thead>
           <tbody id="chartBody"></tbody>
         </table>
       </div>
-      <div class="sub"><b>Chart</b> = the brand's official foot length (cm). <b>Community feet</b> = the real measured range of people who wear each size. Row shading shows how common the size is. Overlaps between sizes are normal — fit is a range, not a point.</div>
+      <div class="sub"><b>Chart (mm)</b> = the brand's official foot length. <b>Community (mm)</b> = the real measured foot range of people who wear each size. Row shading shows how common the size is. Overlaps between sizes are normal — fit is a range, not a point.</div>
     </div>
 
     <!-- 2. Runs small -->
@@ -405,13 +405,13 @@
   DATA.forEach(function(d,i){
     var us = 4 + i * 0.5;          // standard men's EU -> US
     var uk = us - 0.5;
-    var cm = (d[1] / 10).toFixed(1);
+    var mm = d[1];
     var cf = COMMFOOT[d[1]];
-    var comm = cf ? ((cf[1]-cf[2])/10).toFixed(1) + "–" + ((cf[1]+cf[2])/10).toFixed(1) : "—";
+    var comm = cf ? (cf[1]-cf[2]) + "–" + (cf[1]+cf[2]) : "—";
     var tr = document.createElement("tr");
     if (i === peakIdx) { tr.className = "hot"; }
     else { tr.style.background = "rgba(0,209,178," + (0.02 + 0.16*(d[2]/max)).toFixed(3) + ")"; }
-    tr.innerHTML = "<td>" + d[0] + "</td><td>" + us + "</td><td>" + uk + "</td><td>" + cm + "</td>" +
+    tr.innerHTML = "<td>" + d[0] + "</td><td>" + us + "</td><td>" + uk + "</td><td>" + mm + "</td>" +
       "<td class='comm" + (cf ? "" : " none") + "'>" + comm + "</td>";
     chartBody.appendChild(tr);
   });
