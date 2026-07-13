@@ -159,6 +159,14 @@
   .dp-dot { position: absolute; bottom: 0; width: 11px; height: 11px; border-radius: 50%;
     background: var(--gs-accent); transform: translateX(-50%); box-shadow: 0 1px 2px rgba(0,0,0,0.12); }
   .dp-dot.flag { background: var(--gs-warn); }
+  .dp-dot { cursor: pointer; transition: transform 0.12s ease; }
+  .dp-dot:hover, .dp-dot:focus { transform: translateX(-50%) scale(1.4); outline: none; }
+  .dp-tip { position: absolute; transform: translateX(-50%); background: var(--gs-text); color: #fff;
+    font-size: 0.72rem; font-weight: 600; padding: 4px 9px; border-radius: 6px; white-space: nowrap;
+    pointer-events: none; opacity: 0; transition: opacity 0.12s ease; z-index: 5; }
+  .dp-tip.show { opacity: 1; }
+  .dp-tip::after { content: ''; position: absolute; left: 50%; bottom: -3px; width: 8px; height: 8px;
+    background: var(--gs-text); transform: translateX(-50%) rotate(45deg); }
   .dp-axis { position: relative; height: 32px; border-top: 1px solid var(--gs-separator); margin-top: 4px; }
   .dp-tick { position: absolute; top: 0; transform: translateX(-50%); text-align: center; }
   .dp-tick .m { width: 1px; height: 6px; background: rgba(60,60,67,0.28); margin: 0 auto; }
@@ -310,7 +318,7 @@
       <h2 class="eyebrow">Measured by our community</h2>
       <div class="sub" style="margin-bottom:0.2rem;"><b>10 people</b> have measured their foot for this shoe. Each dot is one person — <span style="color:var(--gs-accent-deep);font-weight:600;">add yours</span>.</div>
       <div class="dotplot">
-        <div class="dp-dots" id="dpDots"></div>
+        <div class="dp-dots" id="dpDots"><div class="dp-tip" id="dpTip"></div></div>
         <div class="dp-axis" id="dpAxis"></div>
       </div>
       <div class="sub">Real measured feet from people who own this exact shoe, on the official size scale. Sparse today, and it fills in with every measurement.</div>
@@ -425,7 +433,7 @@
   function xpct(mm){ return (mm - AXMIN) / (AXMAX - AXMIN) * 100; }
   // flag a point only when its foot is well outside the picked size (>= ~1.5 sizes ≈ 7mm) — a real chart/fit mismatch, not noise
   function nominalFor(eu){ for (var k=0;k<DATA.length;k++){ if (DATA[k][0]===eu) return DATA[k][1]; } return null; }
-  var dpDots = document.getElementById("dpDots"), placed = [];
+  var dpDots = document.getElementById("dpDots"), dpTip = document.getElementById("dpTip"), placed = [];
   FEET.slice().sort(function(a,b){ return a[0]-b[0]; }).forEach(function(p){
     var x = xpct(p[0]), level = 0;
     while (placed.some(function(q){ return q.level === level && Math.abs(q.x - x) < 3; })) level++;
@@ -434,7 +442,13 @@
     var flagged = nom != null && Math.abs(p[0] - nom) >= 7;
     var dot = document.createElement("div"); dot.className = "dp-dot" + (flagged ? " flag" : "");
     dot.style.left = x + "%"; dot.style.bottom = (level * 15) + "px";
-    dot.title = "Foot " + p[0] + "mm · wears EU " + p[1];
+    dot.setAttribute("tabindex", "0");
+    (function(px, py, eu, foot){
+      function show(){ dpTip.textContent = "EU " + eu + " · " + foot + "mm"; dpTip.style.left = px + "%"; dpTip.style.bottom = (py + 20) + "px"; dpTip.classList.add("show"); }
+      function hide(){ dpTip.classList.remove("show"); }
+      dot.addEventListener("mouseenter", show); dot.addEventListener("mouseleave", hide);
+      dot.addEventListener("focus", show); dot.addEventListener("blur", hide);
+    })(x, level * 15, p[1], p[0]);
     dpDots.appendChild(dot);
   });
   var dpAxis = document.getElementById("dpAxis");
