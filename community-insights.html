@@ -58,6 +58,16 @@
   .kpi .v.accent { color: var(--gs-accent-deep); }
   .kpi .k { font-size: 0.72rem; color: var(--gs-text-secondary); margin-top: 0.35rem; line-height: 1.3; }
 
+  /* trust signals: provenance badge + freshness */
+  .freshline { display: flex; align-items: center; gap: 0.45rem; font-size: 0.8rem;
+    color: var(--gs-text-secondary); margin: -0.4rem 0 1.15rem; }
+  .freshline .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--gs-accent-deep); flex: none; }
+  .card-head { display: flex; align-items: center; gap: 0.55rem; flex-wrap: wrap; }
+  .card-head .eyebrow { margin: 0; }
+  .verified { display: inline-flex; align-items: center; gap: 0.3rem; font-size: 0.72rem; font-weight: 600;
+    color: var(--gs-accent-deep); background: rgba(0,209,178,0.1); border-radius: 999px; padding: 0.22rem 0.6rem; }
+  .verified svg { width: 12px; height: 12px; flex: none; }
+
   /* === Real sizing tool (from css/sizing-v2.css, scoped + inlined) === */
   .sizing-v2 { --u-text: #1c1c1e; --u-text-tertiary: rgba(60,60,67,0.4); --u-accent: #00d1b2;
     --u-surface: #fff; --u-separator: rgba(60,60,67,0.12); --u-separator-light: rgba(60,60,67,0.06);
@@ -315,10 +325,14 @@
       <div class="kpi"><div class="v">205</div><div class="k">people sized it</div></div>
       <div class="kpi"><div class="v">10</div><div class="k">measured their foot</div></div>
     </div>
+    <div class="freshline"><span class="dot"></span>Last sized 2 days ago, and kept current as people size it</div>
 
     <!-- Size chart: official chart + community popularity -->
     <div class="box">
-      <h2 class="eyebrow">Size chart</h2>
+      <div class="card-head">
+        <h2 class="eyebrow">Size chart</h2>
+        <span class="verified"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Official Adidas chart</span>
+      </div>
       <div class="answer"><span class="unit">EU</span> 44⅔</div>
       <div class="sub" style="margin-top:0.5rem;">is what most of our community wears</div>
       <div class="chart-wrap">
